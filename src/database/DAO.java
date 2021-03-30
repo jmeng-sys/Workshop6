@@ -9,7 +9,7 @@ public interface DAO {
     String db_username = "root";
     String db_password = "";
 
-    images Connection getConnection (){
+    static Connection getConnection (){
         Connection conn = null;
         try
         {

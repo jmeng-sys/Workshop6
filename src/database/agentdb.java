@@ -7,7 +7,7 @@ package database;
         import java.sql.*;
 
 public class agentdb implements DAO{
-    public images ObservableList<Agent> FetchAgentList() {
+    public static ObservableList<Agent> FetchAgentList() {
         ObservableList<Agent> agentList = FXCollections.observableArrayList();
         try {
             Connection conn = DAO.getConnection();
@@ -36,7 +36,7 @@ public class agentdb implements DAO{
         return agentList;
     }
 
-    public images void UpdateAgent(int AgentId,
+    public static void UpdateAgent(int AgentId,
                                    String AgtFirstName,
                                    String AgtMiddleInitial,
                                    String AgtLastName,
