@@ -1,17 +1,24 @@
 package sample;
 
 import database.DAO;
+import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,7 +42,7 @@ public class ControllerPrintTable {
     private Button btnExit;
 
     @FXML
-    private Button btnOptions1;
+    private Button btnPrint;
 
     @FXML
     private Button btnPrev;
@@ -52,7 +59,7 @@ public class ControllerPrintTable {
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnTables != null : "fx:id=\"btnTables\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'PrintTable.fxml'.";
-        assert btnOptions1 != null : "fx:id=\"btnOptions1\" was not injected: check your FXML file 'PrintTable.fxml'.";
+        assert btnPrint != null : "fx:id=\"btnOptions1\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnPrev != null : "fx:id=\"btnPrev\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnNext != null : "fx:id=\"btnNext\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert tableDatabase != null : "fx:id=\"tableDatabase\" was not injected: check your FXML file 'PrintTable.fxml'.";
@@ -125,6 +132,35 @@ public class ControllerPrintTable {
                 }
             }
         });
+// PRINT BUTTON ========================================================================================================
+        btnPrint.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e){
+                Stage dialogStage = (Stage) btnPrint.getScene().getWindow();
+
+                PrinterJob printerJob = PrinterJob.createPrinterJob();
+                if (printerJob.showPrintDialog(dialogStage) && printerJob.printPage(tableDatabase)) {
+                    boolean showDialog = printerJob.showPageSetupDialog(dialogStage);
+                    if (showDialog) {
+                        tableDatabase.setScaleX(0.60);
+                        tableDatabase.setScaleY(0.60);
+                        tableDatabase.setTranslateX(-220);
+                        tableDatabase.setTranslateY(-70);
+                        boolean success = printerJob.printPage(tableDatabase);
+                        if (success) {
+                            printerJob.endJob();
+                        }
+                        tableDatabase.setTranslateX(0);
+                        tableDatabase.setTranslateY(0);
+                        tableDatabase.setScaleX(1.0);
+                        tableDatabase.setScaleY(1.0);
+                    }
+                }
+            }
+        });
     }
 }
+
+
+
+
 

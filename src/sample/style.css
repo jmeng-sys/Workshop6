@@ -10,3 +10,8 @@
 .borderPane {
     -fx-background-color: #222A35;
 }
+
+#btnPrev, #btnNext {
+    -fx-border-color: none;
+    -fx-font-size: 48px;
+}
