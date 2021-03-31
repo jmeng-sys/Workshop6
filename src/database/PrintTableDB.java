@@ -1,5 +1,6 @@
 package database;
 
-public class PrintTableDB {
+public class PrintTableDB implements DAO {
 
 }
+

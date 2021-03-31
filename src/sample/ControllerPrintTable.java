@@ -1,35 +1,26 @@
 package sample;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import database.DAO;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ControllerPrintTable {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private ComboBox<String> cbTables;
@@ -80,7 +71,7 @@ public class ControllerPrintTable {
                 Scene scene = new Scene(loader.load());
                 scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                 stage.setScene(scene);
-            }catch (IOException io){
+            } catch (IOException io) {
                 io.printStackTrace();
             }
         });
@@ -100,43 +91,37 @@ public class ControllerPrintTable {
             }
             cbTables.setItems(tableList);
         } catch (SQLException e) {
-            System.out.println(e);
-        };
+            e.printStackTrace();
+        }
 //  BUILD TABLE AND COLUMNS ============================================================================================
         cbTables.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-                tableDatabase.getItems().clear();
-                tableDatabase.getColumns().clear();
+
+            tableDatabase.getItems().clear();
+            tableDatabase.getColumns().clear();
             if (tableDatabase.getItems().isEmpty()) {
-                ObservableList<ObservableList<String>> items = tableDatabase.getItems();
-                if (items.isEmpty()) {
+                data = FXCollections.observableArrayList();
+                try {
+                    Connection conn = DAO.getConnection();
+                    String dataQuery = "SELECT * FROM " + t1;
+                    ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
 
-                    data = FXCollections.observableArrayList();
-                    try {
-                        Connection conn = DAO.getConnection();
-                        String dataQuery = "SELECT * FROM " + t1;
-                        ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
-
-                        for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
-                            final int j = i;
-                            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn(tableValues.getMetaData().getColumnName(i + 1));
-                            tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                            tableDatabase.getColumns().add(tableColumn);
-                        }
-
-                        while (tableValues.next()) {
-                            ObservableList<String> row = FXCollections.observableArrayList();
-                            for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
-                                row.add(tableValues.getString(i));
-                            }
-                            data.add(row);
-                        }
-                        tableDatabase.getItems().addAll(data);
-
-                        conn.close();
-
-                    } catch (SQLException e) {
-                        System.out.println(e);
+                    for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
+                        final int j = i;
+                        TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
+                        tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
+                        tableDatabase.getColumns().add(tableColumn);
                     }
+                    while (tableValues.next()) {
+                        ObservableList<String> row = FXCollections.observableArrayList();
+                        for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
+                            row.add(tableValues.getString(i));
+                        }
+                        data.add(row);
+                    }
+                    tableDatabase.getItems().addAll(data);
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });

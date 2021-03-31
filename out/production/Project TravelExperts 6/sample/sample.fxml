@@ -16,7 +16,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #222A35;">
+      <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
          <top>
             <ButtonBar prefHeight="62.0" prefWidth="923.0" BorderPane.alignment="CENTER">
               <buttons>
