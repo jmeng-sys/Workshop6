@@ -1,8 +1,37 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <BorderPane prefHeight="800.0" prefWidth="1100.0" style="-fx-background-color: #222A35;">
+         <top>
+            <ButtonBar prefHeight="62.0" prefWidth="923.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button fx:id="btnOptions" alignment="CENTER" text="_Options" />
+                  <Button fx:id="btnTables" text="_Tables" />
+                  <Button fx:id="btnExit" text="E_xit" />
+              </buttons>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </ButtonBar>
+         </top>
+      </BorderPane>
+   </children>
 </GridPane>
