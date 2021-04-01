@@ -1,8 +1,6 @@
 package objects;
 
 
-import java.sql.Timestamp;
-
 public class Packages {
 
   private long packageId;
@@ -17,7 +15,6 @@ public class Packages {
   public long getPackageId() {
     return packageId;
   }
-
   public void setPackageId(long packageId) {
     this.packageId = packageId;
   }
@@ -26,7 +23,6 @@ public class Packages {
   public String getPkgName() {
     return pkgName;
   }
-
   public void setPkgName(String pkgName) {
     this.pkgName = pkgName;
   }
@@ -35,7 +31,6 @@ public class Packages {
   public java.sql.Timestamp getPkgStartDate() {
     return pkgStartDate;
   }
-
   public void setPkgStartDate(java.sql.Timestamp pkgStartDate) {
     this.pkgStartDate = pkgStartDate;
   }
@@ -44,7 +39,6 @@ public class Packages {
   public java.sql.Timestamp getPkgEndDate() {
     return pkgEndDate;
   }
-
   public void setPkgEndDate(java.sql.Timestamp pkgEndDate) {
     this.pkgEndDate = pkgEndDate;
   }
@@ -53,7 +47,6 @@ public class Packages {
   public String getPkgDesc() {
     return pkgDesc;
   }
-
   public void setPkgDesc(String pkgDesc) {
     this.pkgDesc = pkgDesc;
   }
@@ -62,7 +55,6 @@ public class Packages {
   public double getPkgBasePrice() {
     return pkgBasePrice;
   }
-
   public void setPkgBasePrice(double pkgBasePrice) {
     this.pkgBasePrice = pkgBasePrice;
   }
@@ -71,19 +63,8 @@ public class Packages {
   public double getPkgAgencyCommission() {
     return pkgAgencyCommission;
   }
-
   public void setPkgAgencyCommission(double pkgAgencyCommission) {
     this.pkgAgencyCommission = pkgAgencyCommission;
   }
 
-
-  public Packages(long packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate, String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
-    this.packageId = packageId;
-    this.pkgName = pkgName;
-    this.pkgStartDate = pkgStartDate;
-    this.pkgEndDate = pkgEndDate;
-    this.pkgDesc = pkgDesc;
-    this.pkgBasePrice = pkgBasePrice;
-    this.pkgAgencyCommission = pkgAgencyCommission;
-  }
 }
