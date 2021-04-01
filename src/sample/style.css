@@ -25,6 +25,11 @@
 
 .fontAwesomeIcon {
     -fx-fill: #F0D1D5;
+    -fx-size: 4em;
+}
+
+.fontAwesomeIcon:hover {
+    -fx-fill: #53CF48;
 }
 
 .topBar {
@@ -37,12 +42,22 @@
     -fx-background-radius: 0px 30px 30px 30px;
     -fx-border-color: #222A35;
     -fx-border-radius: 0px 30px 30px 30px;
-
 }
+.card:hover {
+    -fx-border-color: #53CF48;
+    -fx-border-width: 4px;
+}
+
 .plusIcon {
     -fx-fill: #222A35;
 }
 
 .CardText {
     -fx-text-fill: #222A35;
+    -fx-font-size: 29px;
+}
+
+.CardText:hover {
+    -fx-font-size: 29px;
+    -fx-font-weight: bold;
 }
