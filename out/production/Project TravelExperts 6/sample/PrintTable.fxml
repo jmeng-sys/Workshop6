@@ -36,7 +36,7 @@
             </ButtonBar>
          </top>
          <bottom>
-            <Button fx:id="btnOptions1" alignment="CENTER" text="_Print" BorderPane.alignment="CENTER" />
+            <Button fx:id="btnPrint" alignment="CENTER" text="_Print" BorderPane.alignment="CENTER" />
          </bottom>
          <left>
             <Button fx:id="btnPrev" alignment="CENTER" text="&lt;" BorderPane.alignment="CENTER" />

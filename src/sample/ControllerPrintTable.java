@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ControllerPrintTable {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
@@ -133,21 +134,26 @@ public class ControllerPrintTable {
             }
         });
 // PRINT BUTTON ========================================================================================================
-        btnPrint.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e){
-                Stage dialogStage = (Stage) btnPrint.getScene().getWindow();
+        btnPrint.setOnAction(e -> {
+            ChoiceDialog dialog = new ChoiceDialog(Printer.getDefaultPrinter(), Printer.getAllPrinters());
+            dialog.setHeaderText("Choose the printer!");
+            dialog.setContentText("Choose a printer from available printers");
+            dialog.setTitle("Printer Choice");
+            Optional<Printer> opt = dialog.showAndWait();
+            if (opt.isPresent()) {
 
-                PrinterJob printerJob = PrinterJob.createPrinterJob();
-                if (printerJob.showPrintDialog(dialogStage) && printerJob.printPage(tableDatabase)) {
-                    boolean showDialog = printerJob.showPageSetupDialog(dialogStage);
+                PrinterJob job = PrinterJob.createPrinterJob(opt.get());
+                if (job != null) {
+                    Stage dialogStage = (Stage) btnTables.getScene().getWindow();
+                    boolean showDialog = job.showPrintDialog(dialogStage);
                     if (showDialog) {
                         tableDatabase.setScaleX(0.60);
                         tableDatabase.setScaleY(0.60);
                         tableDatabase.setTranslateX(-220);
                         tableDatabase.setTranslateY(-70);
-                        boolean success = printerJob.printPage(tableDatabase);
+                        boolean success = job.printPage(tableDatabase);
                         if (success) {
-                            printerJob.endJob();
+                            job.endJob();
                         }
                         tableDatabase.setTranslateX(0);
                         tableDatabase.setTranslateY(0);
@@ -156,6 +162,7 @@ public class ControllerPrintTable {
                     }
                 }
             }
+
         });
     }
 }
