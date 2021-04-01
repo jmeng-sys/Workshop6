@@ -8,10 +8,41 @@
 }
 
 .borderPane {
-    -fx-background-color: #222A35;
+    -fx-background-color: White;
 }
 
 #btnPrev, #btnNext {
     -fx-border-color: none;
     -fx-font-size: 48px;
+}
+
+.sidebar {
+    -fx-background-color: #222A35;
+}
+.btnUser {
+    -fx-text-fill: #F0D1D5;
+}
+
+.fontAwesomeIcon {
+    -fx-fill: #F0D1D5;
+}
+
+.topBar {
+    -fx-background-color: #222A35;
+    -fx-background-radius: 0px 0px 30px 0px;
+}
+
+.card {
+    -fx-background-color: #C3BDBE;
+    -fx-background-radius: 0px 30px 30px 30px;
+    -fx-border-color: #222A35;
+    -fx-border-radius: 0px 30px 30px 30px;
+
+}
+.plusIcon {
+    -fx-fill: #222A35;
+}
+
+.CardText {
+    -fx-text-fill: #222A35;
 }
