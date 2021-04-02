@@ -2,7 +2,6 @@ package sample;
 
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +12,7 @@ import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import objects.GUIMethods;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +20,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -173,20 +171,7 @@ public class ControllerPrintTable {
             }
         });
 // SET DATE AND TIME OBJECT ============================================================================================
-        Thread timerThread = new Thread(() -> {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
-            while (true) {
-                try {
-                    Thread.sleep(1000); //1 second
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                final String time = simpleDateFormat.format(new Date());
-                Platform.runLater(() -> {
-                    dateTime.setText(time);
-                });
-            }
-        });   timerThread.start();
+        GUIMethods.GetDateTime(dateTime);
     }
 }
 

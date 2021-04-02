@@ -112,7 +112,7 @@
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                              <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri" size="16.0" />
                                  </font>
