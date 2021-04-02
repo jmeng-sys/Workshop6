@@ -1,6 +1,8 @@
 package sample;
 
 import database.DAO;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,35 +15,48 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class ControllerPrintTable {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
     @FXML
+    private Label dateTime;
+
+    @FXML
     private ComboBox<String> cbTables;
 
     @FXML
-    private Button btnOptions;
+    private ResourceBundle resources;
 
     @FXML
-    private Button btnTables;
+    private FontAwesomeIcon btnExit;
 
     @FXML
-    private Button btnExit;
+    private FontAwesomeIcon btnNext;
 
     @FXML
-    private Button btnPrint;
+    private FontAwesomeIcon btnPrev;
 
     @FXML
-    private Button btnPrev;
+    private FontAwesomeIcon btnHome;
 
     @FXML
-    private Button btnNext;
+    private FontAwesomeIcon btnPrint;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private FontAwesomeIcon btnUser;
 
     @FXML
     private TableView<ObservableList<String>> tableDatabase;
@@ -49,12 +64,14 @@ public class ControllerPrintTable {
     @FXML
     void initialize() {
         assert cbTables != null : "fx:id=\"cbTables\" was not injected: check your FXML file 'PrintTable.fxml'.";
-        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'PrintTable.fxml'.";
-        assert btnTables != null : "fx:id=\"btnTables\" was not injected: check your FXML file 'PrintTable.fxml'.";
+        assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'PrintTable.fxml'.";
+//        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'PrintTable.fxml'.";
+        assert btnHome != null : "fx:id=\"btnTables\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnPrint != null : "fx:id=\"btnOptions1\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnPrev != null : "fx:id=\"btnPrev\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert btnNext != null : "fx:id=\"btnNext\" was not injected: check your FXML file 'PrintTable.fxml'.";
+        assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'PrintTable.fxml'.";
         assert tableDatabase != null : "fx:id=\"tableDatabase\" was not injected: check your FXML file 'PrintTable.fxml'.";
 
 
@@ -63,11 +80,11 @@ public class ControllerPrintTable {
         btnNext.setOnMouseClicked(mouseEvent -> cbTables.getSelectionModel().selectNext());
         btnPrev.setOnMouseClicked(mouseEvent -> cbTables.getSelectionModel().selectPrevious());
 //  SET SCENE WHEN BUTTON CLICKED ======================================================================================
-        btnTables.setOnMouseClicked(event -> {
+        btnHome.setOnMouseClicked(event -> {
             System.out.println("on route to sample");
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-                Stage stage = (Stage) btnTables.getScene().getWindow();
+                Stage stage = (Stage) btnHome.getScene().getWindow();
                 Scene scene = new Scene(loader.load());
                 scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                 stage.setScene(scene);
@@ -126,7 +143,7 @@ public class ControllerPrintTable {
             }
         });
 // PRINT BUTTON ========================================================================================================
-        btnPrint.setOnAction(e -> {
+        btnPrint.setOnMouseClicked(e -> {
             ChoiceDialog<Printer> dialog = new ChoiceDialog<>(Printer.getDefaultPrinter(), Printer.getAllPrinters());
             dialog.setHeaderText("Choose the printer!");
             dialog.setContentText("Choose a printer from available printers");
@@ -136,7 +153,7 @@ public class ControllerPrintTable {
 
                 PrinterJob job = PrinterJob.createPrinterJob(opt.get());
                 if (job != null) {
-                    Stage dialogStage = (Stage) btnTables.getScene().getWindow();
+                    Stage dialogStage = (Stage) btnHome.getScene().getWindow();
                     boolean showDialog = job.showPrintDialog(dialogStage);
                     if (showDialog) {
                         tableDatabase.setScaleX(0.60);
@@ -154,8 +171,22 @@ public class ControllerPrintTable {
                     }
                 }
             }
-
         });
+// SET DATE AND TIME OBJECT ============================================================================================
+        Thread timerThread = new Thread(() -> {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
+            while (true) {
+                try {
+                    Thread.sleep(1000); //1 second
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                final String time = simpleDateFormat.format(new Date());
+                Platform.runLater(() -> {
+                    dateTime.setText(time);
+                });
+            }
+        });   timerThread.start();
     }
 }
 

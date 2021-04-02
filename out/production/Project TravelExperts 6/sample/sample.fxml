@@ -142,7 +142,19 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
                            <children>
-                              <Label prefHeight="48.0" prefWidth="145.0" styleClass="CardText" text="Reports" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" prefHeight="259.0" prefWidth="249.0" styleClass="CardText" text="Reports" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri" size="29.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="btnAgents" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                           <HBox.margin>
+                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label alignment="CENTER" prefHeight="259.0" prefWidth="264.0" styleClass="CardText" text="Agents" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri" size="29.0" />
                                  </font>
@@ -157,11 +169,6 @@
                               <FontAwesomeIcon glyphName="PLUS" size="5EM" styleClass="plusIcon" textAlignment="CENTER" wrappingWidth="178.0" />
                            </children>
                         </HBox>
-                        <HBox maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
-                           <HBox.margin>
-                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                           </HBox.margin>
-                        </HBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="361.0" prefWidth="1025.0">
@@ -171,7 +178,7 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
                            <children>
-                              <Label prefHeight="48.0" prefWidth="145.0" styleClass="CardText" text="Suppliers" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" prefHeight="265.0" prefWidth="240.0" styleClass="CardText" text="Suppliers" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri" size="29.0" />
                                  </font>
@@ -183,7 +190,7 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
                            <children>
-                              <Label prefHeight="48.0" prefWidth="145.0" styleClass="CardText" text="Products" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" prefHeight="259.0" prefWidth="243.0" styleClass="CardText" text="Products" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri" size="29.0" />
                                  </font>
@@ -195,7 +202,7 @@
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
                            <children>
-                              <Label prefHeight="48.0" prefWidth="145.0" styleClass="CardText" text="Packages" textAlignment="CENTER" textFill="WHITE">
+                              <Label alignment="CENTER" prefHeight="259.0" prefWidth="246.0" styleClass="CardText" text="Packages" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri" size="29.0" />
                                  </font>
