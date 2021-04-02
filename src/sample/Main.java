@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
     @Override
@@ -13,6 +14,7 @@ public class Main extends Application {
         root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Travel Experts - Manager");
         primaryStage.setScene(new Scene(root));
+        primaryStage.initStyle(StageStyle.DECORATED);
         primaryStage.show();
 
     }

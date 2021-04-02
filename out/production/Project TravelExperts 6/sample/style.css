@@ -25,6 +25,11 @@
 
 .fontAwesomeIcon {
     -fx-fill: #F0D1D5;
+    -fx-size: 4em;
+}
+
+.fontAwesomeIcon:hover {
+    -fx-fill: #53CF48;
 }
 
 .topBar {
@@ -37,12 +42,59 @@
     -fx-background-radius: 0px 30px 30px 30px;
     -fx-border-color: #222A35;
     -fx-border-radius: 0px 30px 30px 30px;
-
 }
+.card:hover {
+    -fx-border-color: #53CF48;
+    -fx-border-width: 4px;
+}
+
 .plusIcon {
     -fx-fill: #222A35;
 }
 
 .CardText {
     -fx-text-fill: #222A35;
+    -fx-font-size: 29px;
 }
+
+.CardText:hover {
+    -fx-font-size: 29px;
+    -fx-font-weight: bold;
+}
+
+.forwardBackward {
+    -fx-fill: #222A35;
+}
+
+.forwardBackward:hover {
+    -fx-fill: #53CF48;
+}
+/* TABLE STYLES ========================================================================================================
+*/
+.table-view .column-header-background .filler {
+    -fx-border-radius: 30px 30px 0 0;
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: #53CF48;
+}
+.table-row-cell:odd{
+    -fx-background-color: #93f9b911;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: #1dbbdd11;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+/* END OF TABLE STYLES =================================================================================================
+*/
