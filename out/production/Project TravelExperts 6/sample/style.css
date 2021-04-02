@@ -8,7 +8,7 @@
 }
 
 .borderPane {
-    -fx-background-color: White;
+    -fx-background-color: linear-gradient(to bottom right, white 20%, white 70%, #F0D1D5 100%);
 }
 
 #btnPrev, #btnNext {
@@ -42,6 +42,7 @@
     -fx-background-radius: 0px 30px 30px 30px;
     -fx-border-color: #222A35;
     -fx-border-radius: 0px 30px 30px 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0, 0, 0);
 }
 .card:hover {
     -fx-border-color: #53CF48;

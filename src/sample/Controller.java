@@ -57,7 +57,7 @@ public class Controller {
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'sample.fxml'.";
 
 
-
+// NAVIGATE TO REPORTS =================================================================================================
         btnReports.setOnMouseClicked(event -> {
             GetReportsScene();
         });
@@ -69,6 +69,8 @@ public class Controller {
         GUIMethods.GetDateTime(dateTime);
     }
 
+
+//    METHODS DEFINED ==================================================================================================
     private void GetReportsScene() {
         System.out.println("on route to print Table");
         try {
