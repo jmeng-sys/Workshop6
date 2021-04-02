@@ -1,6 +1,10 @@
 package objects;
 
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
 public class Packages {
 
   private long packageId;
@@ -11,6 +15,15 @@ public class Packages {
   private double pkgBasePrice;
   private double pkgAgencyCommission;
 
+  public Packages(long packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate, String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
+    this.packageId = packageId;
+    this.pkgName = pkgName;
+    this.pkgStartDate = pkgStartDate;
+    this.pkgEndDate = pkgEndDate;
+    this.pkgDesc = pkgDesc;
+    this.pkgBasePrice = pkgBasePrice;
+    this.pkgAgencyCommission = pkgAgencyCommission;
+  }
 
   public long getPackageId() {
     return packageId;
@@ -67,4 +80,8 @@ public class Packages {
     this.pkgAgencyCommission = pkgAgencyCommission;
   }
 
+  @Override
+  public String toString() {
+    return pkgName;
+  }
 }
