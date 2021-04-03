@@ -46,6 +46,12 @@ public class Controller {
     private FontAwesomeIcon btnOptions;
 
     @FXML
+    private FontAwesomeIcon btnLogin;
+
+    @FXML
+    private FontAwesomeIcon btnExit;
+
+    @FXML
     void initialize() {
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnReports != null : "fx:id=\"btnReports\" was not injected: check your FXML file 'sample.fxml'.";
@@ -54,9 +60,11 @@ public class Controller {
         assert btnPackages != null : "fx:id=\"btnPackages\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnOptions != null : "fx:id=\"btnPrint1\" was not injected: check your FXML file 'sample.fxml'.";
+        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
+        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'sample.fxml'.";
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'sample.fxml'.";
-
-
+//MENU BUTTONS
+        btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
         btnReports.setOnMouseClicked(event -> {
             GetReportsScene();
@@ -64,6 +72,10 @@ public class Controller {
 
         btnPrint.setOnMouseClicked(event -> {
             GetReportsScene();
+        });
+// NAVIGATE TO LOGIN
+        btnLogin.setOnMouseClicked(event -> {
+            GetLoginsScene();
         });
 // SET DATE AND TIME OBJECT ============================================================================================
         GUIMethods.GetDateTime(dateTime);
@@ -77,6 +89,20 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
 
             Stage stage = (Stage) btnReports.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+    private void GetLoginsScene() {
+        System.out.println("Loading login scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);

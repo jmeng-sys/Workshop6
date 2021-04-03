@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -61,7 +61,7 @@
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </VBox.margin>
                         </Separator>
-                        <FontAwesomeIcon glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                        <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
                            <VBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </VBox.margin>
@@ -82,14 +82,14 @@
          <top>
             <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefWidth="1075.0" styleClass="topBar">
+                  <HBox alignment="CENTER_LEFT" styleClass="topBar">
                      <children>
                         <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </HBox.margin>
                         </FontAwesomeIcon>
-                        <HBox prefHeight="78.0" prefWidth="937.0" styleClass="topBar">
+                        <HBox prefHeight="78.0" prefWidth="937.0">
                            <children>
                               <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
                                  <font>
@@ -122,7 +122,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <FontAwesomeIcon glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                        <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
                            <HBox.margin>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </HBox.margin>
@@ -137,7 +137,7 @@
                <children>
                   <HBox alignment="CENTER" layoutY="361.0" prefHeight="361.0" prefWidth="1025.0">
                      <children>
-                        <HBox fx:id="btnReports" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                        <HBox fx:id="btnReports" alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
                            <HBox.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
@@ -149,12 +149,12 @@
                               </Label>
                               <FontAwesomeIcon glyphName="TABLE" size="4em" styleClass="cardIcons" wrappingWidth="60.0">
                                  <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
                            </children>
                         </HBox>
-                        <HBox fx:id="btnAgents" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                        <HBox fx:id="btnAgents" alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
                            <HBox.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
@@ -166,7 +166,7 @@
                               </Label>
                               <FontAwesomeIcon glyphName="USERS" size="4em" styleClass="cardIcons" wrappingWidth="60.0">
                                  <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
                            </children>
@@ -183,7 +183,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="361.0" prefWidth="1025.0">
                      <children>
-                        <HBox fx:id="btnSupplier" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                        <HBox fx:id="btnSupplier" alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
                            <HBox.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
@@ -195,12 +195,12 @@
                               </Label>
                               <FontAwesomeIcon glyphName="ARCHIVE" size="4em" styleClass="cardIcons" wrappingWidth="60.0">
                                  <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
                            </children>
                         </HBox>
-                        <HBox fx:id="btnProducts" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                        <HBox fx:id="btnProducts" alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
                            <HBox.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
@@ -212,12 +212,12 @@
                               </Label>
                               <FontAwesomeIcon glyphName="COMPASS" size="4em" styleClass="cardIcons" textAlignment="CENTER" wrappingWidth="60.0">
                                  <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
                            </children>
                         </HBox>
-                        <HBox fx:id="btnPackages" alignment="CENTER" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
+                        <HBox fx:id="btnPackages" alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="214.0" prefWidth="400.0" styleClass="card">
                            <HBox.margin>
                               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                            </HBox.margin>
@@ -229,7 +229,7 @@
                               </Label>
                               <FontAwesomeIcon glyphName="GLOBE" size="4em" styleClass="cardIcons" wrappingWidth="60.0">
                                  <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
                            </children>
