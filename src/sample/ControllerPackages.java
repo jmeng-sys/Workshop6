@@ -3,16 +3,16 @@ package sample;
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -22,10 +22,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.DateTimeStringConverter;
 import objects.Packages;
+import objects.PackagesProductsSuppliers;
 
 public class ControllerPackages {
+    private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -91,13 +95,13 @@ public class ControllerPackages {
     private Button btnEdit;
 
     @FXML
-    private TableView<?> tblProducts;
+    private TableView<ObservableList<String>> tblProducts;
 
     @FXML
-    private TableColumn<?, ?> colProduct;
+    private TableColumn<String, ?> colProduct;
 
     @FXML
-    private TableColumn<?, ?> colSupplier;
+    private TableColumn<String, ?> colSupplier;
 
     @FXML
     private Button btnSave;
@@ -132,11 +136,7 @@ public class ControllerPackages {
         try {
             Connection db = DAO.getConnection();
             Statement stat = db.createStatement();
-            ResultSet rs = stat.executeQuery("select * from packages p " +
-                    "join Packages_Products_Suppliers pps on pps.PackageId = p.PackageId " +
-                    "join Products_Suppliers ps on ps.ProductSupplierId = pps.ProductSupplierId " +
-                    "join Products prod on prod.ProductId = ps.ProductId " +
-                    "join Suppliers s on s.SupplierId = ps.SupplierId");
+            ResultSet rs = stat.executeQuery("select * from packages p ");
 
             ObservableList<Packages> pkgs = FXCollections.observableArrayList();
             while (rs.next()) {
@@ -144,14 +144,13 @@ public class ControllerPackages {
                         rs.getTimestamp(4), rs.getString(5), rs.getDouble(6),
                         rs.getDouble(7)));
             }
-            cbPkg.setItems(pkgs);
 
+            cbPkg.setItems(pkgs);
 
             db.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         cbPkg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Packages>() {
             @Override
@@ -162,6 +161,88 @@ public class ControllerPackages {
                 tfCommission.setText(t1.getPkgAgencyCommission() + "");
                 dpStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
                 dpEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
+
+//Populates the table of products and suppliers for packages
+                tblProducts.getItems().clear();
+                tblProducts.getColumns().clear();
+                if (tblProducts.getItems().isEmpty()) {
+                    data = FXCollections.observableArrayList();
+                    try {
+                        Connection conn = DAO.getConnection();
+                        String dataQuery = "select p.PkgName, s.SupName, prod.ProdName from packages p \n" +
+                                "                    join Packages_Products_Suppliers pps on pps.PackageId = p.PackageId \n" +
+                                "                    join Products_Suppliers ps on ps.ProductSupplierId = pps.ProductSupplierId \n" +
+                                "                    join Products prod on prod.ProductId = ps.ProductId \n" +
+                                "                    join Suppliers s on s.SupplierId = ps.SupplierId";
+                        ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
+
+                        for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
+                            final int j = i;
+                            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
+                            tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
+                            tblProducts.getColumns().add(tableColumn);
+                        }
+                        while (tableValues.next()) {
+                            ObservableList<String> row = FXCollections.observableArrayList();
+                            for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
+                                row.add(tableValues.getString(i));
+                            }
+                            data.add(row);
+                        }
+                        tblProducts.getItems().addAll(data);
+                        conn.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        btnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String sql = "UPDATE `packages` " +
+                        "SET `PackageId`=?," +
+                        "`PkgName`=?," +
+                        "`PkgStartDate`=?," +
+                        "`PkgEndDate`=?," +
+                        "`PkgDesc`=?," +
+                        "`PkgBasePrice`=?," +
+                        "`PkgAgencyCommission`=?" +
+                        "WHERE PackageId=?";
+                try {
+                    Connection conn = DAO.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setLong(1, Long.parseLong(String.valueOf(cbPkg.getSelectionModel().getSelectedIndex())));
+                    stmt.setString(2, tfPkgName.getText());
+                    stmt.setDate(3, Date.valueOf(dpStartDate.getValue()));
+                    stmt.setDate(4, Date.valueOf(dpEndDate.getValue()));
+                    stmt.setString(5, taDescription.getText());
+                    stmt.setDouble(6, Double.parseDouble(tfPrice.getText()));
+                    stmt.setDouble(7, Double.parseDouble(tfCommission.getText()));
+                    stmt.setLong(8, Long.parseLong(String.valueOf(cbPkg.getSelectionModel().getSelectedIndex())));
+
+                    int rowsAffected = stmt.executeUpdate();
+                    String output = (rowsAffected > 0) ? "Successful" : "Failed";
+                    System.out.println(output);
+
+                    conn.close();
+
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+
+                btnSave.setDisable(true);
+                btnEdit.setDisable(false);
+            }
+
+        });
+
+        btnEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                btnSave.setDisable(false);
+                btnEdit.setDisable(true);
             }
         });
 

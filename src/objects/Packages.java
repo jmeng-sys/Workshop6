@@ -7,15 +7,23 @@ import java.time.LocalDate;
 
 public class Packages {
 
-  private long packageId;
+  private int packageId;
   private String pkgName;
   private java.sql.Timestamp pkgStartDate;
   private java.sql.Timestamp pkgEndDate;
   private String pkgDesc;
   private double pkgBasePrice;
   private double pkgAgencyCommission;
+  private String prodName;
+  private String suppName;
 
-  public Packages(long packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate, String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
+  public String getProdName() { return prodName; }
+  public void setProdName(String prodName) { this.prodName = prodName; }
+
+  public String getSuppName() { return suppName; }
+  public void setSuppName(String suppName) { this.suppName = suppName; }
+
+  public Packages(int packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate, String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
     this.packageId = packageId;
     this.pkgName = pkgName;
     this.pkgStartDate = pkgStartDate;
@@ -28,7 +36,7 @@ public class Packages {
   public long getPackageId() {
     return packageId;
   }
-  public void setPackageId(long packageId) {
+  public void setPackageId(int packageId) {
     this.packageId = packageId;
   }
 
