@@ -73,6 +73,24 @@
 .forwardBackward:hover {
     -fx-fill: #53CF48;
 }
+
+.LoginPane {
+    -fx-background-color: skyblue;
+}
+
+.loginBtn{
+    -fx-background-color: skyblue;
+    -fx-text-fill: #FFF;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+}
+
+.loginBtn:hover{
+    -fx-background-color: transparent;
+    -fx-text-fill: skyblue;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+}
 /* TABLE STYLES ========================================================================================================
 */
 .table-view .column-header-background .filler {

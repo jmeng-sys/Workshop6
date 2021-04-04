@@ -2,8 +2,12 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -134,9 +138,61 @@
             </top>
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                    <children>
-
-                    </children>
+               <children>
+                  <Label layoutX="550.0" layoutY="52.0" text="Welcome!">
+                     <font>
+                        <Font name="Marlett" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblForgotPassword" layoutX="844.0" layoutY="363.0" text="Forgot The Password?">
+                     <font>
+                        <Font name="Corbel Light Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfUsername" layoutX="598.0" layoutY="275.0" prefHeight="25.0" prefWidth="347.0" promptText="Username" />
+                  <TextField fx:id="tfPassword" layoutX="598.0" layoutY="320.0" prefHeight="25.0" prefWidth="346.0" promptText="Password" />
+                  <VBox alignment="TOP_CENTER" layoutY="3.0" prefHeight="719.0" prefWidth="517.0" styleClass="LoginPane" stylesheets="@style.css">
+                     <children>
+                        <ImageView fitHeight="216.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="100.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../Images/TravelExpertsLogo-removebg-.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Welcome To" textFill="WHITE">
+                           <font>
+                              <Font name="Ebrima Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="205.0" layoutY="614.0" text="TRAVEL EXPERTS" textFill="WHITE">
+                           <font>
+                              <Font name="Ebrima Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="125.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="lblCreateAccount" layoutX="172.0" layoutY="377.0" text="Create an account" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="Ebrima" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label layoutX="574.0" layoutY="113.0" text="Please sign in to continue...">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font></Label>
+                  <Button fx:id="btnAgentLogin" layoutX="598.0" layoutY="485.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="347.0" styleClass="loginBtn" text="Login" />
+               </children>
                 </AnchorPane>
             </center>
         </BorderPane>
