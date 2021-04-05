@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public interface DAO {
-    String db_url = "jdbc:mysql://localhost:3306/travelexperts";
-    String db_username = "root";
-    String db_password = "";
+public class DAO {
+    public static String db_url = "jdbc:mysql://localhost:3306/travelexperts";
+    public static String db_username = "root";
+    public static String db_password = "";
 
-    static Connection getConnection() {
+    public static Connection getConnection() {
 
         Connection conn = null;
         try

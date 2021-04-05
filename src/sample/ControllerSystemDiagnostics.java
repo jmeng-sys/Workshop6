@@ -192,18 +192,24 @@ public class ControllerSystemDiagnostics {
             txtDBURL.setEditable(false);
             btnEditURL.setVisible(true);
             btnSaveURL.setVisible(false);
+
+            DAO.db_username = txtDBUsername.getText();
         });
 
         btnSavePassword.setOnMouseClicked(event -> {
             txtDBPassword.setEditable(false);
             btnEditPassword.setVisible(true);
             btnSavePassword.setVisible(false);
+
+            DAO.db_password = txtDBPassword.getText();
         });
 
         btnSaveUsername.setOnMouseClicked(event ->{
             txtDBUsername.setEditable(false);
             btnEditUsername.setVisible(true);
             btnSaveUsername.setVisible(false);
+
+            DAO.db_username = txtDBUsername.getText();
         });
 
 

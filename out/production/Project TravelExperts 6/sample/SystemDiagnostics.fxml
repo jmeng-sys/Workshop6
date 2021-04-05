@@ -364,16 +364,16 @@
                         </HBox>
                         <HBox prefHeight="160.0" prefWidth="449.0">
                            <children>
-                              <TextArea fx:id="tfTableHealth" prefHeight="69.0" prefWidth="380.0">
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </TextArea>
                               <FontAwesomeIcon fx:id="iconHealth" glyphName="HEARTBEAT" size="2.08EM">
                                  <HBox.margin>
                                     <Insets left="15.0" top="15.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
+                              <TextArea fx:id="tfTableHealth" prefHeight="69.0" prefWidth="380.0">
+                                 <HBox.margin>
+                                    <Insets bottom="15.0" left="15.0" top="15.0" />
+                                 </HBox.margin>
+                              </TextArea>
                            </children>
                         </HBox>
                      </children>
