@@ -3,6 +3,8 @@ package sample;
 import database.AgentAccountsDB;
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -69,6 +74,9 @@ public class ControllerLogin {
     private Label lblBadLogin;
 
     @FXML
+    private VBox vbLogin;
+
+    @FXML
     void initialize() {
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Login.fxml'.";
 //        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Login.fxml'.";
@@ -83,8 +91,19 @@ public class ControllerLogin {
         assert lblCreateAccount != null : "fx:id=\"lblCreateAccount\" was not injected: check your FXML file 'Login.fxml'.";
         assert btnAgentLogin != null : "fx:id=\"btnAgentLogin\" was not injected: check your FXML file 'Login.fxml'.";
         assert lblBadLogin != null : "fx:id=\"lblBadLogin\" was not injected: check your FXML file 'Login.fxml'.";
+        assert vbLogin != null : "fx:id=\"vbLogin\" was not injected: check your FXML file 'Login.fxml'.";
+
+        final BooleanProperty firstFocus = new SimpleBooleanProperty(true);
 
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
+
+        //Removes default focus from username field
+        tfUsername.focusedProperty().addListener((observable, oldvalue, newValue) -> {
+            if(newValue && firstFocus.get()) {
+                vbLogin.requestFocus();
+                firstFocus.setValue(false);
+            }
+        });
 
         btnHome.setOnMouseClicked(event -> {
             redirectToHome();
@@ -96,6 +115,24 @@ public class ControllerLogin {
 
         btnAgentLogin.setOnMouseClicked(event -> {
             HandleLogin();
+        });
+
+        //Allows enter to be pressed when on the fields to submit login data
+        tfUsername.setOnKeyPressed(event -> {
+            KeyCode keyCode = event.getCode();
+            if(keyCode.equals(KeyCode.ENTER))
+            {
+                System.out.println("Enter pressed");
+                HandleLogin();
+            }
+        });
+        tfPassword.setOnKeyPressed(event -> {
+            KeyCode keyCode = event.getCode();
+            if(keyCode.equals(KeyCode.ENTER))
+            {
+                System.out.println("Enter pressed");
+                HandleLogin();
+            }
         });
 
 // SET DATE AND TIME OBJECT ============================================================================================
