@@ -318,7 +318,7 @@
                                  <VBox.margin>
                                     <Insets bottom="12.0" />
                                  </VBox.margin></TextField>
-                              <TextField fx:id="tdSupConUrl" layoutX="10.0" layoutY="85.0">
+                              <TextField fx:id="tfSupConUrl" layoutX="10.0" layoutY="85.0">
                                  <VBox.margin>
                                     <Insets bottom="12.0" />
                                  </VBox.margin></TextField>

@@ -90,6 +90,9 @@ public class Controller {
         btnPackages.setOnMouseClicked(event -> {
             GetPackagesScene();
         });
+        btnSupplier.setOnMouseClicked(event -> {
+            GetSupplierScene();
+        });
 // NAVIGATE TO LOGIN
         btnLogin.setOnMouseClicked(event -> {
             GetLoginsScene();
@@ -148,6 +151,20 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Packages.fxml"));
 
             Stage stage = (Stage) btnPackages.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+    private void GetSupplierScene() {
+        System.out.println("Loading Suppliers scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Supplier.fxml"));
+
+            Stage stage = (Stage) btnSupplier.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
