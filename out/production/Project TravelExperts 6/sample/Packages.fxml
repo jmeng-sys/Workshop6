@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerPackages">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
+            <left>
+                <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </left>
+            <top>
+                <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefWidth="1075.0" styleClass="topBar">
+                            <children>
+                                <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                                <HBox prefHeight="78.0" prefWidth="937.0" styleClass="topBar">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="29.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Separator>
+                                        <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="22.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Label alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="16.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <SplitPane dividerPositions="0.29797979797979796" layoutX="2.0" layoutY="2.0" prefHeight="720.0" prefWidth="1022.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <VBox fx:id="vbLeft" layoutX="-2.0" layoutY="1.0" prefHeight="717.0" prefWidth="307.0" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="lblPackages" text="Packages" />
+                                    <ComboBox fx:id="cbPkg" prefWidth="150.0" />
+                                    <Label fx:id="lblPkgName" text="Package Name" />
+                                    <TextField fx:id="tfPkgName" />
+                                    <Label fx:id="lblDescription" text="Description" />
+                                    <TextArea fx:id="taDescription" prefHeight="200.0" prefWidth="200.0" />
+                                    <Label fx:id="lblStartDate" text="Start Date" />
+                                    <DatePicker fx:id="dpStartDate" />
+                                    <Label fx:id="lblEndDate" text="End Date" />
+                                    <DatePicker fx:id="dpEndDate" />
+                                    <Label fx:id="lblPrice" text="Price" />
+                                    <TextField fx:id="tfPrice" />
+                                    <Label fx:id="lblCommission" text="Commission" />
+                                    <TextField fx:id="tfCommission" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                                       <children>
+                                          <Button id="btnEdit" fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
+                                          <Button id="btnSave" fx:id="btnSave" disable="true" mnemonicParsing="false" text="Save" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="50.0" right="10.0" top="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <VBox layoutX="1.0" layoutY="-1.0" prefHeight="538.0" prefWidth="711.0">
+                                 <children>
+                                    <ComboBox prefWidth="150.0">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <TableView fx:id="tblProducts" editable="true" prefHeight="200.0" prefWidth="411.0">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin></TableView>
+                                    <Button fx:id="btnEditPPS" mnemonicParsing="false" text="Edit Product/Suppliers">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Separator prefHeight="12.0" prefWidth="711.0" />
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</GridPane>
