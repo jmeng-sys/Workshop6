@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSupplier">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
+            <left>
+                <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </left>
+            <top>
+                <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" styleClass="topBar">
+                            <children>
+                                <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                                <HBox prefHeight="78.0" prefWidth="937.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="29.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Separator>
+                                        <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="22.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="16.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <FontAwesomeIcon glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox layoutX="6.0" prefHeight="100.0" prefWidth="1000.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="500.0">
+                           <children>
+                              <Label text="Select Supplier Contact by ID:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets right="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="500.0">
+                           <children>
+                              <ComboBox fx:id="cbSupCon" prefHeight="25.0" prefWidth="242.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="6.0" layoutY="100.0" prefHeight="400.0" prefWidth="1000.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="First Name:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="10.0" text="Last Name:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="27.0" text="Company:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="44.0" text="Address:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="61.0" text="City:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="78.0" text="Province:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="95.0" text="Postal Code:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="250.0">
+                           <children>
+                              <TextField fx:id="tfSupConFirstName">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConLastName" layoutX="10.0" layoutY="10.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConCompany" layoutX="10.0" layoutY="35.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConAddress" layoutX="10.0" layoutY="60.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConCity" layoutX="10.0" layoutY="85.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConProv" layoutX="10.0" layoutY="110.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConPostal" layoutX="10.0" layoutY="135.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" right="7.0" />
+                                 </VBox.margin></TextField>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Country:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="10.0" text="Business Phone:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="27.0" text="Fax:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="44.0" text="Email:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="61.0" text="Home Page:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="78.0" text="Affiliation ID:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Label>
+                              <Label layoutX="10.0" layoutY="95.0" text="Supplier Name:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="250.0">
+                           <children>
+                              <TextField fx:id="tfSupConCountry">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConBusPhone" layoutX="10.0" layoutY="10.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConFax" layoutX="10.0" layoutY="35.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConEmail" layoutX="10.0" layoutY="60.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupConUrl" layoutX="10.0" layoutY="85.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfAffiliationId" layoutX="10.0" layoutY="110.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin></TextField>
+                              <TextField fx:id="tfSupName" layoutX="10.0" layoutY="135.0">
+                                 <VBox.margin>
+                                    <Insets bottom="12.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnSave" layoutX="70.0" layoutY="533.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Save" />
+                  <Button fx:id="btnEdit" layoutX="268.0" layoutY="533.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Edit" />
+               </children></AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</GridPane>
