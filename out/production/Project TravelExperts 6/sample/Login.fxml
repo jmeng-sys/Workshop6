@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerLogin">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
+            <left>
+                <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon fx:id="btnHome" glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </left>
+            <top>
+                <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" styleClass="topBar">
+                            <children>
+                                <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                                <HBox prefHeight="78.0" prefWidth="937.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="29.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Separator>
+                                        <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="22.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="16.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </top>
+            <center>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="TOP_LEFT" layoutX="667.0" layoutY="114.0" text="Welcome!" textFill="#091530">
+                     <font>
+                        <Font name="Marlett" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblForgotPassword" layoutX="849.0" layoutY="379.0" text="Forgot The Password?" textFill="#091530">
+                     <font>
+                        <Font name="Corbel Light Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfUsername" layoutX="600.0" layoutY="288.0" prefHeight="30.0" prefWidth="350.0" promptText="Username" />
+                  <TextField fx:id="tfPassword" layoutX="600.0" layoutY="336.0" prefHeight="30.0" prefWidth="350.0" promptText="Password" />
+                  <VBox alignment="TOP_CENTER" layoutY="3.0" prefHeight="719.0" prefWidth="518.0" styleClass="LoginPane" stylesheets="@style.css">
+                     <children>
+                        <ImageView fitHeight="216.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="65.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../Images/TravelExpertsLogo-removebg-.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Welcome To" textFill="#091530">
+                           <font>
+                              <Font name="Ebrima Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </Label>
+                        <Label layoutX="205.0" layoutY="614.0" text="TRAVEL EXPERTS" textFill="#091530">
+                           <font>
+                              <Font name="Ebrima Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="175.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="lblCreateAccount" layoutX="172.0" layoutY="377.0" text="Create an account" textFill="#091530" underline="true">
+                           <font>
+                              <Font name="Ebrima" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label layoutX="702.0" layoutY="170.0" text="Please sign in to continue..." textFill="#091530">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font></Label>
+                  <Button fx:id="btnAgentLogin" layoutX="600.0" layoutY="530.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="347.0" styleClass="loginBtn" text="Login" textFill="#091530" />
+                  <Label fx:id="lblBadLogin" layoutX="650.0" layoutY="259.0" text="Incorrect username or password. Please try again." textFill="#ed4337" visible="false">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</GridPane>
