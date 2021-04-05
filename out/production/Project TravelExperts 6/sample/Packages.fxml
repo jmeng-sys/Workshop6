@@ -200,9 +200,13 @@
                                        </VBox.margin>
                                     </Button>
                                     <Separator prefHeight="12.0" prefWidth="711.0" />
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <TextField layoutX="439.0" layoutY="34.0" />
+                                          <TextField layoutX="234.0" layoutY="34.0" />
+                                          <TextField layoutX="14.0" layoutY="34.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </VBox>
                            </children>
