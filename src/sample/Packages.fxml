@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -130,7 +129,7 @@
                                         </Label>
                                     </children>
                                 </HBox>
-                                <FontAwesomeIcon glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
                                     <HBox.margin>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </HBox.margin>
@@ -163,11 +162,18 @@
                                     <TextField fx:id="tfPrice" />
                                     <Label fx:id="lblCommission" text="Commission" />
                                     <TextField fx:id="tfCommission" />
-                                    <Button id="btnEdit" fx:id="btnEdit" mnemonicParsing="false" text="Edit">
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                                       <children>
+                                          <Button id="btnEdit" fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
+                                          <Button id="btnSave" fx:id="btnSave" disable="true" mnemonicParsing="false" text="Save" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="50.0" right="10.0" top="10.0" />
+                                       </padding>
                                        <VBox.margin>
-                                          <Insets top="20.0" />
+                                          <Insets left="10.0" />
                                        </VBox.margin>
-                                    </Button>
+                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -177,17 +183,28 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <VBox layoutX="1.0" layoutY="-1.0" prefHeight="328.0" prefWidth="711.0">
+                              <VBox layoutX="1.0" layoutY="-1.0" prefHeight="538.0" prefWidth="711.0">
                                  <children>
-                                    <TableView fx:id="tblProducts" prefHeight="200.0" prefWidth="411.0">
-                                      <columns>
-                                        <TableColumn fx:id="colProduct" prefWidth="202.66665649414062" text="Product" />
-                                        <TableColumn fx:id="colSupplier" minWidth="0.0" prefWidth="508.5333251953125" text="Supplier" />
-                                      </columns>
-                                    </TableView>
+                                    <ComboBox prefWidth="150.0">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <TableView fx:id="tblProducts" editable="true" prefHeight="200.0" prefWidth="411.0">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin></TableView>
+                                    <Button fx:id="btnEditPPS" mnemonicParsing="false" text="Edit Product/Suppliers">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Separator prefHeight="12.0" prefWidth="711.0" />
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
                                  </children>
                               </VBox>
-                              <Button id="btnSave" fx:id="btnSave" layoutX="617.0" layoutY="640.0" mnemonicParsing="false" text="Save" />
                            </children>
                         </AnchorPane>
                     </items>
