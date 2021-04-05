@@ -1,5 +1,6 @@
 package sample;
 
+import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +12,16 @@ import objects.GUIMethods;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class Controller {
+
+    @FXML
+    private Label lblAgentName;
 
     @FXML
     private Label dateTime;
@@ -53,6 +61,7 @@ public class Controller {
 
     @FXML
     void initialize() {
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnReports != null : "fx:id=\"btnReports\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnSupplier != null : "fx:id=\"btnSupplier\" was not injected: check your FXML file 'sample.fxml'.";
@@ -64,6 +73,7 @@ public class Controller {
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'sample.fxml'.";
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'sample.fxml'.";
 //MENU BUTTONS
+        changeAgentName();
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
         btnReports.setOnMouseClicked(event -> {
@@ -143,6 +153,28 @@ public class Controller {
             stage.setScene(scene);
         } catch (IOException io) {
             io.printStackTrace();
+        }
+    }
+
+    private void changeAgentName()
+    {
+        System.out.println("Trying to change name.");
+        if(Main.getLoggedIn() == true)
+        {
+            try
+            {
+                Connection conn = DAO.getConnection();
+                Statement myStmt = conn.createStatement();
+                ResultSet rs = myStmt.executeQuery("Select AgtFirstName, AgtLastName from agents where AgentId = " + Main.getLoggedInAgentId());
+                rs.next();
+                System.out.println(rs.getString(1));
+                System.out.println(rs.getString(2));
+                lblAgentName.setText(rs.getString(1) + " " + rs.getString(2));
+            }
+            catch (SQLException throwables)
+            {
+                throwables.printStackTrace();
+            }
         }
     }
 }

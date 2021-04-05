@@ -130,7 +130,7 @@ public class ControllerLogin {
             Connection conn = DAO.getConnection();
             Statement myStmt = conn.createStatement();
             ResultSet rs = myStmt.executeQuery("Select * from agentaccounts where Username = \"" + username + "\" and Password = \"" + password + "\"");
-            ObservableList<AgentAccountsDB> list = FXCollections.observableArrayList();
+            //ObservableList<AgentAccountsDB> list = FXCollections.observableArrayList();
             if(rs.next() == false)
             {
                 System.out.println("Username or Password are incorrect");
@@ -139,6 +139,10 @@ public class ControllerLogin {
             else
             {
                 System.out.println("Username and Password are correct.");
+                Main.setLoggedIn(true);
+                Main.setLoggedInAgentId(rs.getInt(1));
+                System.out.println("AgentID = " + rs.getInt(1));
+                System.out.println("Logged in is: " + Main.getLoggedIn());
                 lblBadLogin.setVisible(false);
                 redirectToHome();
             }
