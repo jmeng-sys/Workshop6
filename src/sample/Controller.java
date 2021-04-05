@@ -77,23 +77,6 @@ public class Controller {
         btnLogin.setOnMouseClicked(event -> {
             GetLoginsScene();
         });
-
-//NAVIGATE TO PACKAGES
-        btnPackages.setOnMouseClicked(event -> {
-            System.out.println("on route to packages");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Packages.fxml"));
-
-                Stage stage = (Stage) btnPackages.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            }catch (IOException io){
-                io.printStackTrace();
-            }
-
-        });
-
 // SET DATE AND TIME OBJECT ============================================================================================
         GUIMethods.GetDateTime(dateTime);
     }
@@ -126,6 +109,21 @@ public class Controller {
         } catch (IOException io) {
             io.printStackTrace();
         }
+    }
+
+    private void GetOptionsScene() {
+        System.out.println("Loading login scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SystemDiagnostics.fxml"));
+
+            Stage stage = (Stage) btnOptions.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
 
     }
 
