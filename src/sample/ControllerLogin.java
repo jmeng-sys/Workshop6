@@ -1,5 +1,6 @@
 package sample;
 
+import database.AgentAccountsDB;
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
@@ -132,19 +133,18 @@ public class ControllerLogin {
         try
         {
             Connection conn = DAO.getConnection();
-            Statement stat = conn.createStatement();
-            /*
-            ResultSet rs = stat.executeQuery("Select * From `agentaccounts`");
-            ObservableList<?> list = FXCollections.observableArrayList();
-
-            while(rs.next())
+            Statement myStmt = conn.createStatement();
+            ResultSet rs = myStmt.executeQuery("Select * from agentaccounts where Username = \"" + username + "\" and Password = \"" + password + "\"");
+            ObservableList<AgentAccountsDB> list = FXCollections.observableArrayList();
+            if(rs.next() == false)
             {
-                list.add(new Agent(
-
-                ));
+                System.out.println("Username or Password are incorrect");
             }
-            */
-
+            else
+            {
+                System.out.println("Username and Password are correct.");
+            }
+            conn.close();
         }
         catch (SQLException throwables)
         {

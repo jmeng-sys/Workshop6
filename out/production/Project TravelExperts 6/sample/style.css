@@ -75,19 +75,19 @@
 }
 
 .LoginPane {
-    -fx-background-color: skyblue;
+    -fx-background-color: #89CFEB;
 }
 
 .loginBtn{
-    -fx-background-color: skyblue;
-    -fx-text-fill: #FFF;
+    -fx-background-color: #89CFEB;
+    -fx-text-fill: #091530;
     -fx-border-width: 1px;
     -fx-border-style: solid;
 }
 
 .loginBtn:hover{
     -fx-background-color: transparent;
-    -fx-text-fill: skyblue;
+    -fx-text-fill: #89CFEB;
     -fx-border-width: 1px;
     -fx-border-style: solid;
 }
