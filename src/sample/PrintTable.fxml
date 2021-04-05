@@ -91,7 +91,7 @@
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </HBox.margin>
                                 </FontAwesomeIcon>
-                                <HBox prefHeight="78.0" prefWidth="937.0" styleClass="topBar">
+                                <HBox prefHeight="78.0" prefWidth="937.0">
                                     <children>
                                         <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
                                             <font>
