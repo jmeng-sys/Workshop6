@@ -66,6 +66,9 @@ public class ControllerLogin {
     private Button btnAgentLogin;
 
     @FXML
+    private Label lblBadLogin;
+
+    @FXML
     void initialize() {
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Login.fxml'.";
 //        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Login.fxml'.";
@@ -79,20 +82,12 @@ public class ControllerLogin {
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'Login.fxml'.";
         assert lblCreateAccount != null : "fx:id=\"lblCreateAccount\" was not injected: check your FXML file 'Login.fxml'.";
         assert btnAgentLogin != null : "fx:id=\"btnAgentLogin\" was not injected: check your FXML file 'Login.fxml'.";
+        assert lblBadLogin != null : "fx:id=\"lblBadLogin\" was not injected: check your FXML file 'Login.fxml'.";
 
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 
         btnHome.setOnMouseClicked(event -> {
-            System.out.println("on route to sample");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-                Stage stage = (Stage) btnHome.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            redirectToHome();
         });
 
         btnPrint.setOnMouseClicked(event -> {
@@ -139,10 +134,13 @@ public class ControllerLogin {
             if(rs.next() == false)
             {
                 System.out.println("Username or Password are incorrect");
+                lblBadLogin.setVisible(true);
             }
             else
             {
                 System.out.println("Username and Password are correct.");
+                lblBadLogin.setVisible(false);
+                redirectToHome();
             }
             conn.close();
         }
@@ -153,6 +151,20 @@ public class ControllerLogin {
 
         //Change icon of login
         //Allow access of certain features
+    }
+
+    private void redirectToHome()
+    {
+        System.out.println("on route to sample");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+            Stage stage = (Stage) btnHome.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
     }
 
 
