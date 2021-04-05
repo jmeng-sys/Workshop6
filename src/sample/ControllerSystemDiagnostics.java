@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ControllerSystemDiagnostics implements DAO {
+public class ControllerSystemDiagnostics {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
     @FXML
@@ -132,7 +132,8 @@ public class ControllerSystemDiagnostics implements DAO {
         assert txtDatabaseName != null : "fx:id=\"txtDatabaseName\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert txtDBUsername != null : "fx:id=\"txtDBUsername\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert txtDBPassword != null : "fx:id=\"txtDBPassword\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
-        assert btnTestConn != null : "fx:id=\"btnTestConn\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";        assert ConnRed != null : "fx:id=\"ConnRed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnTestConn != null : "fx:id=\"btnTestConn\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert ConnRed != null : "fx:id=\"ConnRed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert ConnYellow != null : "fx:id=\"ConnYellow\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert ConnGreen != null : "fx:id=\"ConnGreen\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert txtDBURL != null : "fx:id=\"txtDBURL\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
