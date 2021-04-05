@@ -10,6 +10,7 @@ public interface DAO {
     String db_password = "";
 
     static Connection getConnection() {
+
         Connection conn = null;
         try
         {
