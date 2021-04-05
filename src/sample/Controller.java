@@ -73,6 +73,10 @@ public class Controller {
         btnPrint.setOnMouseClicked(event -> {
             GetReportsScene();
         });
+
+        btnOptions.setOnMouseClicked(event -> {
+            GetOptionsScene();
+        });
 // NAVIGATE TO LOGIN
         btnLogin.setOnMouseClicked(event -> {
             GetLoginsScene();
@@ -103,6 +107,20 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 
             Stage stage = (Stage) btnLogin.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+    private void GetOptionsScene() {
+        System.out.println("Loading login scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SystemDiagnostics.fxml"));
+
+            Stage stage = (Stage) btnOptions.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);

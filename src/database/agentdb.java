@@ -18,7 +18,7 @@ public class agentdb implements DAO{
                             "from agents"
             );
 
-            while (rs.next()) {
+            while (rs.getString(1) != null) {
                 agentList.add(new Agent(rs.getInt("agentId"),
                         rs.getString("agtFirstName"),
                         rs.getString("agtMiddleInitial"),
