@@ -60,6 +60,9 @@ public class Controller {
     private FontAwesomeIcon btnExit;
 
     @FXML
+    private HBox btnAgents;
+
+    @FXML
     void initialize() {
         assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'sample.fxml'.";
@@ -72,6 +75,7 @@ public class Controller {
         assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'sample.fxml'.";
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'sample.fxml'.";
+        assert btnAgents != null : "fx:id=\"btnAgents\" was not injected: check your FXML file 'sample.fxml'.";
 //MENU BUTTONS
         changeAgentName();
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
@@ -92,6 +96,9 @@ public class Controller {
         });
         btnSupplier.setOnMouseClicked(event -> {
             GetSupplierScene();
+        });
+        btnAgents.setOnMouseClicked(event -> {
+            GetAgentScene();
         });
 // NAVIGATE TO LOGIN
         btnLogin.setOnMouseClicked(event -> {
@@ -173,10 +180,23 @@ public class Controller {
         }
     }
 
+    private void GetAgentScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Agent.fxml"));
+
+            Stage stage = (Stage) btnAgents.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
     private void changeAgentName()
     {
         System.out.println("Trying to change name.");
-        if(Main.getLoggedIn() == true)
+        if(Main.getLoggedIn())
         {
             try
             {

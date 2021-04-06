@@ -6,7 +6,7 @@ package database;
 
         import java.sql.*;
 
-public class agentdb {
+public class AgentDB {
     public static ObservableList<Agent> FetchAgentList() {
         ObservableList<Agent> agentList = FXCollections.observableArrayList();
         try {
@@ -18,8 +18,9 @@ public class agentdb {
                             "from agents"
             );
 
-            while (rs.getString(1) != null) {
-                agentList.add(new Agent(rs.getInt("agentId"),
+            while (rs.next()) {
+                agentList.add(new Agent(
+                        rs.getInt("agentId"),
                         rs.getString("agtFirstName"),
                         rs.getString("agtMiddleInitial"),
                         rs.getString("agtLastName"),
@@ -35,6 +36,7 @@ public class agentdb {
         }
         return agentList;
     }
+
 
     public static void UpdateAgent(int AgentId,
                                    String AgtFirstName,
@@ -77,6 +79,8 @@ public class agentdb {
             System.out.println(e);
         }
     }
+
+
 
 
 }

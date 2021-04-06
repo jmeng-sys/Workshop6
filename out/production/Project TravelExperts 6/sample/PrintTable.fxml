@@ -137,14 +137,17 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <ComboBox fx:id="cbTables" layoutX="265.0" layoutY="14.0" minWidth="-Infinity" prefHeight="25.0" prefWidth="498.0" />
-                        <TableView fx:id="tableDatabase" editable="true" layoutX="13.0" layoutY="54.0" prefHeight="658.0" prefWidth="1001.0" BorderPane.alignment="CENTER">
+                        <ComboBox fx:id="cbTables" layoutX="265.0" layoutY="19.0" minWidth="-Infinity" prefHeight="25.0" prefWidth="498.0" />
+                        <TableView fx:id="tableDatabase" editable="true" layoutX="24.0" layoutY="61.0" prefHeight="637.0" prefWidth="981.0" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
                                 <Insets bottom="30.0" left="30.0" right="30.0" />
                             </BorderPane.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                         </TableView>
-                  <FontAwesomeIcon fx:id="btnNext" fill="#63a5b0" glyphName="STEP_FORWARD" layoutX="807.0" layoutY="39.0" size="3em" styleClass="forwardBackward" textAlignment="CENTER" />
-                  <FontAwesomeIcon fx:id="btnPrev" fill="#63a5b0" glyphName="STEP_BACKWARD" layoutX="204.0" layoutY="39.0" size="3em" styleClass="forwardBackward" textAlignment="CENTER" />
+                  <FontAwesomeIcon fx:id="btnNext" fill="#63a5b0" glyphName="CARET_RIGHT" layoutX="777.0" layoutY="44.0" size="3em" styleClass="forwardBackward" textAlignment="CENTER" />
+                  <FontAwesomeIcon fx:id="btnPrev" fill="#63a5b0" glyphName="CARET_LEFT" layoutX="240.0" layoutY="44.0" size="3em" styleClass="forwardBackward" textAlignment="CENTER" />
                     </children>
                 </AnchorPane>
             </center>
