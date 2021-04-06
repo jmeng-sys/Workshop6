@@ -137,8 +137,6 @@ public class ControllerSystemDiagnostics {
     @FXML
     private FontAwesomeIcon iconBackupFailed;
 
-
-
     @FXML
     void initialize() throws SQLException {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
@@ -177,8 +175,6 @@ public class ControllerSystemDiagnostics {
         assert iconBackuped != null : "fx:id=\"iconBackuped\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert iconBackupFailed != null : "fx:id=\"iconBackupFailed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
 
-
-
 //MENU BUTTONS
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
@@ -207,7 +203,7 @@ public class ControllerSystemDiagnostics {
             btnSavePassword.setVisible(true);
         });
 
-        btnEditUsername.setOnMouseClicked(event ->{
+        btnEditUsername.setOnMouseClicked(event -> {
             txtDBUsername.setEditable(true);
             btnEditUsername.setVisible(false);
             btnSaveUsername.setVisible(true);
@@ -229,7 +225,7 @@ public class ControllerSystemDiagnostics {
             DAO.db_password = txtDBPassword.getText();
         });
 
-        btnSaveUsername.setOnMouseClicked(event ->{
+        btnSaveUsername.setOnMouseClicked(event -> {
             txtDBUsername.setEditable(false);
             btnEditUsername.setVisible(true);
             btnSaveUsername.setVisible(false);
@@ -248,9 +244,6 @@ public class ControllerSystemDiagnostics {
             btnBackupSave.setVisible(false);
             btnBackupEdit.setVisible(true);
         });
-
-
-
 
         try {
             txtDatabaseName.setText(DAO.getConnection().getCatalog());
@@ -339,8 +332,7 @@ public class ControllerSystemDiagnostics {
                     }
                     if (resultSet.getString(4).equals("OK")) {
                         iconHealth.setFill(Color.GREEN);
-                    }
-                    else {
+                    } else {
                         iconHealth.setFill(Color.RED);
                     }
                     data.add(row);
@@ -402,38 +394,33 @@ public class ControllerSystemDiagnostics {
 //    CLASS CONTROLLERSYSTEMDIAGNOSTICS ENDS HERE ======================================================================
 
 
-//    METHODS DEFINED ==================================================================================================
-        private void GetReportsScene() {
-            System.out.println("on route to print Table");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
+    //    METHODS DEFINED ==================================================================================================
+    private void GetReportsScene() {
+        System.out.println("on route to print Table");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
 
-                Stage stage = (Stage) btnPrint.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            Stage stage = (Stage) btnPrint.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
         }
+    }
 
-        private void GetLoginsScene() {
-            System.out.println("Loading login scene");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+    private void GetLoginsScene() {
+        System.out.println("Loading login scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 
-                Stage stage = (Stage) btnLogin.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
         }
-
-
-
-
-
+    }
 
 }
