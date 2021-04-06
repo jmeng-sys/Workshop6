@@ -29,10 +29,21 @@ public class PackagesProductsSuppliers {
   public String getSupplierName() { return supplierName; }
   public void setSupplierName(String supplierName) { this.supplierName = supplierName; }
 
+  public PackagesProductsSuppliers(int packageId, int productSupplierId) {
+    this.packageId = packageId;
+    this.productSupplierId = productSupplierId;
+  }
+
   public PackagesProductsSuppliers(int packageId, int productSupplierId, String productName, String supplierName) {
     this.packageId = packageId;
     this.productSupplierId = productSupplierId;
     this.productName = productName;
     this.supplierName = supplierName;
   }
+
+  @Override
+  public String toString() {
+    return  packageId + " " + productName + " by " + supplierName;
+  }
+
 }

@@ -43,7 +43,6 @@ public class SupplierContact {
     public int getSupplierContactId() {
         return supplierContactId;
     }
-
     public void setSupplierContactId(int supplierContactId) {
         this.supplierContactId = supplierContactId;
     }
@@ -51,7 +50,6 @@ public class SupplierContact {
     public String getSupConFirstName() {
         return supConFirstName;
     }
-
     public void setSupConFirstName(String supConFirstName) {
         this.supConFirstName = supConFirstName;
     }
@@ -59,7 +57,6 @@ public class SupplierContact {
     public String getSupConLastName() {
         return supConLastName;
     }
-
     public void setSupConLastName(String supConLastName) {
         this.supConLastName = supConLastName;
     }
@@ -67,7 +64,6 @@ public class SupplierContact {
     public String getSupConCompany() {
         return supConCompany;
     }
-
     public void setSupConCompany(String supConCompany) {
         this.supConCompany = supConCompany;
     }
@@ -75,7 +71,6 @@ public class SupplierContact {
     public String getSupConAddress() {
         return supConAddress;
     }
-
     public void setSupConAddress(String supConAddress) {
         this.supConAddress = supConAddress;
     }
@@ -83,7 +78,6 @@ public class SupplierContact {
     public String getSupConCity() {
         return supConCity;
     }
-
     public void setSupConCity(String supConCity) {
         this.supConCity = supConCity;
     }
@@ -91,7 +85,6 @@ public class SupplierContact {
     public String getSupConProv() {
         return supConProv;
     }
-
     public void setSupConProv(String supConProv) {
         this.supConProv = supConProv;
     }
@@ -99,7 +92,6 @@ public class SupplierContact {
     public String getSupConPostal() {
         return supConPostal;
     }
-
     public void setSupConPostal(String supConPostal) {
         this.supConPostal = supConPostal;
     }
@@ -107,7 +99,6 @@ public class SupplierContact {
     public String getSupConCountry() {
         return supConCountry;
     }
-
     public void setSupConCountry(String supConCountry) {
         this.supConCountry = supConCountry;
     }
@@ -115,7 +106,6 @@ public class SupplierContact {
     public String getSupConBusPhone() {
         return supConBusPhone;
     }
-
     public void setSupConBusPhone(String supConBusPhone) {
         this.supConBusPhone = supConBusPhone;
     }
@@ -123,7 +113,6 @@ public class SupplierContact {
     public String getSupConFax() {
         return supConFax;
     }
-
     public void setSupConFax(String supConFax) {
         this.supConFax = supConFax;
     }
@@ -131,7 +120,6 @@ public class SupplierContact {
     public String getSupConEmail() {
         return supConEmail;
     }
-
     public void setSupConEmail(String supConEmail) {
         this.supConEmail = supConEmail;
     }
@@ -139,7 +127,6 @@ public class SupplierContact {
     public String getSupConUrl() {
         return supConUrl;
     }
-
     public void setSupConUrl(String supConUrl) {
         this.supConUrl = supConUrl;
     }
@@ -147,7 +134,6 @@ public class SupplierContact {
     public String getAffiliationId() {
         return affiliationId;
     }
-
     public void setAffiliationId(String affiliationId) {
         this.affiliationId = affiliationId;
     }
@@ -155,7 +141,6 @@ public class SupplierContact {
     public int getSupplierId() {
         return supplierId;
     }
-
     public void setSupplierId(int supplierId) {
         this.supplierId = supplierId;
     }
@@ -163,7 +148,6 @@ public class SupplierContact {
     public String getSupName() {
         return supName;
     }
-
     public void setSupName(String supName) {
         this.supName = supName;
     }
@@ -171,5 +155,10 @@ public class SupplierContact {
     @Override
     public String toString() {
         return supConFirstName + ' ' + supConLastName;
+    }
+
+    public SupplierContact(int supplierId, String supName) {
+        this.supplierId = supplierId;
+        this.supName = supName;
     }
 }
