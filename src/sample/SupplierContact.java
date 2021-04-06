@@ -170,6 +170,6 @@ public class SupplierContact {
 
     @Override
     public String toString() {
-        return supConFirstName + ' ' + supConLastName;
+        return supConCompany;
     }
 }

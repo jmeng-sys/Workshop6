@@ -41,6 +41,9 @@ public class ControllerSupplier {
     @FXML // fx:id="dateTime"
     private Label dateTime; // Value injected by FXMLLoader
 
+    @FXML // fx:id="btnExit"
+    private FontAwesomeIcon btnExit; // Value injected by FXMLLoader
+
     @FXML // fx:id="cbSupCon"
     private ComboBox<SupplierContact> cbSupCon; // Value injected by FXMLLoader
 
@@ -86,6 +89,9 @@ public class ControllerSupplier {
     @FXML // fx:id="tfSupName"
     private TextField tfSupName; // Value injected by FXMLLoader
 
+    @FXML // fx:id="tfSupplierContactId"
+    private TextField tfSupplierContactId; // Value injected by FXMLLoader
+
     @FXML // fx:id="btnSave"
     private Button btnSave; // Value injected by FXMLLoader
 
@@ -98,6 +104,7 @@ public class ControllerSupplier {
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert cbSupCon != null : "fx:id=\"cbSupCon\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupConFirstName != null : "fx:id=\"tfSupConFirstName\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupConLastName != null : "fx:id=\"tfSupConLastName\" was not injected: check your FXML file 'Supplier.fxml'.";
@@ -113,8 +120,21 @@ public class ControllerSupplier {
         assert tfSupConUrl != null : "fx:id=\"tfSupConUrl\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfAffiliationId != null : "fx:id=\"tfAffiliationId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupName != null : "fx:id=\"tfSupName\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert tfSupplierContactId != null : "fx:id=\"tfSupplierContactId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Supplier.fxml'.";
+
+        btnExit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.exit(0);
+            }
+        });
+
+        tfSupName.setEditable(false);
+        tfSupplierContactId.setEditable(false);
+        tfSupplierContactId.setOpacity(0.2);
+        setTfEditable(false);
 
         try {
             Connection conn = getConnetion();
@@ -172,6 +192,7 @@ public class ControllerSupplier {
                 tfSupConUrl.setText(newValue.getSupConUrl());
                 tfAffiliationId.setText(newValue.getAffiliationId());
                 tfSupName.setText(newValue.getSupName());
+                tfSupplierContactId.setText(String.valueOf(newValue.getSupplierContactId()));
 
             }
         });
@@ -179,41 +200,80 @@ public class ControllerSupplier {
         btnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String sql = "UPDATE `suppliercontacts` SET " +
+                @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
                         "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
                         "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
                         "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
-                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
+                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=? " +
                         "WHERE SupplierContactId=?";
+
+
 
                 try {
                     Connection conn = getConnetion();
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, tfSupConFirstName.getText());
-                    pstmt.setString(2, tfSupConLastName.getText());
-                    pstmt.setString(3, tfSupConCompany.getText());
-                    pstmt.setString(4, tfSupConAddress.getText());
-                    pstmt.setString(5, tfSupConCity.getText());
-                    pstmt.setString(6, tfSupConProv.getText());
-                    pstmt.setString(7, tfSupConPostal.getText());
-                    pstmt.setString(8, tfSupConCountry.getText());
-                    pstmt.setString(9, tfSupConBusPhone.getText());
-                    pstmt.setString(10, tfSupConFax.getText());
-                    pstmt.setString(11, tfSupConEmail.getText());
-                    pstmt.setString(12, tfSupConUrl.getText());
-                    pstmt.setString(13, tfAffiliationId.getText());
+                    PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+                    pstmt1.setString(1, tfSupConFirstName.getText());
+                    pstmt1.setString(2, tfSupConLastName.getText());
+                    pstmt1.setString(3, tfSupConCompany.getText());
+                    pstmt1.setString(4, tfSupConAddress.getText());
+                    pstmt1.setString(5, tfSupConCity.getText());
+                    pstmt1.setString(6, tfSupConProv.getText());
+                    pstmt1.setString(7, tfSupConPostal.getText());
+                    pstmt1.setString(8, tfSupConCountry.getText());
+                    pstmt1.setString(9, tfSupConBusPhone.getText());
+                    pstmt1.setString(10, tfSupConFax.getText());
+                    pstmt1.setString(11, tfSupConEmail.getText());
+                    pstmt1.setString(12, tfSupConUrl.getText());
+                    pstmt1.setString(13, tfAffiliationId.getText());
+                    pstmt1.setString(14, tfSupplierContactId.getText());
 
+
+                    int rowsAffected = pstmt1.executeUpdate();
+                    if(rowsAffected > 0)
+                    {
+                        System.out.println("update worked");
                     }
+                    else {
+                        System.out.println("update failed");
+                    }
+
+                    conn.close();
+                }
                 catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                setTfEditable(false);
             }
         });
 
+        btnEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                setTfEditable(true);
+            }
+        });
     }
+
+
 
     private Connection getConnetion() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
+    }
+
+    private void setTfEditable(boolean b){
+        tfSupConFirstName.setEditable(b);
+        tfSupConLastName.setEditable(b);
+        tfSupConCompany.setEditable(b);
+        tfSupConAddress.setEditable(b);
+        tfSupConCity.setEditable(b);
+        tfSupConProv.setEditable(b);
+        tfSupConPostal.setEditable(b);
+        tfSupConCountry.setEditable(b);
+        tfSupConBusPhone.setEditable(b);
+        tfSupConFax.setEditable(b);
+        tfSupConEmail.setEditable(b);
+        tfSupConUrl.setEditable(b);
+        tfAffiliationId.setEditable(b);
     }
 }
 
