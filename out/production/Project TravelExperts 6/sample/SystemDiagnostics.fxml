@@ -17,369 +17,428 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSystemDiagnostics">
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSystemDiagnostics">
    <columnConstraints>
-      <ColumnConstraints />
+      <ColumnConstraints/>
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
+      <RowConstraints/>
    </rowConstraints>
-   <children>
-      <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
-         <left>
-            <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
-                     <children>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </FontAwesomeIcon>
-                        <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </FontAwesomeIcon>
-                        <FontAwesomeIcon glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </FontAwesomeIcon>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </Separator>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
-                     <children>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </FontAwesomeIcon>
-                        <Separator prefWidth="200.0">
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </VBox.margin>
-                        </Separator>
-                     </children>
-                  </VBox>
-               </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </AnchorPane>
-         </left>
-         <top>
-            <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
-               <children>
-                  <HBox alignment="CENTER_LEFT" styleClass="topBar">
-                     <children>
-                        <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
-                           <HBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </HBox.margin>
-                        </FontAwesomeIcon>
-                        <HBox prefHeight="78.0" prefWidth="937.0">
-                           <children>
-                              <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri" size="29.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Separator orientation="VERTICAL" prefHeight="200.0">
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </Separator>
-                              <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri" size="22.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font name="Calibri" size="16.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
-                           <HBox.margin>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </HBox.margin>
-                        </FontAwesomeIcon>
-                     </children>
+   <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
+      <left>
+         <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+               <Insets/>
+            </BorderPane.margin>
+            <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
+               <Separator prefWidth="200.0">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </Separator>
+               <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </FontAwesomeIcon>
+               <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </FontAwesomeIcon>
+               <FontAwesomeIcon glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </FontAwesomeIcon>
+               <Separator prefWidth="200.0">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </Separator>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
+               <Separator prefWidth="200.0">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </Separator>
+               <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </FontAwesomeIcon>
+               <Separator prefWidth="200.0">
+                  <VBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </VBox.margin>
+               </Separator>
+            </VBox>
+         </AnchorPane>
+      </left>
+      <top>
+         <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" styleClass="topBar">
+               <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
+                  <HBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </HBox.margin>
+               </FontAwesomeIcon>
+               <HBox prefHeight="78.0" prefWidth="937.0">
+                  <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER"
+                         textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="29.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                     </HBox.margin>
+                  </Label>
+                  <Separator orientation="VERTICAL" prefHeight="200.0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" top="15.0"/>
+                     </HBox.margin>
+                  </Separator>
+                  <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome"
+                         textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="22.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0"
+                         text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="16.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                     </HBox.margin>
+                  </Label>
+               </HBox>
+               <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                  <HBox.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                  </HBox.margin>
+               </FontAwesomeIcon>
+            </HBox>
+         </AnchorPane>
+      </top>
+      <center>
+         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <HBox layoutY="68.0" prefHeight="244.0" prefWidth="1025.0">
+               <VBox prefHeight="244.0" prefWidth="158.0">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Database:">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="URL:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Username:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Password:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Connection:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="277.0">
+                  <TextField fx:id="txtDatabaseName" editable="false" prefWidth="277.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtDBURL" editable="false" prefWidth="277.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtDBUsername" editable="false">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtDBPassword" editable="false">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="277.0" spacing="15.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                     <FontAwesomeIcon fx:id="btnTestConn" glyphName="SITEMAP" size="2.08EM"/>
+                     <Circle fx:id="ConnRed" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE"
+                             HBox.hgrow="NEVER"/>
+                     <Circle fx:id="ConnYellow" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE"/>
+                     <Circle fx:id="ConnGreen" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE"/>
                   </HBox>
-               </children>
-            </AnchorPane>
-         </top>
-         <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <HBox prefHeight="244.0" prefWidth="1025.0">
-                     <children>
-                        <VBox prefHeight="244.0" prefWidth="172.0">
-                           <children>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Database:">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="URL:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Username:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Password:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Connection:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="244.0" prefWidth="277.0">
-                           <children>
-                              <TextField fx:id="txtDatabaseName" editable="false" prefWidth="277.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtDBURL" editable="false" prefWidth="277.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtDBUsername" editable="false">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtDBPassword" editable="false">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <HBox alignment="CENTER" prefHeight="25.0" prefWidth="277.0" spacing="15.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <FontAwesomeIcon fx:id="btnTestConn" glyphName="SITEMAP" size="2.08EM" />
-                                    <Circle fx:id="ConnRed" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" HBox.hgrow="NEVER" />
-                                    <Circle fx:id="ConnYellow" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                    <Circle fx:id="ConnGreen" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="165.0" prefWidth="40.0">
-                           <children>
-                              <FontAwesomeIcon fx:id="btnEditURL" glyphName="EDIT" size="2.08em" styleClass="cardIcons">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="55.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnEditUsername" glyphName="EDIT" size="2.08em" styleClass="cardIcons">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnEditPassword" glyphName="EDIT" size="2.08em" styleClass="cardIcons">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="244.0" prefWidth="32.0">
-                           <children>
-                              <FontAwesomeIcon fx:id="btnSaveURL" glyphName="SAVE" size="2.08em" styleClass="cardIcons" visible="false">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="55.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnSaveUsername" glyphName="SAVE" size="2.08em" styleClass="cardIcons" visible="false">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnSavePassword" glyphName="SAVE" size="2.08em" styleClass="cardIcons" visible="false">
-                                 <VBox.margin>
-                                    <Insets right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIcon>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="244.0" prefWidth="172.0">
-                           <children>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Driver Name:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Driver Version:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="DB Product Name:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="DB Product Version:">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="244.0" prefWidth="315.0">
-                           <children>
-                              <TextField fx:id="txtDriver" editable="false" prefWidth="277.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtDriverVersion" prefWidth="277.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtProductName">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <TextField fx:id="txtProductVersion">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <HBox alignment="CENTER" prefHeight="25.0" prefWidth="277.0" spacing="15.0">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" top="15.0" />
-                                 </VBox.margin>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
+               </VBox>
+               <VBox prefHeight="165.0" prefWidth="40.0">
+                  <FontAwesomeIcon fx:id="btnEditURL" glyphName="EDIT" size="2.08em" styleClass="cardIcons">
+                     <VBox.margin>
+                        <Insets right="15.0" top="55.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+                  <FontAwesomeIcon fx:id="btnEditUsername" glyphName="EDIT" size="2.08em"
+                                   styleClass="cardIcons">
+                     <VBox.margin>
+                        <Insets right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+                  <FontAwesomeIcon fx:id="btnEditPassword" glyphName="EDIT" size="2.08em"
+                                   styleClass="cardIcons">
+                     <VBox.margin>
+                        <Insets right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="32.0">
+                  <FontAwesomeIcon fx:id="btnSaveURL" glyphName="SAVE" size="2.08em" styleClass="cardIcons"
+                                   visible="false">
+                     <VBox.margin>
+                        <Insets right="15.0" top="55.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+                  <FontAwesomeIcon fx:id="btnSaveUsername" glyphName="SAVE" size="2.08em"
+                                   styleClass="cardIcons" visible="false">
+                     <VBox.margin>
+                        <Insets right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+                  <FontAwesomeIcon fx:id="btnSavePassword" glyphName="SAVE" size="2.08em"
+                                   styleClass="cardIcons" visible="false">
+                     <VBox.margin>
+                        <Insets right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </FontAwesomeIcon>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="40.0">
+                  <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Separator>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="187.0">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                         text="Driver Name:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                         text="Driver Version:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                         text="DB Product Name:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                         text="DB Product Version:">
+                     <font>
+                        <Font name="System Bold" size="16.0"/>
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </Label>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="277.0">
+                  <TextField fx:id="txtDriver" editable="false" prefWidth="277.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtDriverVersion" prefWidth="277.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtProductName">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <TextField fx:id="txtProductVersion">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
+                  </TextField>
+                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="277.0" spacing="15.0">
+                     <VBox.margin>
+                        <Insets left="15.0" right="15.0" top="15.0"/>
+                     </VBox.margin>
                   </HBox>
-                  <VBox layoutY="244.0" prefHeight="139.0" prefWidth="449.0">
-                     <children>
-                        <HBox prefHeight="55.0" prefWidth="449.0">
-                           <children>
-                              <VBox prefHeight="40.0" prefWidth="101.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="105.0" prefHeight="25.0" prefWidth="105.0" text="Table Health:">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="15.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <FontAwesomeIcon fx:id="btnPrev" glyphName="CARET_LEFT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                              <VBox prefHeight="55.0" prefWidth="277.0">
-                                 <children>
-                                    <ComboBox fx:id="cbTables" prefHeight="25.0" prefWidth="235.0">
-                                       <VBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </VBox.margin>
-                                    </ComboBox>
-                                 </children>
-                              </VBox>
-                              <FontAwesomeIcon fx:id="btnNext" glyphName="CARET_RIGHT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="160.0" prefWidth="449.0">
-                           <children>
-                              <TextArea fx:id="tfTableHealth" prefHeight="69.0" prefWidth="380.0">
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </TextArea>
-                              <FontAwesomeIcon fx:id="iconHealth" glyphName="HEARTBEAT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-         </center>
-      </BorderPane>
-   </children>
+               </VBox>
+            </HBox>
+            <HBox layoutY="361.0" prefHeight="100.0" prefWidth="1025.0">
+               <VBox prefHeight="107.0" prefWidth="620.0">
+                  <children>
+                     <HBox prefHeight="55.0" prefWidth="449.0">
+                        <children>
+                           <VBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="158.0">
+                              <children>
+                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="105.0"
+                                        prefHeight="25.0" prefWidth="105.0" text="Table Health:">
+                                    <font>
+                                       <Font name="System Bold" size="16.0"/>
+                                    </font>
+                                    <VBox.margin>
+                                       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                                    </VBox.margin>
+                                 </Label>
+                              </children>
+                           </VBox>
+                           <FontAwesomeIcon fx:id="btnPrev" glyphName="CARET_LEFT" size="2.08EM">
+                              <HBox.margin>
+                                 <Insets left="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </FontAwesomeIcon>
+                           <VBox prefHeight="55.0" prefWidth="277.0">
+                              <children>
+                                 <ComboBox fx:id="cbTables" prefHeight="25.0" prefWidth="235.0">
+                                    <VBox.margin>
+                                       <Insets left="15.0" right="15.0" top="15.0"/>
+                                    </VBox.margin>
+                                 </ComboBox>
+                              </children>
+                           </VBox>
+                           <FontAwesomeIcon fx:id="btnNext" glyphName="CARET_RIGHT" size="2.08EM">
+                              <HBox.margin>
+                                 <Insets top="15.0"/>
+                              </HBox.margin>
+                           </FontAwesomeIcon>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="67.0" prefWidth="515.0">
+                        <children>
+                           <FontAwesomeIcon fx:id="iconHealth" glyphName="HEARTBEAT" size="2.08EM">
+                              <HBox.margin>
+                                 <Insets left="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </FontAwesomeIcon>
+                           <TextArea fx:id="tfTableHealth" prefHeight="29.0" prefWidth="348.0">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </TextArea>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="244.0" prefWidth="40.0">
+                  <children>
+                     <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0">
+                        <VBox.margin>
+                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                        </VBox.margin>
+                     </Separator>
+                  </children>
+               </VBox>
+               <VBox prefHeight="122.0" prefWidth="575.0">
+                  <children>
+                     <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="469.0">
+                        <children>
+                           <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                                  text="Backup Location:">
+                              <font>
+                                 <Font name="System Bold" size="16.0"/>
+                              </font>
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </Label>
+                           <TextField fx:id="txtBackupLocation" editable="false" prefHeight="25.0"
+                                      prefWidth="219.0" text="C:\">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </TextField>
+                           <VBox alignment="CENTER" prefHeight="76.0" prefWidth="44.0">
+                              <children>
+                                 <FontAwesomeIcon fx:id="btnBackupEdit" glyphName="EDIT" size="2.08EM"/>
+                                 <FontAwesomeIcon fx:id="btnBackupSave" glyphName="SAVE" size="2.08EM"
+                                                  visible="false"/>
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="469.0">
+                        <children>
+                           <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0"
+                                  text="Backup:">
+                              <font>
+                                 <Font name="System Bold" size="16.0"/>
+                              </font>
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </Label>
+                           <FontAwesomeIcon fx:id="btnBackup" glyphName="DATABASE" size="2.08EM">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </FontAwesomeIcon>
+                           <FontAwesomeIcon fx:id="iconBackup" fill="#26ff00" glyphName="CHECK" size="2.08EM"
+                                            visible="false">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                              </HBox.margin>
+                           </FontAwesomeIcon>
+                           <FontAwesomeIcon fx:id="iconBackupFailed" fill="RED" glyphName="TIMES" size="2.08EM"
+                                            visible="false"/>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+               <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0"/>
+            </HBox>
+         </AnchorPane>
+      </center>
+   </BorderPane>
 </GridPane>
