@@ -332,6 +332,13 @@ public class ControllerSystemDiagnostics {
                     }
                     if (resultSet.getString(4).equals("OK")) {
                         iconHealth.setFill(Color.GREEN);
+                        Timer timer = new Timer(true);
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                iconHealth.setFill(Color.BLACK);
+                            }
+                        }, 3000);
                     } else {
                         iconHealth.setFill(Color.RED);
                     }
