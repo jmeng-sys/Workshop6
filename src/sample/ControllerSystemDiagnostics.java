@@ -7,30 +7,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import objects.GUIMethods;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ControllerSystemDiagnostics {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private FontAwesomeIcon btnPrint;
@@ -119,10 +109,26 @@ public class ControllerSystemDiagnostics {
     @FXML
     private FontAwesomeIcon btnSavePassword;
 
-
+    @FXML
+    private TextField txtBackupLocation;
 
     @FXML
-    void initialize() throws SQLException {
+    private FontAwesomeIcon btnBackupEdit;
+
+    @FXML
+    private FontAwesomeIcon btnBackupSave;
+
+    @FXML
+    private FontAwesomeIcon btnBackup;
+
+    @FXML
+    private FontAwesomeIcon iconBackup;
+
+    @FXML
+    private FontAwesomeIcon iconBackupFailed;
+
+    @FXML
+    void initialize() {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
@@ -152,18 +158,19 @@ public class ControllerSystemDiagnostics {
         assert btnSaveURL != null : "fx:id=\"btnSaveURL\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnSaveUsername != null : "fx:id=\"btnSaveUsername\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnSavePassword != null : "fx:id=\"btnSavePassword\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
-
+        assert txtBackupLocation != null : "fx:id=\"txtBackupLocation\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackupEdit != null : "fx:id=\"btnBackupEdit\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackupSave != null : "fx:id=\"btnBackupSave\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackup != null : "fx:id=\"btnBackup\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert iconBackup != null : "fx:id=\"iconBackup\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert iconBackupFailed != null : "fx:id=\"iconBackupFailed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
 
 //MENU BUTTONS
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
-        btnPrint.setOnMouseClicked(event -> {
-            GetReportsScene();
-        });
+        btnPrint.setOnMouseClicked(event -> GetReportsScene());
 // NAVIGATE TO LOGIN
-        btnLogin.setOnMouseClicked(event -> {
-            GetLoginsScene();
-        });
+        btnLogin.setOnMouseClicked(event -> GetLoginsScene());
 // SET DATE AND TIME OBJECT ============================================================================================
         GUIMethods.GetDateTime(dateTime);
 // SET SYSTEM DIAGNOSTICS ELEMENTS =====================================================================================
@@ -182,7 +189,7 @@ public class ControllerSystemDiagnostics {
             btnSavePassword.setVisible(true);
         });
 
-        btnEditUsername.setOnMouseClicked(event ->{
+        btnEditUsername.setOnMouseClicked(event -> {
             txtDBUsername.setEditable(true);
             btnEditUsername.setVisible(false);
             btnSaveUsername.setVisible(true);
@@ -192,22 +199,37 @@ public class ControllerSystemDiagnostics {
             txtDBURL.setEditable(false);
             btnEditURL.setVisible(true);
             btnSaveURL.setVisible(false);
+
+            DAO.db_username = txtDBUsername.getText();
         });
 
         btnSavePassword.setOnMouseClicked(event -> {
             txtDBPassword.setEditable(false);
             btnEditPassword.setVisible(true);
             btnSavePassword.setVisible(false);
+
+            DAO.db_password = txtDBPassword.getText();
         });
 
-        btnSaveUsername.setOnMouseClicked(event ->{
+        btnSaveUsername.setOnMouseClicked(event -> {
             txtDBUsername.setEditable(false);
             btnEditUsername.setVisible(true);
             btnSaveUsername.setVisible(false);
+
+            DAO.db_username = txtDBUsername.getText();
         });
 
+        btnBackupEdit.setOnMouseClicked(event -> {
+            txtBackupLocation.setEditable(true);
+            btnBackupSave.setVisible(true);
+            btnBackupEdit.setVisible(false);
+        });
 
-
+        btnBackupSave.setOnMouseClicked(event -> {
+            txtBackupLocation.setEditable(false);
+            btnBackupSave.setVisible(false);
+            btnBackupEdit.setVisible(true);
+        });
 
         try {
             txtDatabaseName.setText(DAO.getConnection().getCatalog());
@@ -284,7 +306,7 @@ public class ControllerSystemDiagnostics {
             data = FXCollections.observableArrayList();
             String sql = "CHECK TABLE " + t1;
             Connection conn = DAO.getConnection();
-            Statement stmt = null;
+            Statement stmt;
             try {
                 stmt = conn.createStatement();
                 ResultSet resultSet = stmt.executeQuery(sql);
@@ -296,8 +318,14 @@ public class ControllerSystemDiagnostics {
                     }
                     if (resultSet.getString(4).equals("OK")) {
                         iconHealth.setFill(Color.GREEN);
-                    }
-                    else {
+                        Timer timer = new Timer(true);
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                iconHealth.setFill(Color.BLACK);
+                            }
+                        }, 3000);
+                    } else {
                         iconHealth.setFill(Color.RED);
                     }
                     data.add(row);
@@ -309,55 +337,80 @@ public class ControllerSystemDiagnostics {
             }
         });
 
+        btnBackup.setOnMouseClicked(event -> {
+            try {
+                String dbName = txtDatabaseName.getText();
+                String dbUser = DAO.db_username;
+//                String dbPass = DAO.db_password;  // add back in if password is included
+                String folderPath = txtBackupLocation.getText() + "\\backup";
+                File f1 = new File(folderPath);
+                f1.mkdir();
+                String savePath = folderPath + "\\" + "backup.sql\"";
+                String executeCmd = "C:\\xampp\\mysql\\bin\\mysqldump -u" + dbUser + " --database " + dbName + " -r " + savePath;
+                //      add this back in if password is included          " -p" + dbPass +
+                Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+                int processComplete = runtimeProcess.waitFor();
+                if (processComplete == 0) {
+                    System.out.println("Backup Complete");
+                    iconBackup.setVisible(true);
 
+                    Timer timer = new Timer(true);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            iconBackup.setVisible(false);
+                        }
+                    }, 3000);
 
-
-
-
+                } else {
+                    System.out.println("Backup Failure");
+                    iconBackupFailed.setVisible(true);
+                    Timer timer = new Timer(true);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            iconBackupFailed.setVisible(false);
+                        }
+                    }, 3000);
+                }
+            } catch (IOException | InterruptedException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error at Backup restore" + ex.getMessage());
+                alert.showAndWait();
+            }
+        });
     }
 //    CLASS CONTROLLERSYSTEMDIAGNOSTICS ENDS HERE ======================================================================
 
 
+    //    METHODS DEFINED ==================================================================================================
+    private void GetReportsScene() {
+        System.out.println("on route to print Table");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
 
-
-
-
-
-
-
-
-//    METHODS DEFINED ==================================================================================================
-        private void GetReportsScene() {
-            System.out.println("on route to print Table");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-                Stage stage = (Stage) btnPrint.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            Stage stage = (Stage) btnPrint.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
         }
+    }
 
-        private void GetLoginsScene() {
-            System.out.println("Loading login scene");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+    private void GetLoginsScene() {
+        System.out.println("Loading login scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
 
-                Stage stage = (Stage) btnLogin.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
         }
-
-
-
-
-
+    }
 
 }

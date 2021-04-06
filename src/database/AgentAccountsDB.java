@@ -1,6 +1,6 @@
 package database;
 
-public class AgentAccountsDB implements DAO
+public class AgentAccountsDB
 {
     private int agentId;
     private String password;

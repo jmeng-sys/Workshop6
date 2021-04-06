@@ -6,7 +6,7 @@ package database;
 
         import java.sql.*;
 
-public class agentdb implements DAO{
+public class agentdb {
     public static ObservableList<Agent> FetchAgentList() {
         ObservableList<Agent> agentList = FXCollections.observableArrayList();
         try {
@@ -44,7 +44,7 @@ public class agentdb implements DAO{
                                    String AgtEmail,
                                    String AgtPosition,
                                    int AgencyId) {
-        String sql = "UPDATE `agents` " +
+        @SuppressWarnings("SqlResolve") String sql = "UPDATE `agents` " +
                 "SET `AgentId`=?," +
                 "`AgtFirstName`=?," +
                 "`AgtMiddleInitial`=?," +
