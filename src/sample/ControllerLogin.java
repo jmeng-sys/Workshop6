@@ -167,7 +167,7 @@ public class ControllerLogin {
             Connection conn = DAO.getConnection();
             Statement myStmt = conn.createStatement();
             ResultSet rs = myStmt.executeQuery("Select * from agentaccounts where Username = \"" + username + "\" and Password = \"" + password + "\"");
-            //ObservableList<AgentAccountsDB> list = FXCollections.observableArrayList();
+
             if(rs.next() == false)
             {
                 System.out.println("Username or Password are incorrect");
@@ -189,9 +189,6 @@ public class ControllerLogin {
         {
             throwables.printStackTrace();
         }
-
-        //Change icon of login
-        //Allow access of certain features
     }
 
     private void redirectToHome()
