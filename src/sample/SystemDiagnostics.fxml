@@ -139,9 +139,9 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="244.0" prefWidth="1025.0">
+                  <HBox layoutY="68.0" prefHeight="244.0" prefWidth="1025.0">
                      <children>
-                        <VBox prefHeight="244.0" prefWidth="172.0">
+                        <VBox prefHeight="244.0" prefWidth="158.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Database:">
                                  <VBox.margin>
@@ -258,7 +258,16 @@
                               </FontAwesomeIcon>
                            </children>
                         </VBox>
-                        <VBox prefHeight="244.0" prefWidth="172.0">
+                        <VBox prefHeight="244.0" prefWidth="40.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Separator>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="244.0" prefWidth="187.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Driver Name:">
                                  <font>
@@ -294,7 +303,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox prefHeight="244.0" prefWidth="315.0">
+                        <VBox prefHeight="244.0" prefWidth="277.0">
                            <children>
                               <TextField fx:id="txtDriver" editable="false" prefWidth="277.0">
                                  <VBox.margin>
@@ -325,59 +334,123 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox layoutY="244.0" prefHeight="139.0" prefWidth="449.0">
+                  <HBox layoutY="361.0" prefHeight="100.0" prefWidth="1025.0">
                      <children>
-                        <HBox prefHeight="55.0" prefWidth="449.0">
+                        <VBox prefHeight="107.0" prefWidth="620.0">
                            <children>
-                              <VBox prefHeight="40.0" prefWidth="101.0">
+                              <HBox prefHeight="55.0" prefWidth="449.0">
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="105.0" prefHeight="25.0" prefWidth="105.0" text="Table Health:">
+                                    <VBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="158.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="105.0" prefHeight="25.0" prefWidth="105.0" text="Table Health:">
+                                             <font>
+                                                <Font name="System Bold" size="16.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <FontAwesomeIcon fx:id="btnPrev" glyphName="CARET_LEFT" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <VBox prefHeight="55.0" prefWidth="277.0">
+                                       <children>
+                                          <ComboBox fx:id="cbTables" prefHeight="25.0" prefWidth="235.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" top="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </VBox>
+                                    <FontAwesomeIcon fx:id="btnNext" glyphName="CARET_RIGHT" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="67.0" prefWidth="515.0">
+                                 <children>
+                                    <FontAwesomeIcon fx:id="iconHealth" glyphName="HEARTBEAT" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <TextArea fx:id="tfTableHealth" prefHeight="29.0" prefWidth="348.0">
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="244.0" prefWidth="40.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Separator>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="122.0" prefWidth="575.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="469.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Backup Location:">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="15.0" />
-                                       </VBox.margin>
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
                                     </Label>
+                                    <TextField fx:id="txtBackupLocation" editable="false" prefHeight="25.0" prefWidth="219.0" text="C:\">
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <VBox alignment="CENTER" prefHeight="76.0" prefWidth="44.0">
+                                       <children>
+                                          <FontAwesomeIcon fx:id="btnBackupEdit" glyphName="EDIT" size="2.08EM" />
+                                          <FontAwesomeIcon fx:id="btnBackupSave" glyphName="SAVE" size="2.08EM" visible="false" />
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </VBox>
-                              <FontAwesomeIcon fx:id="btnPrev" glyphName="CARET_LEFT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                              <VBox prefHeight="55.0" prefWidth="277.0">
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="469.0">
                                  <children>
-                                    <ComboBox fx:id="cbTables" prefHeight="25.0" prefWidth="235.0">
-                                       <VBox.margin>
-                                          <Insets left="15.0" right="15.0" top="15.0" />
-                                       </VBox.margin>
-                                    </ComboBox>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefWidth="172.0" text="Backup:">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <FontAwesomeIcon fx:id="btnBackup" glyphName="DATABASE" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <FontAwesomeIcon fx:id="iconBackuped" fill="#26ff00" glyphName="CHECK" size="2.08EM" visible="false">
+                                       <HBox.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <FontAwesomeIcon fx:id="iconBackupFailed" fill="RED" glyphName="TIMES" size="2.08EM" visible="false" />
                                  </children>
-                              </VBox>
-                              <FontAwesomeIcon fx:id="btnNext" glyphName="CARET_RIGHT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <HBox prefHeight="160.0" prefWidth="449.0">
-                           <children>
-                              <FontAwesomeIcon fx:id="iconHealth" glyphName="HEARTBEAT" size="2.08EM">
-                                 <HBox.margin>
-                                    <Insets left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                              <TextArea fx:id="tfTableHealth" prefHeight="69.0" prefWidth="380.0">
-                                 <HBox.margin>
-                                    <Insets bottom="15.0" left="15.0" top="15.0" />
-                                 </HBox.margin>
-                              </TextArea>
-                           </children>
-                        </HBox>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="300.0" prefWidth="5.0" />
                      </children>
-                  </VBox>
+                  </HBox>
                </children></AnchorPane>
          </center>
       </BorderPane>

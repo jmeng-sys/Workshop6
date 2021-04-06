@@ -7,17 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import objects.GUIMethods;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.CodeSource;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -119,6 +119,24 @@ public class ControllerSystemDiagnostics {
     @FXML
     private FontAwesomeIcon btnSavePassword;
 
+    @FXML
+    private TextField txtBackupLocation;
+
+    @FXML
+    private FontAwesomeIcon btnBackupEdit;
+
+    @FXML
+    private FontAwesomeIcon btnBackupSave;
+
+    @FXML
+    private FontAwesomeIcon btnBackup;
+
+    @FXML
+    private FontAwesomeIcon iconBackuped;
+
+    @FXML
+    private FontAwesomeIcon iconBackupFailed;
+
 
 
     @FXML
@@ -152,6 +170,13 @@ public class ControllerSystemDiagnostics {
         assert btnSaveURL != null : "fx:id=\"btnSaveURL\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnSaveUsername != null : "fx:id=\"btnSaveUsername\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnSavePassword != null : "fx:id=\"btnSavePassword\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert txtBackupLocation != null : "fx:id=\"txtBackupLocation\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackupEdit != null : "fx:id=\"btnBackupEdit\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackupSave != null : "fx:id=\"btnBackupSave\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnBackup != null : "fx:id=\"btnBackup\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert iconBackuped != null : "fx:id=\"iconBackuped\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert iconBackupFailed != null : "fx:id=\"iconBackupFailed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+
 
 
 //MENU BUTTONS
@@ -210,6 +235,18 @@ public class ControllerSystemDiagnostics {
             btnSaveUsername.setVisible(false);
 
             DAO.db_username = txtDBUsername.getText();
+        });
+
+        btnBackupEdit.setOnMouseClicked(event -> {
+            txtBackupLocation.setEditable(true);
+            btnBackupSave.setVisible(true);
+            btnBackupEdit.setVisible(false);
+        });
+
+        btnBackupSave.setOnMouseClicked(event -> {
+            txtBackupLocation.setEditable(false);
+            btnBackupSave.setVisible(false);
+            btnBackupEdit.setVisible(true);
         });
 
 
@@ -315,21 +352,54 @@ public class ControllerSystemDiagnostics {
             }
         });
 
+        btnBackup.setOnMouseClicked(event -> {
+            try {
+                CodeSource codeSource = DAO.class.getProtectionDomain().getCodeSource();
+                File jarFile = new File(codeSource.getLocation().toURI().getPath());
+                String jarDir = jarFile.getParentFile().getPath();
+                String dbName = txtDatabaseName.getText();
+                String dbUser = DAO.db_username;
+                String dbPass = DAO.db_password;
+                String folderPath = txtBackupLocation.getText() + "\\backup";
+                File f1 = new File(folderPath);
+                f1.mkdir();
+                String savePath = folderPath + "\\" + "backup.sql\"";
+                String executeCmd = "C:\\xampp\\mysql\\bin\\mysqldump -u" + dbUser + " --database " + dbName + " -r " + savePath;
+                //      add this back in if password is included          " -p" + dbPass +
+                Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+                int processComplete = runtimeProcess.waitFor();
+                if (processComplete == 0) {
+                    System.out.println("Backup Complete");
+                    iconBackuped.setVisible(true);
 
+                    Timer timer = new Timer(true);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            iconBackuped.setVisible(false);
+                        }
+                    }, 3000);
 
-
-
-
+                } else {
+                    System.out.println("Backup Failure");
+                    iconBackupFailed.setVisible(true);
+                    Timer timer = new Timer(true);
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            iconBackupFailed.setVisible(false);
+                        }
+                    }, 3000);
+                }
+            } catch (URISyntaxException | IOException | InterruptedException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error at Backuprestore" + ex.getMessage());
+                alert.showAndWait();
+            }
+        });
     }
 //    CLASS CONTROLLERSYSTEMDIAGNOSTICS ENDS HERE ======================================================================
-
-
-
-
-
-
-
-
 
 
 //    METHODS DEFINED ==================================================================================================
