@@ -1,3 +1,5 @@
+# noinspection SqlResolveForFile
+
 /*Create table PhpMyAdmin*/
 CREATE TABLE `travelexperts`.`agentaccounts` ( 
 	`AgentId` INT NOT NULL , 
