@@ -76,6 +76,9 @@ public class Controller {
         changeAgentName();
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
+        btnUser.setOnMouseClicked(event -> {
+            GetAgentScene();
+        });
         btnReports.setOnMouseClicked(event -> {
             GetReportsScene();
         });
@@ -93,6 +96,10 @@ public class Controller {
         btnSupplier.setOnMouseClicked(event -> {
             GetSupplierScene();
         });
+        btnProducts.setOnMouseClicked(event -> {
+            GetProductsScene();
+        });
+
 // NAVIGATE TO LOGIN
         btnLogin.setOnMouseClicked(event -> {
             GetLoginsScene();
@@ -101,8 +108,22 @@ public class Controller {
         GUIMethods.GetDateTime(dateTime);
     }
 
+    private void GetAgentScene() {
+        System.out.println("Loading agent scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AgentInfo.fxml"));
 
-//    METHODS DEFINED ==================================================================================================
+            Stage stage = (Stage) btnUser.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+
+    //    METHODS DEFINED ==================================================================================================
     private void GetReportsScene() {
         System.out.println("on route to print Table");
         try {
@@ -173,6 +194,19 @@ public class Controller {
         }
     }
 
+    private void GetProductsScene() {
+        System.out.println("Loading Products scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Products.fxml"));
+
+            Stage stage = (Stage) btnProducts.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
     private void changeAgentName()
     {
         System.out.println("Trying to change name.");
