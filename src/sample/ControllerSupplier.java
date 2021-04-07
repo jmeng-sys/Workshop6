@@ -86,17 +86,28 @@ public class ControllerSupplier {
     @FXML // fx:id="tfAffiliationId"
     private TextField tfAffiliationId; // Value injected by FXMLLoader
 
+    @FXML // fx:id="tfSupId"
+    private TextField tfSupId; // Value injected by FXMLLoader
+
     @FXML // fx:id="tfSupName"
     private TextField tfSupName; // Value injected by FXMLLoader
-
-    @FXML // fx:id="tfSupplierContactId"
-    private TextField tfSupplierContactId; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnSave"
     private Button btnSave; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnEdit"
     private Button btnEdit; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btnAdd"
+    private Button btnAdd; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btnSaveAdd"
+    private Button btnSaveAdd; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btnDelete"
+    private Button btnDelete; // Value injected by FXMLLoader
+
+    protected int classSupplierContactId;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -119,10 +130,15 @@ public class ControllerSupplier {
         assert tfSupConEmail != null : "fx:id=\"tfSupConEmail\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupConUrl != null : "fx:id=\"tfSupConUrl\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfAffiliationId != null : "fx:id=\"tfAffiliationId\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert tfSupId != null : "fx:id=\"tfSupId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupName != null : "fx:id=\"tfSupName\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert tfSupplierContactId != null : "fx:id=\"tfSupplierContactId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnAdd != null : "fx:id=\"btnAdd\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnSaveAdd != null : "fx:id=\"btnSaveAdd\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Supplier.fxml'.";
+
+
 
         btnExit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -132,8 +148,7 @@ public class ControllerSupplier {
         });
 
         tfSupName.setEditable(false);
-        tfSupplierContactId.setEditable(false);
-        tfSupplierContactId.setOpacity(0.2);
+
         setTfEditable(false);
 
         try {
@@ -165,9 +180,11 @@ public class ControllerSupplier {
                                             rs.getInt("SupplierId"),
                                             rs.getString("SupName")
                         ));
+
             }
             cbSupCon.setItems(list);
             conn.close();
+
 
 
         } catch (SQLException throwables) {
@@ -191,8 +208,13 @@ public class ControllerSupplier {
                 tfSupConEmail.setText(newValue.getSupConEmail());
                 tfSupConUrl.setText(newValue.getSupConUrl());
                 tfAffiliationId.setText(newValue.getAffiliationId());
+                tfSupId.setText(String.valueOf(newValue.getSupplierId()));
                 tfSupName.setText(newValue.getSupName());
-                tfSupplierContactId.setText(String.valueOf(newValue.getSupplierContactId()));
+
+
+                classSupplierContactId = newValue.getSupplierContactId();
+
+                System.out.println("SupplierContactId = " + classSupplierContactId);
 
             }
         });
@@ -204,7 +226,7 @@ public class ControllerSupplier {
                         "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
                         "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
                         "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
-                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=? " +
+                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
                         "WHERE SupplierContactId=?";
 
 
@@ -225,7 +247,8 @@ public class ControllerSupplier {
                     pstmt1.setString(11, tfSupConEmail.getText());
                     pstmt1.setString(12, tfSupConUrl.getText());
                     pstmt1.setString(13, tfAffiliationId.getText());
-                    pstmt1.setString(14, tfSupplierContactId.getText());
+                    pstmt1.setString(14, tfSupId.getText());
+                    pstmt1.setString(15, String.valueOf(classSupplierContactId));
 
 
                     int rowsAffected = pstmt1.executeUpdate();
@@ -252,6 +275,84 @@ public class ControllerSupplier {
                 setTfEditable(true);
             }
         });
+
+        btnAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                setTfEditable(true);
+                tfSupConFirstName.clear();
+                tfSupConLastName.clear();
+                tfSupConCompany.clear();
+                tfSupConAddress.clear();
+                tfSupConCity.clear();
+                tfSupConProv.clear();
+                tfSupConPostal.clear();
+                tfSupConCountry.clear();
+                tfSupConBusPhone.clear();
+                tfSupConFax.clear();
+                tfSupConEmail.clear();
+                tfSupConUrl.clear();
+                tfAffiliationId.clear();
+                tfSupId.clear();
+                tfSupName.clear();
+            }
+        });
+
+        btnSaveAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
+                        "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
+                        "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
+                        "AffiliationId, SupplierId) VALUES (?,?,?,?,?,?,?," +
+                        "?,?,?,?,?,?,?)";
+
+                try {
+                    Connection conn = getConnetion();
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, tfSupConFirstName.getText());
+                    pstmt.setString(2, tfSupConLastName.getText());
+                    pstmt.setString(3, tfSupConCompany.getText());
+                    pstmt.setString(4, tfSupConAddress.getText());
+                    pstmt.setString(5, tfSupConCity.getText());
+                    pstmt.setString(6, tfSupConProv.getText());
+                    pstmt.setString(7, tfSupConPostal.getText());
+                    pstmt.setString(8, tfSupConCountry.getText());
+                    pstmt.setString(9, tfSupConBusPhone.getText());
+                    pstmt.setString(10, tfSupConFax.getText());
+                    pstmt.setString(11, tfSupConEmail.getText());
+                    pstmt.setString(12, tfSupConUrl.getText());
+                    pstmt.setString(13, tfAffiliationId.getText());
+                    pstmt.setInt(14, Integer.parseInt(tfSupId.getText()));
+                    pstmt.executeUpdate();
+                    conn.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
+
+                try {
+                    Connection conn = getConnetion();
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, String.valueOf(classSupplierContactId));
+                    pstmt.executeUpdate();
+                    conn.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+
+        });
+
+
     }
 
 
@@ -274,6 +375,7 @@ public class ControllerSupplier {
         tfSupConEmail.setEditable(b);
         tfSupConUrl.setEditable(b);
         tfAffiliationId.setEditable(b);
+        tfSupId.setEditable(b);
     }
 }
 
