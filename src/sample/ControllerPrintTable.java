@@ -91,55 +91,12 @@ public class ControllerPrintTable {
             }
         });
 //  SET COMBO BOX LIST AND LISTENERS ===================================================================================
-        try {
-            DatabaseMetaData databaseMetaData = DAO.getConnection().getMetaData();
-            ResultSet tables = databaseMetaData.getTables(
-                    "TRAVELEXPERTS",
-                    "1",
-                    null,
-                    new String[]{"TABLE"});
-
-            ObservableList<String> tableList = FXCollections.observableArrayList();
-
-            while (tables.next()) {
-                tableList.add(tables.getString("TABLE_NAME"));
-            }
-            cbTables.setItems(tableList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        getAllTableNames();
 //  BUILD TABLE AND COLUMNS ============================================================================================
         cbTables.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-
-            tableDatabase.getItems().clear();
-            tableDatabase.getColumns().clear();
-            if (tableDatabase.getItems().isEmpty()) {
-                data = FXCollections.observableArrayList();
-                try {
-                    Connection conn = DAO.getConnection();
-                    String dataQuery = "SELECT * FROM " + t1;
-                    ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
-
-                    for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
-                        final int j = i;
-                        TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
-                        tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                        tableDatabase.getColumns().add(tableColumn);
-                    }
-                    while (tableValues.next()) {
-                        ObservableList<String> row = FXCollections.observableArrayList();
-                        for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
-                            row.add(tableValues.getString(i));
-                        }
-                        data.add(row);
-                    }
-                    tableDatabase.getItems().addAll(data);
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            getTableColumns(t1);
         });
+        cbTables.getSelectionModel().select(0);
 // PRINT BUTTON ========================================================================================================
         btnPrint.setOnMouseClicked(e -> {
             ChoiceDialog<Printer> dialog = new ChoiceDialog<>(Printer.getDefaultPrinter(), Printer.getAllPrinters());
@@ -172,6 +129,57 @@ public class ControllerPrintTable {
         });
 // SET DATE AND TIME OBJECT ============================================================================================
         GUIMethods.GetDateTime(dateTime);
+    }
+
+    private void getTableColumns(String t1) {
+        tableDatabase.getItems().clear();
+        tableDatabase.getColumns().clear();
+        if (tableDatabase.getItems().isEmpty()) {
+            data = FXCollections.observableArrayList();
+            try {
+                Connection conn = DAO.getConnection();
+                String dataQuery = "SELECT * FROM " + t1;
+                ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
+
+                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
+                    final int j = i;
+                    TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
+                    tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
+                    tableDatabase.getColumns().add(tableColumn);
+                }
+                while (tableValues.next()) {
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
+                        row.add(tableValues.getString(i));
+                    }
+                    data.add(row);
+                }
+                tableDatabase.getItems().addAll(data);
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void getAllTableNames() {
+        try {
+            DatabaseMetaData databaseMetaData = DAO.getConnection().getMetaData();
+            ResultSet tables = databaseMetaData.getTables(
+                    "TRAVELEXPERTS",
+                    "1",
+                    null,
+                    new String[]{"TABLE"});
+
+            ObservableList<String> tableList = FXCollections.observableArrayList();
+
+            while (tables.next()) {
+                tableList.add(tables.getString("TABLE_NAME"));
+            }
+            cbTables.setItems(tableList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

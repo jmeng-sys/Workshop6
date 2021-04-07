@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" stylesheets="@style.css" vgap="10" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerAgent">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <BorderPane prefHeight="800.0" prefWidth="1100.0" styleClass="borderPane">
+            <left>
+                <AnchorPane prefHeight="800.0" prefWidth="75.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" layoutY="282.0" prefHeight="440.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnPrint" glyphName="PRINT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <FontAwesomeIcon glyphName="HOME" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="169.0" prefWidth="75.0">
+                            <children>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </FontAwesomeIcon>
+                                <Separator prefWidth="200.0">
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </VBox.margin>
+                                </Separator>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </AnchorPane>
+            </left>
+            <top>
+                <AnchorPane maxWidth="1074.0" prefHeight="78.0" prefWidth="1074.0" BorderPane.alignment="CENTER_LEFT">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" styleClass="topBar">
+                            <children>
+                                <FontAwesomeIcon fx:id="btnUser" glyphName="USER" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                                <HBox prefHeight="78.0" prefWidth="937.0">
+                                    <children>
+                                        <Label prefHeight="48.0" prefWidth="145.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="29.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Separator>
+                                        <Label fx:id="lblAgentName" prefHeight="48.0" prefWidth="485.0" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="22.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <Label text="Welcome Agent:" textFill="WHITE">
+                                                    <font>
+                                                        <Font name="Calibri" size="22.0" />
+                                                    </font>
+                                                </Label>
+                                            </graphic>
+                                        </Label>
+                                        <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="Calibri" size="16.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </FontAwesomeIcon>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </top>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="425.0" prefWidth="1025.0">
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="658.0" prefWidth="191.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Agent:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="First Name:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Middle Initial:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Last Name:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Phone Number:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Email:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Position" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="25.0" prefWidth="204.0" text="Agency:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="200.0">
+                                 <children>
+                                    <FontAwesomeIcon fx:id="btnAddAgent" fill="#1fcd00" glyphName="PLUS" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <FontAwesomeIcon fx:id="btnEditAgent" glyphName="EDIT" size="2.08EM" />
+                                    <FontAwesomeIcon fx:id="btnDelete" fill="RED" glyphName="TIMES" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets top="40.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="722.0" prefWidth="250.0">
+                           <children>
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="200.0">
+                                 <children>
+                                    <FontAwesomeIcon fx:id="btnPrevAgent" glyphName="CARET_LEFT" size="2.08em">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <ComboBox fx:id="cbAgents" prefHeight="25.0" prefWidth="183.0" />
+                                    <FontAwesomeIcon fx:id="btnNextAgent" glyphName="CARET_RIGHT" size="2.05em">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                 </children>
+                              </HBox>
+                              <TextField fx:id="txtAgentFirstName" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAgentMiddleInitial" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAgentLastName" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAgentPhoneNumber" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAgentEmail" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAgentPosition" editable="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="txtAgentAgencyId" editable="false" prefHeight="25.0" prefWidth="129.0">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <FontAwesomeIcon fx:id="btnPrevAgencyId" glyphName="CARET_LEFT" size="2.08em">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                    <ComboBox fx:id="cbAgencyId" prefHeight="25.0" prefWidth="87.0" />
+                                    <FontAwesomeIcon fx:id="btnNextAgencyId" glyphName="CARET_RIGHT" size="2.05em">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
+                                 </children>
+                              </HBox>
+                              <FontAwesomeIcon fx:id="btnSaveAgent" glyphName="SAVE" size="2.08EM" visible="false">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </FontAwesomeIcon>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="40.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="425.0" prefWidth="24.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="385.0">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </Separator>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="425.0" prefWidth="547.0">
+                           <children>
+                              <Label contentDisplay="CENTER" prefHeight="25.0" prefWidth="563.0" text="All Agents:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TableView fx:id="tvAllAgents" prefHeight="338.0" prefWidth="492.0">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="40.0" top="15.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="423.0" prefHeight="297.0" prefWidth="1025.0">
+                     <children>
+                        <TextField fx:id="txtAgentId" editable="false" prefHeight="0.0" prefWidth="0.0" visible="false">
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                        </TextField>
+                        <VBox prefHeight="200.0" prefWidth="1025.0">
+                           <children>
+                              <Separator prefWidth="1025.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <Label contentDisplay="CENTER" prefHeight="25.0" prefWidth="970.0" text="Associated Customers:" textAlignment="RIGHT">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="40.0" right="40.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TableView fx:id="tvAssociatedCustomers" prefHeight="297.0" prefWidth="1032.0">
+                                 <VBox.margin>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="15.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </center>
+        </BorderPane>
+    </children>
+</GridPane>
