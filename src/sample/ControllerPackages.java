@@ -108,6 +108,12 @@ public class ControllerPackages {
     private Button btnSave;
 
     @FXML
+    private Button btnPkgDel;
+
+    @FXML
+    private Button btnPPSDel;
+
+    @FXML
     private ComboBox<PackagesProductsSuppliers> cbPackProdSup;
 
     @FXML
@@ -177,6 +183,9 @@ public class ControllerPackages {
         assert btnPPSAdd != null : "fx:id=\"btnPPSAdd\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPkgAdd != null : "fx:id=\"btnPPSAdd\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPPSDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPkgDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
+
 
 //  MENU BAR BUTTONS ===================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
@@ -221,7 +230,7 @@ public class ControllerPackages {
             }
         });
 
-        // SET DATE AND TIME OBJECT ============================================================================================
+// SET DATE AND TIME OBJECT ============================================================================================
         GUIMethods.GetDateTime(datetime);
 
 
@@ -256,9 +265,10 @@ public class ControllerPackages {
                 dpStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
                 dpEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
 
-//Populates the table of products and suppliers for packages
-tblProducts.getColumns().addAll();
 
+
+//Populates the table of products and suppliers for packages
+                tblProducts.getColumns().addAll();
             }
         });
         tblProducts.getItems().clear();
@@ -331,6 +341,15 @@ tblProducts.getColumns().addAll();
 
                     btnSave.setDisable(true);
                     btnEdit.setDisable(false);
+                    tfPkgName.setDisable(true);
+                    taDescription.setDisable(true);
+                    tfPrice.setDisable(true);
+                    tfCommission.setDisable(true);
+                    dpStartDate.setDisable(true);
+                    dpEndDate.setDisable(true);
+                    btnPkgAdd.setDisable(true);
+                    btnCancel.setDisable(true);
+                    btnPkgDel.setDisable(true);
                 }
 
             });
@@ -347,6 +366,9 @@ tblProducts.getColumns().addAll();
                     tfCommission.setDisable(false);
                     dpStartDate.setDisable(false);
                     dpEndDate.setDisable(false);
+                    btnPkgAdd.setDisable(false);
+                    btnCancel.setDisable(false);
+                    btnPkgDel.setDisable(false);
                 }
             });
 
@@ -354,7 +376,8 @@ tblProducts.getColumns().addAll();
             try {
                 Connection db = DAO.getConnection();
                 Statement stat = db.createStatement();
-                ResultSet rs = stat.executeQuery("select p.PackageId, pps.ProductSupplierId, s.SupplierId, p.PkgName, prod.ProdName, s.SupName from packages p " +
+                ResultSet rs = stat.executeQuery("select p.PackageId, pps.ProductSupplierId, s.SupplierId, " +
+                        "p.PkgName, prod.ProdName, s.SupName from packages p " +
                         "join Packages_Products_Suppliers pps on pps.PackageId = p.PackageId " +
                         "join Products_Suppliers ps on ps.ProductSupplierId = pps.ProductSupplierId " +
                         "join Products prod on prod.ProductId = ps.ProductId " +
@@ -370,6 +393,8 @@ tblProducts.getColumns().addAll();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+
 
 //PRODUCT SUPPLIERS CHOICE BOX
             try {
@@ -391,38 +416,206 @@ tblProducts.getColumns().addAll();
                 e.printStackTrace();
             }
 
+            cbPPSID.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ProductsSuppliers>() {
+                @Override
+                public void changed(ObservableValue<? extends ProductsSuppliers> observable, ProductsSuppliers oldValue, ProductsSuppliers t1) {
+                    tfPPSID.setText(t1.getProductSupplierId() + "");
+                }
+            });
+
+            cbPPSPkgID.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Packages>() {
+                @Override
+                public void changed(ObservableValue<? extends Packages> observable, Packages oldValue, Packages t1) {
+                    tfPackId.setText(t1.getPackageId() + "");
+                }
+            });
 
 
 //SET TEXT BOXES FOR PACKAGE ID AND PRODUCT/SUPPLIER ID
             cbPackProdSup.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PackagesProductsSuppliers>() {
                 @Override
-                public void changed(ObservableValue<? extends PackagesProductsSuppliers> observableValue, PackagesProductsSuppliers packages, PackagesProductsSuppliers t1) {
+                public void changed(ObservableValue<? extends PackagesProductsSuppliers> observableValue,
+                                    PackagesProductsSuppliers packages, PackagesProductsSuppliers t1) {
                     tfPackId.setText(t1.getPackageId() + "");
                     tfPPSID.setText(t1.getProductSupplierId() + "");
                 }
             });
 
 
-
 //EDIT BUTTON TO HANDLE PACKAGES PRODUCTS SUPPLIERS
             btnEditPPS.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                tfPackId.setDisable(false);
-                tfPPSID.setDisable(false);
-                btnEditPPS.setDisable(true);
-                btnPPSUpdate.setDisable(false);
+                    tfPackId.setDisable(false);
+                    tfPPSID.setDisable(false);
+                    btnEditPPS.setDisable(true);
+                    btnPPSUpdate.setDisable(false);
+                    btnPPSAdd.setDisable(false);
+                    btnCancel.setDisable(false);
+                    btnPPSDel.setDisable(false);
                 }
             });
 
+//UPDATE PPS DATABASE
             btnPPSUpdate.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    String sql = "UPDATE `packages_products_suppliers` " +
+                            "SET `PackageId`=?," +
+                            "`ProductSupplierId`=? " +
+                            "WHERE PackageId=?";
+                    try {
+                        Connection conn = DAO.getConnection();
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setLong(1, Long.parseLong(tfPackId.getText()));
+                        stmt.setLong(2, Long.parseLong(tfPPSID.getText()));
+                        stmt.setLong(3, Long.parseLong(tfPackId.getText()));
+
+                        int rowsAffected = stmt.executeUpdate();
+                        String output = (rowsAffected > 0) ? "Successful" : "Failed";
+                        System.out.println(output);
+
+                        conn.close();
+
+                    } catch (SQLException e) {
+                        System.out.println(e);
+                    }
                     btnEditPPS.setDisable(false);
+                    btnPPSUpdate.setDisable(true);
+                    tfPackId.setDisable(true);
+                    tfPPSID.setDisable(true);
+                    btnPPSDel.setDisable(true);
                 }
             });
 
+//ADD TO PPS DATABASE
+            btnPPSAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        String sql = "INSERT INTO `packages_products_suppliers`(`PackageId`, `ProductSupplierId`) " +
+                                "VALUES (" + Long.parseLong(tfPackId.getText()) + "," + Long.parseLong(tfPPSID.getText()) + ")";
+                        Connection conn = DAO.getConnection();
+                        PreparedStatement stmt = conn.prepareStatement(sql);
 
+                        int rowsAffected = stmt.executeUpdate();
+                        String output = (rowsAffected > 0) ? "Successful" : "Failed";
+                        System.out.println(output);
+
+                        conn.close();
+
+                    } catch (SQLException e) {
+                        System.out.println(e);
+                    }
+
+                }
+            });
+
+//ADD TO PACKAGES DATABASE
+            btnPkgAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String sql = "INSERT INTO packages (PkgName, PkgStartDate, PkgEndDate, PkgDesc, " +
+                            "PkgBasePrice, PkgAgencyCommission) " +
+                            "VALUES (? , ?, ?, ?, ?, ?)";
+                    Connection conn = DAO.getConnection();
+                    try {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, tfPkgName.getText());
+                        stmt.setString(2, String.valueOf(dpStartDate.getValue()));
+                        stmt.setString(3, String.valueOf(dpEndDate.getValue()));
+                        stmt.setString(4, taDescription.getText());
+                        stmt.setString(5, tfPrice.getText());
+                        stmt.setString(6, tfCommission.getText());
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("update worked");
+                        } else {
+                            System.out.println("update failed");
+                        }
+                        conn.close();
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    btnSave.setDisable(true);
+                    btnEdit.setDisable(false);
+                    tfPkgName.setDisable(true);
+                    taDescription.setDisable(true);
+                    tfPrice.setDisable(true);
+                    tfCommission.setDisable(true);
+                    dpStartDate.setDisable(true);
+                    dpEndDate.setDisable(true);
+                    btnPkgAdd.setDisable(true);
+                    btnCancel.setDisable(true);
+                    btnPkgDel.setDisable(true);
+                }
+            });
+
+//DELETE FROM PACKAGES
+            btnPkgDel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String sql = "DELETE FROM packages WHERE PkgName=?";
+                    Connection conn = DAO.getConnection();
+                    try {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, tfPkgName.getText());
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("DELETE worked");
+                        } else {
+                            System.out.println("DELETE failed");
+                        }
+                        conn.close();
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    btnSave.setDisable(true);
+                    btnEdit.setDisable(false);
+                    tfPkgName.setDisable(true);
+                    taDescription.setDisable(true);
+                    tfPrice.setDisable(true);
+                    tfCommission.setDisable(true);
+                    dpStartDate.setDisable(true);
+                    dpEndDate.setDisable(true);
+                    btnPkgAdd.setDisable(true);
+                    btnCancel.setDisable(true);
+                    btnPkgDel.setDisable(true);
+                }
+            });
+
+//DELETE FROM PPS
+            btnPPSDel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    String sql = "DELETE FROM packages_products_suppliers WHERE PackageId=? and ProductSupplierId=?";
+                    Connection conn = DAO.getConnection();
+                    try {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, tfPackId.getText());
+                        stmt.setString(2, tfPPSID.getText());
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("DELETE worked");
+                        } else {
+                            System.out.println("DELETE failed");
+                        }
+                        conn.close();
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    btnPPSUpdate.setDisable(true);
+                    btnEditPPS.setDisable(false);
+                    tfPPSID.setDisable(true);
+                    tfPackId.setDisable(true);
+                    btnPPSAdd.setDisable(true);
+                    btnCancel.setDisable(true);
+                    btnPPSDel.setDisable(true);
+                }
+            });
         }
-            }
-        }
+    }
+}

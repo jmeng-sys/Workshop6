@@ -165,9 +165,14 @@
                                     <TextField fx:id="tfCommission" disable="true" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                                        <children>
-                                          <Button id="btnEdit" fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
-                                          <Button id="btnSave" fx:id="btnSave" disable="true" mnemonicParsing="false" text="Save" />
-                                          <Button fx:id="btnPkgAdd" disable="true" mnemonicParsing="false" text="Add" />
+                                          <AnchorPane prefHeight="93.0" prefWidth="295.0">
+                                             <children>
+                                                <Button id="btnSave" fx:id="btnSave" disable="true" layoutX="199.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" text="Save" />
+                                                <Button fx:id="btnPkgAdd" disable="true" layoutX="92.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="78.0" text="Add" />
+                                                <Button id="btnEdit" fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
+                                                <Button fx:id="btnPkgDel" disable="true" layoutX="89.0" layoutY="46.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="83.0" text="Delete" />
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                        <VBox.margin>
                                           <Insets left="10.0" />
@@ -182,9 +187,9 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <VBox layoutX="1.0" layoutY="-1.0" prefHeight="538.0" prefWidth="711.0">
+                              <VBox layoutX="1.0" layoutY="-1.0" prefHeight="719.0" prefWidth="711.0">
                                  <children>
-                                    <TableView fx:id="tblProducts" prefHeight="200.0" prefWidth="411.0">
+                                    <TableView fx:id="tblProducts" prefHeight="342.0" prefWidth="711.0">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></TableView>
@@ -194,7 +199,7 @@
                                        </VBox.margin>
                                     </Button>
                                     <Separator prefHeight="12.0" prefWidth="711.0" />
-                                    <AnchorPane prefHeight="254.0" prefWidth="711.0">
+                                    <AnchorPane prefHeight="278.0" prefWidth="711.0">
                                        <children>
                                           <TextField fx:id="tfPPSID" disable="true" layoutX="192.0" layoutY="82.0" />
                                           <TextField fx:id="tfPackId" disable="true" layoutX="14.0" layoutY="82.0" />
@@ -205,11 +210,12 @@
                                           <Label layoutX="14.0" layoutY="59.0" text="Package" />
                                           <Label layoutX="192.0" layoutY="59.0" text="Product/Supplier ID" />
                                           <Button fx:id="btnPPSAdd" disable="true" layoutX="588.0" layoutY="152.0" mnemonicParsing="false" text="Add" />
+                                          <Button id="btnCancel" fx:id="btnCancel" cancelButton="true" disable="true" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="101.0" text="Cancel" />
+                                          <Button fx:id="btnPPSDel" disable="true" layoutX="619.0" layoutY="228.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="83.0" text="Delete" />
                                        </children>
                                     </AnchorPane>
                                  </children>
                               </VBox>
-                              <Button id="btnCancel" fx:id="btnCancel" cancelButton="true" disable="true" layoutX="617.0" layoutY="659.0" mnemonicParsing="false" text="Cancel" />
                            </children>
                         </AnchorPane>
                     </items>
