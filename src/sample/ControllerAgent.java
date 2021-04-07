@@ -23,6 +23,7 @@ import java.sql.Statement;
 public class ControllerAgent {
 
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+    private Boolean saveMode = false;
 
     @FXML
     private FontAwesomeIcon btnPrint;
@@ -103,6 +104,9 @@ public class ControllerAgent {
     private TextField txtAgentAgencyId;
 
     @FXML
+    private FontAwesomeIcon btnDelete;
+
+    @FXML
     void initialize() {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Agent.fxml'.";
@@ -130,10 +134,7 @@ public class ControllerAgent {
         assert btnPrevAgencyId != null : "fx:id=\"btnPrevAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnNextAgencyId != null : "fx:id=\"btnNextAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert txtAgentAgencyId != null : "fx:id=\"txtAgentAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
-
-
-
-
+        assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Agent.fxml'.";
 
 
 //MENU BUTTONS
@@ -164,7 +165,85 @@ public class ControllerAgent {
         buildAssociatedCustomersTable();
         cbAgents.getSelectionModel().selectedItemProperty().addListener((observableValue) -> buildAssociatedCustomersTable());
         cbAgencyId.setItems(setAgenciesCB());
+
+        btnEditAgent.setOnMouseClicked(event -> ToggleEditableAgentFields(true));
+        btnSaveAgent.setOnMouseClicked(event -> {
+            ToggleEditableAgentFields(false);
+            if(!saveMode) {
+                AgentDB.UpdateAgent(
+                        Integer.parseInt(txtAgentId.getText()),
+                        txtAgentFirstName.getText(),
+                        txtAgentMiddleInitial.getText(),
+                        txtAgentLastName.getText(),
+                        txtAgentPhoneNumber.getText(),
+                        txtAgentEmail.getText(),
+                        txtAgentPosition.getText(),
+                        Integer.parseInt(txtAgentAgencyId.getText()));
+            } else {
+                AgentDB.AddAgent
+                        (
+                        txtAgentFirstName.getText(),
+                        txtAgentMiddleInitial.getText(),
+                        txtAgentLastName.getText(),
+                        txtAgentPhoneNumber.getText(),
+                        txtAgentEmail.getText(),
+                        txtAgentPosition.getText(),
+                        Integer.parseInt(txtAgentAgencyId.getText())
+                        );
+                saveMode = false;
+                cbAgents.setDisable(false);
+                btnNextAgent.setDisable(false);
+                btnPrevAgent.setDisable(false);
+
+            }
+            cbAgents.setItems(AgentDB.FetchAgentList());
+            buildAgentsTable();
+            if (txtAgentId.getText() == "") {
+                cbAgents.getSelectionModel().selectLast();
+            } else {
+                cbAgents.getSelectionModel().select(Integer.parseInt(txtAgentId.getText()) - 1);
+            }
+        });
+
+        btnAddAgent.setOnMouseClicked(event -> {
+            cbAgents.getSelectionModel().clearSelection();
+            cbAgents.setDisable(true);
+            btnNextAgent.setDisable(true);
+            btnPrevAgent.setDisable(true);
+            txtAgentId.setText("");
+            txtAgentFirstName.setText("");
+            txtAgentMiddleInitial.setText("");
+            txtAgentLastName.setText("");
+            txtAgentPhoneNumber.setText("");
+            txtAgentEmail.setText("");
+            txtAgentPosition.setText("");
+            txtAgentAgencyId.setText("");
+
+            ToggleEditableAgentFields(true);
+            saveMode = true;
+        });
+
+        btnDelete.setOnMouseClicked(event -> {
+            if(!txtAgentId.getText().isEmpty()) {
+                try {
+                    Connection conn = DAO.getConnection();
+                    Statement myStmt = conn.createStatement();
+                    myStmt.executeUpdate("DELETE FROM agents WHERE agentId = " + txtAgentId.getText());
+                    conn.close();
+
+                    cbAgents.getSelectionModel().selectPrevious();
+                    setCBList();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        });
+
     }
+
+
 
 
     //    METHODS DEFINED ==================================================================================================
@@ -215,9 +294,9 @@ public class ControllerAgent {
         }
     }
 
-    private void GetReportsScene(){
+    private void GetReportsScene() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("reports.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
 
             Stage stage = (Stage) btnPrint.getScene().getWindow();
             Scene scene = new Scene(loader.load());
@@ -240,7 +319,6 @@ public class ControllerAgent {
             io.printStackTrace();
         }
     }
-
 
     private void setCBList() {
         cbAgents.setItems(AgentDB.FetchAgentList());
@@ -291,7 +369,6 @@ public class ControllerAgent {
             String SQL = "SELECT * FROM agents";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-                //We are using non property style for making dynamic table
                 final int j = i;
                 TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
                 tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
@@ -315,7 +392,7 @@ public class ControllerAgent {
     public void buildAssociatedCustomersTable() {
         tvAssociatedCustomers.getItems().clear();
         tvAssociatedCustomers.getColumns().clear();
-        if (tvAssociatedCustomers.getItems().isEmpty()) {
+        if (tvAssociatedCustomers.getItems().isEmpty() && txtAgentId.getText() != "") {
             Connection c;
             data = FXCollections.observableArrayList();
             try {
@@ -342,5 +419,27 @@ public class ControllerAgent {
                 System.out.println("Error on Building Data");
             }
         }
+    }
+
+    private void ToggleEditableAgentFields(boolean b) {
+        txtAgentFirstName.setEditable(b);
+        txtAgentMiddleInitial.setEditable(b);
+        txtAgentLastName.setEditable(b);
+        txtAgentPhoneNumber.setEditable(b);
+        txtAgentEmail.setEditable(b);
+        txtAgentAgencyId.setEditable(b);
+        txtAgentPosition.setEditable(b);
+
+        if(!b) {
+            btnSaveAgent.setVisible(false);
+            btnEditAgent.setVisible(true);
+            btnAddAgent.setVisible(true);
+        }
+        else if(b) {
+            btnEditAgent.setVisible(false);
+            btnSaveAgent.setVisible(true);
+            btnAddAgent.setVisible(false);
+        }
+
     }
 }

@@ -221,6 +221,11 @@
                                        </HBox.margin>
                                     </FontAwesomeIcon>
                                     <FontAwesomeIcon fx:id="btnEditAgent" glyphName="EDIT" size="2.08EM" />
+                                    <FontAwesomeIcon fx:id="btnDelete" fill="RED" glyphName="TIMES" size="2.08EM">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </FontAwesomeIcon>
                                  </children>
                               </HBox>
                            </children>
@@ -245,39 +250,39 @@
                                     </FontAwesomeIcon>
                                  </children>
                               </HBox>
-                              <TextField fx:id="txtAgentFirstName">
+                              <TextField fx:id="txtAgentFirstName" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="txtAgentMiddleInitial">
+                              <TextField fx:id="txtAgentMiddleInitial" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="txtAgentLastName">
+                              <TextField fx:id="txtAgentLastName" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="txtAgentPhoneNumber">
+                              <TextField fx:id="txtAgentPhoneNumber" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="txtAgentEmail">
+                              <TextField fx:id="txtAgentEmail" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="txtAgentPosition">
+                              <TextField fx:id="txtAgentPosition" editable="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
                               <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="txtAgentAgencyId" prefHeight="25.0" prefWidth="129.0">
+                                    <TextField fx:id="txtAgentAgencyId" editable="false" prefHeight="25.0" prefWidth="129.0">
                                        <HBox.margin>
                                           <Insets left="15.0" right="15.0" top="15.0" />
                                        </HBox.margin>
@@ -295,7 +300,7 @@
                                     </FontAwesomeIcon>
                                  </children>
                               </HBox>
-                              <FontAwesomeIcon fx:id="btnSaveAgent" glyphName="SAVE" size="2.08EM">
+                              <FontAwesomeIcon fx:id="btnSaveAgent" glyphName="SAVE" size="2.08EM" visible="false">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>

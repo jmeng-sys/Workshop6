@@ -81,6 +81,42 @@ public class AgentDB {
     }
 
 
+    public static void AddAgent(String AgtFirstName,
+                                 String AgtMiddleInitial,
+                                 String AgtLastName,
+                                 String AgtBusPhone,
+                                 String AgtEmail,
+                                 String AgtPosition,
+                                 int AgencyId) {
+        @SuppressWarnings("SqlResolve") String sql = "INSERT INTO `agents`(" +
+                "`AgtFirstName`," +
+                "`AgtMiddleInitial`," +
+                "`AgtLastName`," +
+                "`AgtBusPhone`," +
+                "`AgtEmail`," +
+                "`AgtPosition`," +
+                "`AgencyId`) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        try {
+            Connection conn = DAO.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, AgtFirstName);
+            stmt.setString(2, AgtMiddleInitial);
+            stmt.setString(3, AgtLastName);
+            stmt.setString(4, AgtBusPhone);
+            stmt.setString(5, AgtEmail);
+            stmt.setString(6, AgtPosition);
+            stmt.setInt(7, AgencyId);
 
+            int rowsAffected = stmt.executeUpdate();
+            String output = (rowsAffected > 0) ? "Successful" : "Failed";
+            System.out.println(output);
+
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
 }
