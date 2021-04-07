@@ -95,12 +95,6 @@ public class ControllerAgent {
     private FontAwesomeIcon btnNextAgent;
 
     @FXML
-    private FontAwesomeIcon btnPrevAgencyId;
-
-    @FXML
-    private FontAwesomeIcon btnNextAgencyId;
-
-    @FXML
     private TextField txtAgentAgencyId;
 
     @FXML
@@ -131,8 +125,6 @@ public class ControllerAgent {
         assert txtAgentId != null : "fx:id=\"AgentId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnPrevAgent != null : "fx:id=\"btnPrevAgent\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnNextAgent != null : "fx:id=\"btnNextAgent\" was not injected: check your FXML file 'Agent.fxml'.";
-        assert btnPrevAgencyId != null : "fx:id=\"btnPrevAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
-        assert btnNextAgencyId != null : "fx:id=\"btnNextAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert txtAgentAgencyId != null : "fx:id=\"txtAgentAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Agent.fxml'.";
 
@@ -149,9 +141,6 @@ public class ControllerAgent {
 
         btnNextAgent.setOnMouseClicked(event -> cbAgents.getSelectionModel().selectNext());
         btnPrevAgent.setOnMouseClicked(event -> cbAgents.getSelectionModel().selectPrevious());
-        btnNextAgencyId.setOnMouseClicked(event -> cbAgencyId.getSelectionModel().selectNext());
-        btnPrevAgencyId.setOnMouseClicked(event -> cbAgencyId.getSelectionModel().selectPrevious());
-
 
 // NAVIGATE TO LOGIN
         btnLogin.setOnMouseClicked(event -> GetAgentsScene());
