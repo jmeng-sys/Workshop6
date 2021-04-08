@@ -1,12 +1,9 @@
 package sample;
 
-import database.AgentAccountsDB;
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,9 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import objects.Agent;
 import objects.GUIMethods;
-import sample.Controller;
 
 public class ControllerLogin {
 
@@ -198,7 +192,7 @@ public class ControllerLogin {
     {
         System.out.println("on route to sample");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) btnHome.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());

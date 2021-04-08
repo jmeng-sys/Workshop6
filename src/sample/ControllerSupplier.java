@@ -5,10 +5,6 @@
 package sample;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,6 +16,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class ControllerSupplier {
 

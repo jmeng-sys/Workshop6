@@ -220,7 +220,7 @@ public class ControllerPackages {
         btnHome.setOnMouseClicked(event -> {
             System.out.println("on route to sample");
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
                 Stage stage = (Stage) btnHome.getScene().getWindow();
                 Scene scene = new Scene(loader.load());
                 scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());

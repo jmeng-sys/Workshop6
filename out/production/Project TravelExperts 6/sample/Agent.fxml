@@ -287,17 +287,10 @@
                                           <Insets left="15.0" right="15.0" top="15.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <FontAwesomeIcon fx:id="btnPrevAgencyId" glyphName="CARET_LEFT" size="2.08em">
+                                    <ComboBox fx:id="cbAgencyId" prefHeight="25.0" prefWidth="87.0">
                                        <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </FontAwesomeIcon>
-                                    <ComboBox fx:id="cbAgencyId" prefHeight="25.0" prefWidth="87.0" />
-                                    <FontAwesomeIcon fx:id="btnNextAgencyId" glyphName="CARET_RIGHT" size="2.05em">
-                                       <HBox.margin>
-                                          <Insets left="5.0" right="15.0" />
-                                       </HBox.margin>
-                                    </FontAwesomeIcon>
+                                          <Insets right="15.0" />
+                                       </HBox.margin></ComboBox>
                                  </children>
                               </HBox>
                               <FontAwesomeIcon fx:id="btnSaveAgent" glyphName="SAVE" size="2.08EM" visible="false">

@@ -1,22 +1,11 @@
 package sample;
 
-import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import objects.GUIMethods;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -25,12 +14,6 @@ public class Controller {
 
     @FXML
     private Label dateTime;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private FontAwesomeIcon btnUser;
@@ -63,155 +46,51 @@ public class Controller {
     private HBox btnAgents;
 
     @FXML
+    private FontAwesomeIcon btnHome;
+
+    @FXML
     void initialize() {
-        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnReports != null : "fx:id=\"btnReports\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnSupplier != null : "fx:id=\"btnSupplier\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnProducts != null : "fx:id=\"btnProducts\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnPackages != null : "fx:id=\"btnPackages\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnOptions != null : "fx:id=\"btnPrint1\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'sample.fxml'.";
-        assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnAgents != null : "fx:id=\"btnAgents\" was not injected: check your FXML file 'sample.fxml'.";
-//MENU BUTTONS
-        changeAgentName();
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnReports != null : "fx:id=\"btnReports\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnSupplier != null : "fx:id=\"btnSupplier\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnProducts != null : "fx:id=\"btnProducts\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnPackages != null : "fx:id=\"btnPackages\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnOptions != null : "fx:id=\"btnPrint1\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Home.fxml'.";
+        assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnAgents != null : "fx:id=\"btnAgents\" was not injected: check your FXML file 'Home.fxml'.";
+        assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Home.fxml'.";
+
+//DASHBOARD BUTTONS ====================================================================================================
+        btnReports.setOnMouseClicked(event -> { GetReportsScene(); });
+        btnPackages.setOnMouseClicked(event -> { GetPackagesScene(); });
+        btnSupplier.setOnMouseClicked(event -> { GetSupplierScene(); });
+        btnAgents.setOnMouseClicked(event -> { GetAgentScene(); });
+        btnProducts.setOnMouseClicked(event -> { GetProductScene(); });
+
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-// NAVIGATE TO REPORTS =================================================================================================
-        btnReports.setOnMouseClicked(event -> {
-            GetReportsScene();
-        });
-
-        btnPrint.setOnMouseClicked(event -> {
-            GetReportsScene();
-        });
-
-        btnOptions.setOnMouseClicked(event -> {
-            GetOptionsScene();
-        });
-        btnPackages.setOnMouseClicked(event -> {
-            GetPackagesScene();
-        });
-        btnSupplier.setOnMouseClicked(event -> {
-            GetSupplierScene();
-        });
-        btnAgents.setOnMouseClicked(event -> {
-            GetAgentScene();
-        });
-// NAVIGATE TO LOGIN
-        btnLogin.setOnMouseClicked(event -> {
-            GetLoginsScene();
-        });
-// SET DATE AND TIME OBJECT ============================================================================================
+        btnPrint.setOnMouseClicked(event -> { GetPrintScene(); });
+        btnOptions.setOnMouseClicked(event -> { GetOptionsScene(); });
+        btnLogin.setOnMouseClicked(event -> { GetLoginsScene(); });
+        btnHome.setOnMouseClicked(event -> { GetHomeScene(); });
+//        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
+// DASHBOARD METHODS ====== ============================================================================================
+        DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(dateTime);
     }
+// CONTROLLER METHODS ==================================================================================================
+    private void GetReportsScene() { DashboardMethods.HboxGetScene("PrintTable.fxml", btnReports); }
+    private void GetPackagesScene() { DashboardMethods.HboxGetScene("Packages.fxml", btnPackages); }
+    private void GetSupplierScene() { DashboardMethods.HboxGetScene("Supplier.fxml", btnSupplier); }
+    private void GetAgentScene() { DashboardMethods.HboxGetScene("Agent.fxml", btnAgents); }
+    private void GetProductScene() { DashboardMethods.HboxGetScene("Products.fxml", btnProducts); }
 
-
-//    METHODS DEFINED ==================================================================================================
-    private void GetReportsScene() {
-        System.out.println("on route to print Table");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-            Stage stage = (Stage) btnReports.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetLoginsScene() {
-        System.out.println("Loading login scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetOptionsScene() {
-        System.out.println("Loading Options scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SystemDiagnostics.fxml"));
-
-            Stage stage = (Stage) btnOptions.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetPackagesScene() {
-        System.out.println("Loading Packages scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Packages.fxml"));
-
-            Stage stage = (Stage) btnPackages.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetSupplierScene() {
-        System.out.println("Loading Suppliers scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Supplier.fxml"));
-
-            Stage stage = (Stage) btnSupplier.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetAgentScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Agent.fxml"));
-
-            Stage stage = (Stage) btnAgents.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void changeAgentName()
-    {
-        System.out.println("Trying to change name.");
-        if(Main.getLoggedIn())
-        {
-            try
-            {
-                Connection conn = DAO.getConnection();
-                Statement myStmt = conn.createStatement();
-                ResultSet rs = myStmt.executeQuery("Select AgtFirstName, AgtLastName from agents where AgentId = " + Main.getLoggedInAgentId());
-                rs.next();
-                System.out.println(rs.getString(1));
-                System.out.println(rs.getString(2));
-                lblAgentName.setText(rs.getString(1) + " " + rs.getString(2));
-            }
-            catch (SQLException throwables)
-            {
-                throwables.printStackTrace();
-            }
-        }
-    }
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
+//    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
 }
