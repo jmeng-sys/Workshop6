@@ -167,15 +167,7 @@ public class ControllerAgent {
     private void SaveNewOrEditedAgent() {
         ToggleEditableAgentFields(false);
         if (!saveMode) {
-            AgentDB.UpdateAgent(
-                    Integer.parseInt(txtAgentId.getText()),
-                    txtAgentFirstName.getText(),
-                    txtAgentMiddleInitial.getText(),
-                    txtAgentLastName.getText(),
-                    txtAgentPhoneNumber.getText(),
-                    txtAgentEmail.getText(),
-                    txtAgentPosition.getText(),
-                    Integer.parseInt(txtAgentAgencyId.getText()));
+            getTextFieldValuesExceptId();
         } else {
             AgentDB.AddAgent
                     (
@@ -197,6 +189,18 @@ public class ControllerAgent {
         if (txtAgentId.getText().equals("")) cbAgents.getSelectionModel().selectLast();
         else cbAgents.getSelectionModel().select(Integer.parseInt(txtAgentId.getText()) - 1);
         buildAgentsTable();
+    }
+
+    private void getTextFieldValuesExceptId() {
+        AgentDB.UpdateAgent(
+                Integer.parseInt(txtAgentId.getText()),
+                txtAgentFirstName.getText(),
+                txtAgentMiddleInitial.getText(),
+                txtAgentLastName.getText(),
+                txtAgentPhoneNumber.getText(),
+                txtAgentEmail.getText(),
+                txtAgentPosition.getText(),
+                Integer.parseInt(txtAgentAgencyId.getText()));
     }
 
     private void setCBList() {
@@ -263,22 +267,7 @@ public class ControllerAgent {
         try{
             c = DAO.getConnection();
             String SQL = "SELECT * FROM agents";
-            ResultSet rs = c.createStatement().executeQuery(SQL);
-            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-                final int j = i;
-                TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
-                tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                tvAllAgents.getColumns().add(tableColumn);
-            }
-            while(rs.next()){
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                    row.add(rs.getString(i));
-                }
-                data.add(row);
-            }
-            tvAllAgents.getItems().addAll(data);
-            c.close();
+            LoopTableData(c, SQL, tvAllAgents, data);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -293,27 +282,35 @@ public class ControllerAgent {
             try {
                 c = DAO.getConnection();
                 String SQL = "SELECT * FROM customers WHERE AgentId = " + txtAgentId.getText();
-                ResultSet rs = c.createStatement().executeQuery(SQL);
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    final int j = i;
-                    TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
-                    tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                    tvAssociatedCustomers.getColumns().add(tableColumn);
-                }
-                while (rs.next()) {
-                    ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-                        row.add(rs.getString(i));
-                    }
-                    data.add(row);
-                }
-                tvAssociatedCustomers.getItems().addAll(data);
-                c.close();
+                queryTableData(c, SQL, tvAssociatedCustomers, data);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error on Building Data");
             }
         }
+    }
+
+    static void queryTableData(Connection c, String SQL, TableView<ObservableList<String>> tvAssociatedCustomers, ObservableList<ObservableList<String>> data) throws SQLException {
+        LoopTableData(c, SQL, tvAssociatedCustomers, data);
+    }
+
+    private static void LoopTableData(Connection c, String SQL, TableView<ObservableList<String>> tvAssociatedCustomers, ObservableList<ObservableList<String>> data) throws SQLException {
+        ResultSet rs = c.createStatement().executeQuery(SQL);
+        for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+            final int j = i;
+            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
+            tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
+            tvAssociatedCustomers.getColumns().add(tableColumn);
+        }
+        while (rs.next()) {
+            ObservableList<String> row = FXCollections.observableArrayList();
+            for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                row.add(rs.getString(i));
+            }
+            data.add(row);
+        }
+        tvAssociatedCustomers.getItems().addAll(data);
+        c.close();
     }
 
     private void ToggleEditableAgentFields(boolean b) {
@@ -329,7 +326,7 @@ public class ControllerAgent {
             btnEditAgent.setVisible(true);
             btnAddAgent.setVisible(true);
         }
-        else if(b) {
+        else {
             btnEditAgent.setVisible(false);
             btnSaveAgent.setVisible(true);
             btnAddAgent.setVisible(false);

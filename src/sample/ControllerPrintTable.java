@@ -139,23 +139,7 @@ public class ControllerPrintTable {
             try {
                 Connection conn = DAO.getConnection();
                 String dataQuery = "SELECT * FROM " + t1;
-                ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
-
-                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
-                    final int j = i;
-                    TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
-                    tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                    tableDatabase.getColumns().add(tableColumn);
-                }
-                while (tableValues.next()) {
-                    ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
-                        row.add(tableValues.getString(i));
-                    }
-                    data.add(row);
-                }
-                tableDatabase.getItems().addAll(data);
-                conn.close();
+                ControllerAgent.queryTableData(conn, dataQuery, tableDatabase, data);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

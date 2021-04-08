@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DashboardMethods {
+
 //METHOD FOR CARDS ON MAIN PAGE TO LOAD SCENES ========================================================================
     public static void HboxGetScene(String s, HBox b) {
         try {
