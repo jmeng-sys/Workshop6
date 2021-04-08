@@ -266,6 +266,8 @@ public class ControllerAgent {
         data = FXCollections.observableArrayList();
         try{
             c = DAO.getConnection();
+            tvAllAgents.getItems().clear();
+            tvAllAgents.getColumns().clear();
             String SQL = "SELECT * FROM agents";
             LoopTableData(c, SQL, tvAllAgents, data);
         }catch(Exception e){
