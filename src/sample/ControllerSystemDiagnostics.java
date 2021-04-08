@@ -284,23 +284,7 @@ public class ControllerSystemDiagnostics {
             e.printStackTrace();
         }
 
-        try {
-            DatabaseMetaData databaseMetaData = DAO.getConnection().getMetaData();
-            ResultSet tables = databaseMetaData.getTables(
-                    "TRAVELEXPERTS",
-                    "1",
-                    null,
-                    new String[]{"TABLE"});
-
-            ObservableList<String> tableList = FXCollections.observableArrayList();
-
-            while (tables.next()) {
-                tableList.add(tables.getString("TABLE_NAME"));
-            }
-            cbTables.setItems(tableList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ControllerPrintTable.getAllTableNames(cbTables);
         cbTables.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             tfTableHealth.clear();
             data = FXCollections.observableArrayList();
