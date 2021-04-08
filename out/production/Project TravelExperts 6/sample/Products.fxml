@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -147,27 +146,87 @@
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <VBox layoutY="1.0" prefHeight="721.0" prefWidth="463.0">
+                  <VBox layoutY="1.0" prefHeight="722.0" prefWidth="405.0" styleClass="ProductPane">
                      <children>
-                        <Label text="Products" />
-                        <ComboBox fx:id="cbProducts" prefWidth="150.0" />
-                        <Label text="Product Name" />
-                        <TextField fx:id="tfProductName" editable="false" />
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <Label layoutX="10.0" layoutY="346.0" text="Products Table" underline="true">
+                           <VBox.margin>
+                              <Insets left="140.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tblProducts" prefHeight="305.0" prefWidth="422.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                        <Label layoutX="10.0" layoutY="136.0" text="Product Id">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfProductId" editable="false" layoutX="10.0" layoutY="111.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label layoutX="10.0" layoutY="94.0" text="Product Name">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfProductName" editable="false" layoutX="10.0" layoutY="157.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label fx:id="lblError" alignment="CENTER" prefHeight="18.0" prefWidth="384.0" textFill="RED">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="49.0" prefWidth="406.0">
                            <children>
-                              <Button fx:id="btnEdit" mnemonicParsing="false" text="Edit" />
-                              <Button fx:id="btnSave" mnemonicParsing="false" text="Save" />
+                              <Button fx:id="btnAdd" mnemonicParsing="false" text="Add">
+                                 <HBox.margin>
+                                    <Insets left="40.0" right="50.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btnModify" mnemonicParsing="false" text="Modify" />
+                              <Button fx:id="btnSave" mnemonicParsing="false" text="Save">
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
+                                 </HBox.margin></Button>
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </HBox>
+                        <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel">
+                           <VBox.margin>
+                              <Insets left="155.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
-                  <ComboBox layoutX="491.0" layoutY="23.0" prefWidth="150.0" />
-                  <TableView fx:id="tblProducts" layoutX="491.0" layoutY="89.0" prefHeight="200.0" prefWidth="482.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <ComboBox fx:id="cbFilterByProd" layoutX="419.0" layoutY="47.0" prefHeight="26.0" prefWidth="166.0" />
+                  <TableView fx:id="tblProdSupp" layoutX="419.0" layoutY="119.0" prefHeight="498.0" prefWidth="579.0" />
+                  <Label layoutX="419.0" layoutY="26.0" text="Filter by Product Type" />
+                  <Button fx:id="btnClearFilter" layoutX="851.0" layoutY="39.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="146.0" text="Clear Filter" />
+                  <Label layoutX="623.0" layoutY="26.0" text="Filter by Supplier Type" />
+                  <ComboBox fx:id="cbFilterBySupp" layoutX="623.0" layoutY="47.0" prefHeight="26.0" prefWidth="166.0" />
+                  <Label layoutX="626.0" layoutY="90.0" text="Products_Suppliers Table">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
             </center>
         </BorderPane>

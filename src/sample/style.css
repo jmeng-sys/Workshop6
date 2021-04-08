@@ -78,6 +78,10 @@
     -fx-background-color: #89CFEB;
 }
 
+.ProductPane {
+    -fx-background-color: lightgrey;
+}
+
 .loginBtn{
     -fx-background-color: #89CFEB;
     -fx-text-fill: #091530;

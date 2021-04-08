@@ -18,4 +18,7 @@ public class Product
 
     public String getProdName() { return prodName; }
     public void setProdName(String prodName) { this.prodName = prodName; }
+
+    @Override
+    public String toString() { return prodName; }
 }
