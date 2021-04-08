@@ -2,12 +2,6 @@ package sample;
 
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,16 +9,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import objects.GUIMethods;
 import objects.Packages;
 import objects.PackagesProductsSuppliers;
 import objects.ProductsSuppliers;
+
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class ControllerPackages {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();

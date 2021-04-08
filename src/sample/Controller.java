@@ -65,19 +65,19 @@ public class Controller {
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Home.fxml'.";
 
 //DASHBOARD BUTTONS ====================================================================================================
-        btnReports.setOnMouseClicked(event -> { GetReportsScene(); });
-        btnPackages.setOnMouseClicked(event -> { GetPackagesScene(); });
-        btnSupplier.setOnMouseClicked(event -> { GetSupplierScene(); });
-        btnAgents.setOnMouseClicked(event -> { GetAgentScene(); });
-        btnProducts.setOnMouseClicked(event -> { GetProductScene(); });
+        btnReports.setOnMouseClicked(event -> GetReportsScene());
+        btnPackages.setOnMouseClicked(event -> GetPackagesScene());
+        btnSupplier.setOnMouseClicked(event -> GetSupplierScene());
+        btnAgents.setOnMouseClicked(event -> GetAgentScene());
+        btnProducts.setOnMouseClicked(event -> GetProductScene());
 
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-        btnPrint.setOnMouseClicked(event -> { GetPrintScene(); });
-        btnOptions.setOnMouseClicked(event -> { GetOptionsScene(); });
-        btnLogin.setOnMouseClicked(event -> { GetLoginsScene(); });
-        btnHome.setOnMouseClicked(event -> { GetHomeScene(); });
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
+        btnOptions.setOnMouseClicked(event -> GetOptionsScene());
+        btnLogin.setOnMouseClicked(event -> GetLoginsScene());
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
 //        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
-// DASHBOARD METHODS ====== ============================================================================================
+// DASHBOARD METHODS ===================================================================================================
         DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(dateTime);
     }
