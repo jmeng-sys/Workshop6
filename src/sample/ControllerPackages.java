@@ -17,21 +17,13 @@ import objects.Packages;
 import objects.PackagesProductsSuppliers;
 import objects.ProductsSuppliers;
 
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 
 public class ControllerPackages {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
     private Label datetime;
-
-    @FXML
-    private URL location;
 
     @FXML
     private FontAwesomeIcon btnPrint;
@@ -142,7 +134,11 @@ public class ControllerPackages {
     private Button btnCancel;
 
     @FXML
+    private Label lblAgentName;
+
+    @FXML
     void initialize() {
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Packages.fxml'.";
         assert datetime != null : "fx:id=\"datetime\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Packages.fxml'.";
@@ -180,19 +176,16 @@ public class ControllerPackages {
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPPSDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPkgDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
-
-
+// DASHBOARD BUTTONS ==================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-        btnPrint.setOnMouseClicked(event -> { GetPrintScene(); });
-        btnOptions.setOnMouseClicked(event -> { GetOptionsScene(); });
-//        btnLogin.setOnMouseClicked(event -> { GetLoginsScene(); });
-        btnHome.setOnMouseClicked(event -> { GetHomeScene(); });
-//        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
-
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
+        btnOptions.setOnMouseClicked(event -> GetOptionsScene());
+        btnLogin.setOnMouseClicked(event -> GetLoginsScene());
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
+        btnUser.setOnMouseClicked(event -> GetUserScene());
 // DASHBOARD METHODS ====== ============================================================================================
 //        DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(datetime);
-
 //Connect to Database for ComboBox
         try {
             Connection db = DAO.getConnection();
@@ -201,35 +194,32 @@ public class ControllerPackages {
 
             ObservableList<Packages> pkgs = FXCollections.observableArrayList();
             while (rs.next()) {
-                pkgs.add(new Packages(rs.getInt(1), rs.getString(2), rs.getTimestamp(3),
-                        rs.getTimestamp(4), rs.getString(5), rs.getDouble(6),
+                pkgs.add(new Packages(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getTimestamp(3),
+                        rs.getTimestamp(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
                         rs.getDouble(7)));
             }
-
             cbPkg.setItems(pkgs);
             cbPPSPkgID.setItems(pkgs);
-
             db.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        cbPkg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Packages>() {
-            @Override
-            public void changed(ObservableValue<? extends Packages> observableValue, Packages packages, Packages t1) {
-                tfPkgName.setText(t1.getPkgName());
-                taDescription.setText(t1.getPkgDesc());
-                tfPrice.setText(t1.getPkgBasePrice() + "");
-                tfCommission.setText(t1.getPkgAgencyCommission() + "");
-                dpStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
-                dpEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
-                tblProducts.getColumns().addAll();
-            }
+        cbPkg.getSelectionModel().selectedItemProperty().addListener((observableValue, packages, t1) -> {
+            tfPkgName.setText(t1.getPkgName());
+            taDescription.setText(t1.getPkgDesc());
+            tfPrice.setText(t1.getPkgBasePrice() + "");
+            tfCommission.setText(t1.getPkgAgencyCommission() + "");
+            dpStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
+            dpEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
+            tblProducts.getColumns().addAll();
         });
 
-
-
-//    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
         tblProducts.getItems().clear();
         tblProducts.getColumns().clear();
         if (tblProducts.getItems().isEmpty()) {
@@ -264,71 +254,64 @@ public class ControllerPackages {
 
 //SAVE BUTTON TO HANDLE PACKAGES
 
-            btnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    String sql = "UPDATE `packages` " +
-                            "SET `PackageId`=?," +
-                            "`PkgName`=?," +
-                            "`PkgStartDate`=?," +
-                            "`PkgEndDate`=?," +
-                            "`PkgDesc`=?," +
-                            "`PkgBasePrice`=?," +
-                            "`PkgAgencyCommission`=?" +
-                            "WHERE PackageId=?";
-                    try {
-                        Connection conn = DAO.getConnection();
-                        PreparedStatement stmt = conn.prepareStatement(sql);
-                        stmt.setLong(1, Long.parseLong(String.valueOf(cbPkg.getValue().getPackageId())));
-                        stmt.setString(2, tfPkgName.getText());
-                        stmt.setDate(3, Date.valueOf(dpStartDate.getValue()));
-                        stmt.setDate(4, Date.valueOf(dpEndDate.getValue()));
-                        stmt.setString(5, taDescription.getText());
-                        stmt.setDouble(6, Double.parseDouble(tfPrice.getText()));
-                        stmt.setDouble(7, Double.parseDouble(tfCommission.getText()));
-                        stmt.setLong(8, Long.parseLong(String.valueOf(cbPkg.getValue().getPackageId())));
+            btnSave.setOnMouseClicked(event -> {
+                String sql = "UPDATE `packages` " +
+                        "SET `PackageId`=?," +
+                        "`PkgName`=?," +
+                        "`PkgStartDate`=?," +
+                        "`PkgEndDate`=?," +
+                        "`PkgDesc`=?," +
+                        "`PkgBasePrice`=?," +
+                        "`PkgAgencyCommission`=?" +
+                        "WHERE PackageId=?";
+                try {
+                    Connection conn = DAO.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setLong(1, Long.parseLong(String.valueOf(cbPkg.getValue().getPackageId())));
+                    stmt.setString(2, tfPkgName.getText());
+                    stmt.setDate(3, Date.valueOf(dpStartDate.getValue()));
+                    stmt.setDate(4, Date.valueOf(dpEndDate.getValue()));
+                    stmt.setString(5, taDescription.getText());
+                    stmt.setDouble(6, Double.parseDouble(tfPrice.getText()));
+                    stmt.setDouble(7, Double.parseDouble(tfCommission.getText()));
+                    stmt.setLong(8, Long.parseLong(String.valueOf(cbPkg.getValue().getPackageId())));
 
-                        int rowsAffected = stmt.executeUpdate();
-                        String output = (rowsAffected > 0) ? "Successful" : "Failed";
-                        System.out.println(output);
+                    int rowsAffected = stmt.executeUpdate();
+                    String output = (rowsAffected > 0) ? "Successful" : "Failed";
+                    System.out.println(output);
 
-                        conn.close();
+                    conn.close();
 
-                    } catch (SQLException e) {
-                        System.out.println(e);
-                    }
-
-                    btnSave.setDisable(true);
-                    btnEdit.setDisable(false);
-                    tfPkgName.setDisable(true);
-                    taDescription.setDisable(true);
-                    tfPrice.setDisable(true);
-                    tfCommission.setDisable(true);
-                    dpStartDate.setDisable(true);
-                    dpEndDate.setDisable(true);
-                    btnPkgAdd.setDisable(true);
-                    btnCancel.setDisable(true);
-                    btnPkgDel.setDisable(true);
+                } catch (SQLException e) {
+                    System.out.println(e);
                 }
 
+                btnSave.setDisable(true);
+                btnEdit.setDisable(false);
+                tfPkgName.setDisable(true);
+                taDescription.setDisable(true);
+                tfPrice.setDisable(true);
+                tfCommission.setDisable(true);
+                dpStartDate.setDisable(true);
+                dpEndDate.setDisable(true);
+                btnPkgAdd.setDisable(true);
+                btnCancel.setDisable(true);
+                btnPkgDel.setDisable(true);
             });
 
 //EDIT BUTTON TO HANDLE PACKAGES
-            btnEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    btnSave.setDisable(false);
-                    btnEdit.setDisable(true);
-                    tfPkgName.setDisable(false);
-                    taDescription.setDisable(false);
-                    tfPrice.setDisable(false);
-                    tfCommission.setDisable(false);
-                    dpStartDate.setDisable(false);
-                    dpEndDate.setDisable(false);
-                    btnPkgAdd.setDisable(false);
-                    btnCancel.setDisable(false);
-                    btnPkgDel.setDisable(false);
-                }
+            btnEdit.setOnMouseClicked(event -> {
+                btnSave.setDisable(false);
+                btnEdit.setDisable(true);
+                tfPkgName.setDisable(false);
+                taDescription.setDisable(false);
+                tfPrice.setDisable(false);
+                tfCommission.setDisable(false);
+                dpStartDate.setDisable(false);
+                dpEndDate.setDisable(false);
+                btnPkgAdd.setDisable(false);
+                btnCancel.setDisable(false);
+                btnPkgDel.setDisable(false);
             });
 
 //COMBO BOX FOR PACKAGES/PRODUCTS/SUPPLIERS
