@@ -182,52 +182,16 @@ public class ControllerPackages {
         assert btnPkgDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
 
 
-//  MENU BAR BUTTONS ===================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
+        btnPrint.setOnMouseClicked(event -> { GetPrintScene(); });
+        btnOptions.setOnMouseClicked(event -> { GetOptionsScene(); });
+//        btnLogin.setOnMouseClicked(event -> { GetLoginsScene(); });
+        btnHome.setOnMouseClicked(event -> { GetHomeScene(); });
+//        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
 
-        btnPrint.setOnMouseClicked(event -> {
-            System.out.println("Loading Print Scene");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-                Stage stage = (Stage) btnPrint.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        });
-
-        btnAgentLogin.setOnMouseClicked(event -> {
-            System.out.println("on route to sample");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-                Stage stage = (Stage) btnAgentLogin.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        });
-
-        btnHome.setOnMouseClicked(event -> {
-            System.out.println("on route to sample");
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-                Stage stage = (Stage) btnHome.getScene().getWindow();
-                Scene scene = new Scene(loader.load());
-                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException io) {
-                io.printStackTrace();
-            }
-        });
-
-// SET DATE AND TIME OBJECT ============================================================================================
+// DASHBOARD METHODS ====== ============================================================================================
+//        DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(datetime);
-
 
 //Connect to Database for ComboBox
         try {
@@ -259,13 +223,13 @@ public class ControllerPackages {
                 tfCommission.setText(t1.getPkgAgencyCommission() + "");
                 dpStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
                 dpEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
-
-
-
-//Populates the table of products and suppliers for packages
                 tblProducts.getColumns().addAll();
             }
         });
+
+
+
+//    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
         tblProducts.getItems().clear();
         tblProducts.getColumns().clear();
         if (tblProducts.getItems().isEmpty()) {
@@ -388,7 +352,6 @@ public class ControllerPackages {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
 
 
 //PRODUCT SUPPLIERS CHOICE BOX
@@ -613,4 +576,9 @@ public class ControllerPackages {
             });
         }
     }
+// DASHBOARD METHODS ==================================================================================================
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    //private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
 }

@@ -335,4 +335,21 @@ public class ControllerAgent {
             btnAddAgent.setVisible(false);
         }
     }
+
+    private void DeleteSelectedAgent() {
+        if(!txtAgentId.getText().isEmpty()) {
+            try {
+                Connection conn = DAO.getConnection();
+                Statement myStmt = conn.createStatement();
+                myStmt.executeUpdate("DELETE FROM agents WHERE agentId = " + txtAgentId.getText());
+                conn.close();
+
+                cbAgents.getSelectionModel().selectPrevious();
+                setCBList();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
