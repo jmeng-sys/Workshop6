@@ -7,6 +7,8 @@ package sample;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.net.URL;
 import java.sql.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -140,12 +142,7 @@ public class ControllerSupplier {
 
 
 
-        btnExit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.exit(0);
-            }
-        });
+        btnExit.setOnMouseClicked(event -> System.exit(0));
 
         tfSupName.setEditable(false);
 
@@ -160,6 +157,8 @@ public class ControllerSupplier {
                     "SupConURL, AffiliationId, SupplierContacts.SupplierId, SupName " +
                     "from SupplierContacts join Suppliers " +
                     "on SupplierContacts.SupplierId = Suppliers.SupplierId");
+
+            Comparator<SupplierContact> scComparator = Comparator.comparing(SupplierContact::getSupConCompany);
             ObservableList<SupplierContact> list = FXCollections.observableArrayList();
             while (rs.next())
             {
@@ -182,6 +181,7 @@ public class ControllerSupplier {
                         ));
 
             }
+            Collections.sort(list, scComparator);
             cbSupCon.setItems(list);
             conn.close();
 
@@ -219,137 +219,120 @@ public class ControllerSupplier {
             }
         });
 
-        btnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
-                        "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
-                        "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
-                        "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
-                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
-                        "WHERE SupplierContactId=?";
+        btnEdit.setOnMouseClicked(event -> setTfEditable(true));
+
+        btnSave.setOnMouseClicked(event -> {
+            @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
+                    "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
+                    "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
+                    "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
+                    "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
+                    "WHERE SupplierContactId=?";
+
+            try {
+                Connection conn = getConnetion();
+                PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+                pstmt1.setString(1, tfSupConFirstName.getText());
+                pstmt1.setString(2, tfSupConLastName.getText());
+                pstmt1.setString(3, tfSupConCompany.getText());
+                pstmt1.setString(4, tfSupConAddress.getText());
+                pstmt1.setString(5, tfSupConCity.getText());
+                pstmt1.setString(6, tfSupConProv.getText());
+                pstmt1.setString(7, tfSupConPostal.getText());
+                pstmt1.setString(8, tfSupConCountry.getText());
+                pstmt1.setString(9, tfSupConBusPhone.getText());
+                pstmt1.setString(10, tfSupConFax.getText());
+                pstmt1.setString(11, tfSupConEmail.getText());
+                pstmt1.setString(12, tfSupConUrl.getText());
+                pstmt1.setString(13, tfAffiliationId.getText());
+                pstmt1.setString(14, tfSupId.getText());
+                pstmt1.setString(15, String.valueOf(classSupplierContactId));
 
 
-
-                try {
-                    Connection conn = getConnetion();
-                    PreparedStatement pstmt1 = conn.prepareStatement(sql1);
-                    pstmt1.setString(1, tfSupConFirstName.getText());
-                    pstmt1.setString(2, tfSupConLastName.getText());
-                    pstmt1.setString(3, tfSupConCompany.getText());
-                    pstmt1.setString(4, tfSupConAddress.getText());
-                    pstmt1.setString(5, tfSupConCity.getText());
-                    pstmt1.setString(6, tfSupConProv.getText());
-                    pstmt1.setString(7, tfSupConPostal.getText());
-                    pstmt1.setString(8, tfSupConCountry.getText());
-                    pstmt1.setString(9, tfSupConBusPhone.getText());
-                    pstmt1.setString(10, tfSupConFax.getText());
-                    pstmt1.setString(11, tfSupConEmail.getText());
-                    pstmt1.setString(12, tfSupConUrl.getText());
-                    pstmt1.setString(13, tfAffiliationId.getText());
-                    pstmt1.setString(14, tfSupId.getText());
-                    pstmt1.setString(15, String.valueOf(classSupplierContactId));
-
-
-                    int rowsAffected = pstmt1.executeUpdate();
-                    if(rowsAffected > 0)
-                    {
-                        System.out.println("update worked");
-                    }
-                    else {
-                        System.out.println("update failed");
-                    }
-
-                    conn.close();
+                int rowsAffected = pstmt1.executeUpdate();
+                if(rowsAffected > 0)
+                {
+                    tfClear();
                 }
-                catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                else {
+                    System.out.println("update failed");
                 }
-                setTfEditable(false);
+
+                conn.close();
+            }
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            setTfEditable(false);
+        });
+
+        btnAdd.setOnMouseClicked(event -> {
+            setTfEditable(true);
+            tfClear();
+        });
+
+        btnSaveAdd.setOnMouseClicked(event -> {
+            @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
+                    "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
+                    "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
+                    "AffiliationId, SupplierId) VALUES (?,?,?,?,?,?,?," +
+                    "?,?,?,?,?,?,?)";
+
+            try {
+                Connection conn = getConnetion();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, tfSupConFirstName.getText());
+                pstmt.setString(2, tfSupConLastName.getText());
+                pstmt.setString(3, tfSupConCompany.getText());
+                pstmt.setString(4, tfSupConAddress.getText());
+                pstmt.setString(5, tfSupConCity.getText());
+                pstmt.setString(6, tfSupConProv.getText());
+                pstmt.setString(7, tfSupConPostal.getText());
+                pstmt.setString(8, tfSupConCountry.getText());
+                pstmt.setString(9, tfSupConBusPhone.getText());
+                pstmt.setString(10, tfSupConFax.getText());
+                pstmt.setString(11, tfSupConEmail.getText());
+                pstmt.setString(12, tfSupConUrl.getText());
+                pstmt.setString(13, tfAffiliationId.getText());
+                pstmt.setInt(14, Integer.parseInt(tfSupId.getText()));
+
+                int rowsAffected = pstmt.executeUpdate();
+                if(rowsAffected > 0)
+                {
+                    tfClear();
+                }
+                else {
+                    System.out.println("update failed");
+                }
+
+                conn.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         });
 
-        btnEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setTfEditable(true);
-            }
-        });
+        btnDelete.setOnMouseClicked(event -> {
+            @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
 
-        btnAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setTfEditable(true);
-                tfSupConFirstName.clear();
-                tfSupConLastName.clear();
-                tfSupConCompany.clear();
-                tfSupConAddress.clear();
-                tfSupConCity.clear();
-                tfSupConProv.clear();
-                tfSupConPostal.clear();
-                tfSupConCountry.clear();
-                tfSupConBusPhone.clear();
-                tfSupConFax.clear();
-                tfSupConEmail.clear();
-                tfSupConUrl.clear();
-                tfAffiliationId.clear();
-                tfSupId.clear();
-                tfSupName.clear();
-            }
-        });
+            try {
+                Connection conn = getConnetion();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, String.valueOf(classSupplierContactId));
 
-        btnSaveAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
-                        "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
-                        "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
-                        "AffiliationId, SupplierId) VALUES (?,?,?,?,?,?,?," +
-                        "?,?,?,?,?,?,?)";
-
-                try {
-                    Connection conn = getConnetion();
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, tfSupConFirstName.getText());
-                    pstmt.setString(2, tfSupConLastName.getText());
-                    pstmt.setString(3, tfSupConCompany.getText());
-                    pstmt.setString(4, tfSupConAddress.getText());
-                    pstmt.setString(5, tfSupConCity.getText());
-                    pstmt.setString(6, tfSupConProv.getText());
-                    pstmt.setString(7, tfSupConPostal.getText());
-                    pstmt.setString(8, tfSupConCountry.getText());
-                    pstmt.setString(9, tfSupConBusPhone.getText());
-                    pstmt.setString(10, tfSupConFax.getText());
-                    pstmt.setString(11, tfSupConEmail.getText());
-                    pstmt.setString(12, tfSupConUrl.getText());
-                    pstmt.setString(13, tfAffiliationId.getText());
-                    pstmt.setInt(14, Integer.parseInt(tfSupId.getText()));
-                    pstmt.executeUpdate();
-                    conn.close();
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                int rowsAffected = pstmt.executeUpdate();
+                if(rowsAffected > 0)
+                {
+                    tfClear();
                 }
-            }
-        });
-
-        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
-
-                try {
-                    Connection conn = getConnetion();
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, String.valueOf(classSupplierContactId));
-                    pstmt.executeUpdate();
-                    conn.close();
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                else {
+                    System.out.println("update failed");
                 }
-            }
+                conn.close();
 
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         });
 
 
@@ -376,6 +359,24 @@ public class ControllerSupplier {
         tfSupConUrl.setEditable(b);
         tfAffiliationId.setEditable(b);
         tfSupId.setEditable(b);
+    }
+
+    private void tfClear(){
+        tfSupConFirstName.clear();
+        tfSupConLastName.clear();
+        tfSupConCompany.clear();
+        tfSupConAddress.clear();
+        tfSupConCity.clear();
+        tfSupConProv.clear();
+        tfSupConPostal.clear();
+        tfSupConCountry.clear();
+        tfSupConBusPhone.clear();
+        tfSupConFax.clear();
+        tfSupConEmail.clear();
+        tfSupConUrl.clear();
+        tfAffiliationId.clear();
+        tfSupId.clear();
+        tfSupName.clear();
     }
 }
 
