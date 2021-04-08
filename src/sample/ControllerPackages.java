@@ -35,7 +35,7 @@ public class ControllerPackages {
     private FontAwesomeIcon btnHome;
 
     @FXML
-    private FontAwesomeIcon btnAgentLogin;
+    private FontAwesomeIcon btnLogin;
 
     @FXML
     private FontAwesomeIcon btnUser;
@@ -143,7 +143,7 @@ public class ControllerPackages {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnAgentLogin != null : "fx:id=\"btnAgentLogin\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnLogin != null : "fx:id=\"btnAgentLogin\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Packages.fxml'.";
         assert vbLeft != null : "fx:id=\"vbLeft\" was not injected: check your FXML file 'Packages.fxml'.";
@@ -184,7 +184,7 @@ public class ControllerPackages {
         btnHome.setOnMouseClicked(event -> GetHomeScene());
         btnUser.setOnMouseClicked(event -> GetUserScene());
 // DASHBOARD METHODS ====== ============================================================================================
-//        DashboardMethods.changeAgentName(lblAgentName);
+        DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(datetime);
 //Connect to Database for ComboBox
         try {
@@ -561,7 +561,8 @@ public class ControllerPackages {
     }
 // DASHBOARD METHODS ==================================================================================================
     private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
-    //private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
     private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
     private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
+    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
 }
