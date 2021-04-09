@@ -151,7 +151,7 @@
                   </Label>
                   <TextField fx:id="tfUsername" layoutX="600.0" layoutY="288.0" prefHeight="30.0" prefWidth="350.0" promptText="Username" />
                   <TextField fx:id="tfPassword" layoutX="600.0" layoutY="336.0" prefHeight="30.0" prefWidth="350.0" promptText="Password" />
-                  <VBox fx:id="vbLogin" alignment="TOP_CENTER" layoutY="3.0" prefHeight="719.0" prefWidth="518.0" styleClass="LoginPane" stylesheets="@style.css">
+                  <VBox alignment="TOP_CENTER" layoutY="3.0" prefHeight="719.0" prefWidth="518.0" styleClass="LoginPane" stylesheets="@style.css">
                      <children>
                         <ImageView fitHeight="216.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                            <VBox.margin>

@@ -28,7 +28,6 @@ public class Main extends Application {
     {
         loggedIn = isLoggedIn;
     }
-
     public static boolean getLoggedIn()
     {
         return loggedIn;
@@ -38,7 +37,6 @@ public class Main extends Application {
     {
         loggedInAgentId = agentId;
     }
-
     public static int getLoggedInAgentId()
     {
         return loggedInAgentId;

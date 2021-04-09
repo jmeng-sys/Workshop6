@@ -80,6 +80,9 @@ public class Controller {
         changeAgentName();
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
 // NAVIGATE TO REPORTS =================================================================================================
+        btnUser.setOnMouseClicked(event -> {
+            GetAgentScene();
+        });
         btnReports.setOnMouseClicked(event -> {
             GetReportsScene();
         });
@@ -97,6 +100,10 @@ public class Controller {
         btnSupplier.setOnMouseClicked(event -> {
             GetSupplierScene();
         });
+        btnProducts.setOnMouseClicked(event -> {
+            GetProductsScene();
+        });
+
         btnAgents.setOnMouseClicked(event -> {
             GetAgentScene();
         });
@@ -193,10 +200,23 @@ public class Controller {
         }
     }
 
+    private void GetProductsScene() {
+        System.out.println("Loading Products scene");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Products.fxml"));
+
+            Stage stage = (Stage) btnProducts.getScene().getWindow();
+            Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
     private void changeAgentName()
     {
         System.out.println("Trying to change name.");
-        if(Main.getLoggedIn())
+        if(Main.getLoggedIn() == true)
         {
             try
             {
