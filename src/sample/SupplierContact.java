@@ -154,7 +154,7 @@ public class SupplierContact {
 
     @Override
     public String toString() {
-        return supConFirstName + ' ' + supConLastName;
+        return supConCompany;
     }
 
     public SupplierContact(int supplierId, String supName) {

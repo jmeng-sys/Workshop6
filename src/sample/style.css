@@ -6,6 +6,9 @@
     -fx-background-color: transparent;
     -fx-border-radius: 10px;
 }
+.button:hover{
+    -fx-background-color: #53CF48;
+}
 
 .borderPane {
     -fx-background-color: linear-gradient(to bottom right, white 20%, white 70%, #F0D1D5 100%);

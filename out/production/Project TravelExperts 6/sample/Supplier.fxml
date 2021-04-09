@@ -125,7 +125,7 @@
                                         </Label>
                                     </children>
                                 </HBox>
-                                <FontAwesomeIcon glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
+                                <FontAwesomeIcon fx:id="btnExit" glyphName="TIMES" size="4em" styleClass="fontAwesomeIcon">
                                     <HBox.margin>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </HBox.margin>
@@ -142,7 +142,7 @@
                      <children>
                         <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="500.0">
                            <children>
-                              <Label text="Select Supplier Contact by ID:">
+                              <Label text="Select Supplier Contact by Company:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -290,13 +290,18 @@
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="95.0" text="Supplier Name:">
+                              <Label layoutX="10.0" layoutY="95.0" text="Supplier ID:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="232.0" text="Supplier Name:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
                               </Label>
                            </children>
                         </VBox>
@@ -326,17 +331,21 @@
                                  <VBox.margin>
                                     <Insets bottom="12.0" />
                                  </VBox.margin></TextField>
-                              <TextField fx:id="tfSupName" layoutX="10.0" layoutY="135.0">
+                              <TextField fx:id="tfSupId" layoutX="10.0" layoutY="135.0">
                                  <VBox.margin>
                                     <Insets bottom="12.0" />
                                  </VBox.margin>
                               </TextField>
+                              <TextField fx:id="tfSupName" layoutX="10.0" layoutY="232.0" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="btnSave" layoutX="70.0" layoutY="533.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Save" />
-                  <Button fx:id="btnEdit" layoutX="268.0" layoutY="533.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="Edit" />
+                  <Button fx:id="btnSave" layoutX="183.0" layoutY="608.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Save Edit" />
+                  <Button fx:id="btnEdit" layoutX="183.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Edit" />
+                  <Button fx:id="btnAdd" layoutX="529.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Add" />
+                  <Button fx:id="btnDelete" layoutX="360.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Delete" />
+                  <Button fx:id="btnSaveAdd" layoutX="529.0" layoutY="608.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Save Add" />
                </children></AnchorPane>
             </center>
         </BorderPane>
