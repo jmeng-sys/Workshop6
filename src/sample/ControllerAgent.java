@@ -128,7 +128,6 @@ public class ControllerAgent {
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Agent.fxml'.";
 
-
 //DASHBOARD BUTTONS ====================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
         btnPrint.setOnMouseClicked(event -> GetPrintScene());

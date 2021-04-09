@@ -140,21 +140,24 @@
                <children>
                   <HBox layoutX="6.0" prefHeight="100.0" prefWidth="1000.0">
                      <children>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="500.0">
+                        <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="450.0">
                            <children>
                               <Label text="Select Supplier Contact by Company:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets right="20.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="500.0">
+                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="449.0">
                            <children>
-                              <ComboBox fx:id="cbSupCon" prefHeight="25.0" prefWidth="242.0" />
+                              <ComboBox fx:id="cbSupCon" prefHeight="25.0" prefWidth="420.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin></ComboBox>
                            </children>
                         </VBox>
                      </children>
@@ -163,54 +166,54 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label text="First Name:">
+                              <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="First Name:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="10.0" text="Last Name:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefWidth="250.0" text="Last Name:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="27.0" text="Company:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="27.0" prefWidth="250.0" text="Company:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="44.0" text="Address:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="44.0" prefWidth="250.0" text="Address:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="61.0" text="City:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="61.0" prefWidth="250.0" text="City:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="78.0" text="Province:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="78.0" prefWidth="250.0" text="Province:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="95.0" text="Postal Code:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="95.0" prefWidth="250.0" text="Postal Code:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
                            </children>
                         </VBox>
@@ -218,90 +221,93 @@
                            <children>
                               <TextField fx:id="tfSupConFirstName">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConLastName" layoutX="10.0" layoutY="10.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConCompany" layoutX="10.0" layoutY="35.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConAddress" layoutX="10.0" layoutY="60.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConCity" layoutX="10.0" layoutY="85.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConProv" layoutX="10.0" layoutY="110.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConPostal" layoutX="10.0" layoutY="135.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" right="7.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label text="Country:">
+                              <Label alignment="CENTER_RIGHT" prefWidth="250.0" text="Country:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="10.0" text="Business Phone:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefWidth="250.0" text="Business Phone:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="27.0" text="Fax:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="27.0" prefWidth="250.0" text="Fax:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="44.0" text="Email:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="44.0" prefWidth="250.0" text="Email:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="61.0" text="Home Page:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="61.0" prefWidth="250.0" text="Home Page:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="78.0" text="Affiliation ID:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="78.0" prefWidth="250.0" text="Affiliation ID:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></Label>
-                              <Label layoutX="10.0" layoutY="95.0" text="Supplier ID:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="95.0" prefWidth="250.0" text="Supplier ID:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label layoutX="10.0" layoutY="232.0" text="Supplier Name:">
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="232.0" prefWidth="250.0" text="Supplier Name:">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
@@ -309,34 +315,37 @@
                            <children>
                               <TextField fx:id="tfSupConCountry">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConBusPhone" layoutX="10.0" layoutY="10.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConFax" layoutX="10.0" layoutY="35.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConEmail" layoutX="10.0" layoutY="60.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupConUrl" layoutX="10.0" layoutY="85.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfAffiliationId" layoutX="10.0" layoutY="110.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin></TextField>
                               <TextField fx:id="tfSupId" layoutX="10.0" layoutY="135.0">
                                  <VBox.margin>
-                                    <Insets bottom="12.0" />
+                                    <Insets left="15.0" right="15.0" top="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <TextField fx:id="tfSupName" layoutX="10.0" layoutY="232.0" />
+                              <TextField fx:id="tfSupName" disable="true" editable="false" layoutX="10.0" layoutY="232.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin></TextField>
                            </children>
                         </VBox>
                      </children>
