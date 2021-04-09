@@ -7,14 +7,10 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import objects.Agent;
 import objects.GUIMethods;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,6 +97,9 @@ public class ControllerAgent {
     private FontAwesomeIcon btnDelete;
 
     @FXML
+    private FontAwesomeIcon btnHome;
+
+    @FXML
     void initialize() {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Agent.fxml'.";
@@ -127,186 +126,81 @@ public class ControllerAgent {
         assert btnNextAgent != null : "fx:id=\"btnNextAgent\" was not injected: check your FXML file 'Agent.fxml'.";
         assert txtAgentAgencyId != null : "fx:id=\"txtAgentAgencyId\" was not injected: check your FXML file 'Agent.fxml'.";
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Agent.fxml'.";
+        assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Agent.fxml'.";
 
 
-//MENU BUTTONS
-        changeAgentName();
+//DASHBOARD BUTTONS ====================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-// NAVIGATE TO REPORTS =================================================================================================
-        btnPrint.setOnMouseClicked(event -> GetReportsScene());
-
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
         btnOptions.setOnMouseClicked(event -> GetOptionsScene());
-
         btnLogin.setOnMouseClicked(event -> GetLoginsScene());
-
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
+//        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
+// DASHBOARD METHODS ===================================================================================================
+        DashboardMethods.changeAgentName(lblAgentName);
+        GUIMethods.GetDateTime(dateTime);
+// AGENT METHOD CALLS ==================================================================================================
         btnNextAgent.setOnMouseClicked(event -> cbAgents.getSelectionModel().selectNext());
         btnPrevAgent.setOnMouseClicked(event -> cbAgents.getSelectionModel().selectPrevious());
-
-// NAVIGATE TO LOGIN
-        btnLogin.setOnMouseClicked(event -> GetAgentsScene());
-// SET DATE AND TIME OBJECT ============================================================================================
-        GUIMethods.GetDateTime(dateTime);
-
-// Agent Anchor events =================================================================================================
+        InitializeAgentComboBox();
+        btnEditAgent.setOnMouseClicked(event -> ToggleEditableAgentFields(true));
+        btnSaveAgent.setOnMouseClicked(event -> SaveNewOrEditedAgent());
+        btnAddAgent.setOnMouseClicked(event -> ClearFieldsForAdd());
+        btnDelete.setOnMouseClicked(event -> DeleteSelectedAgent());
+    }
+// DASHBOARD METHODS ===================================================================================================
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
+//    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
+// AGENT METHODS =======================================================================================================
+    private void InitializeAgentComboBox() {
         setCBList();
         cbAgents.getSelectionModel().selectFirst();
         buildAgentsTable();
         buildAssociatedCustomersTable();
         cbAgents.getSelectionModel().selectedItemProperty().addListener((observableValue) -> buildAssociatedCustomersTable());
         cbAgencyId.setItems(setAgenciesCB());
-
-        btnEditAgent.setOnMouseClicked(event -> ToggleEditableAgentFields(true));
-        btnSaveAgent.setOnMouseClicked(event -> {
-            ToggleEditableAgentFields(false);
-            if(!saveMode) {
-                AgentDB.UpdateAgent(
-                        Integer.parseInt(txtAgentId.getText()),
-                        txtAgentFirstName.getText(),
-                        txtAgentMiddleInitial.getText(),
-                        txtAgentLastName.getText(),
-                        txtAgentPhoneNumber.getText(),
-                        txtAgentEmail.getText(),
-                        txtAgentPosition.getText(),
-                        Integer.parseInt(txtAgentAgencyId.getText()));
-            } else {
-                AgentDB.AddAgent
-                        (
-                        txtAgentFirstName.getText(),
-                        txtAgentMiddleInitial.getText(),
-                        txtAgentLastName.getText(),
-                        txtAgentPhoneNumber.getText(),
-                        txtAgentEmail.getText(),
-                        txtAgentPosition.getText(),
-                        Integer.parseInt(txtAgentAgencyId.getText())
-                        );
-                saveMode = false;
-                cbAgents.setDisable(false);
-                btnNextAgent.setDisable(false);
-                btnPrevAgent.setDisable(false);
-
-            }
-            cbAgents.setItems(AgentDB.FetchAgentList());
-            buildAgentsTable();
-            if (txtAgentId.getText() == "") {
-                cbAgents.getSelectionModel().selectLast();
-            } else {
-                cbAgents.getSelectionModel().select(Integer.parseInt(txtAgentId.getText()) - 1);
-            }
-        });
-
-        btnAddAgent.setOnMouseClicked(event -> {
-            cbAgents.getSelectionModel().clearSelection();
-            cbAgents.setDisable(true);
-            btnNextAgent.setDisable(true);
-            btnPrevAgent.setDisable(true);
-            txtAgentId.setText("");
-            txtAgentFirstName.setText("");
-            txtAgentMiddleInitial.setText("");
-            txtAgentLastName.setText("");
-            txtAgentPhoneNumber.setText("");
-            txtAgentEmail.setText("");
-            txtAgentPosition.setText("");
-            txtAgentAgencyId.setText("");
-
-            ToggleEditableAgentFields(true);
-            saveMode = true;
-        });
-
-        btnDelete.setOnMouseClicked(event -> {
-            if(!txtAgentId.getText().isEmpty()) {
-                try {
-                    Connection conn = DAO.getConnection();
-                    Statement myStmt = conn.createStatement();
-                    myStmt.executeUpdate("DELETE FROM agents WHERE agentId = " + txtAgentId.getText());
-                    conn.close();
-
-                    cbAgents.getSelectionModel().selectPrevious();
-                    setCBList();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-        });
-
     }
 
-
-
-
-    //    METHODS DEFINED ==================================================================================================
-    private void GetLoginsScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
+    private void SaveNewOrEditedAgent() {
+        ToggleEditableAgentFields(false);
+        if (!saveMode) {
+            getTextFieldValuesExceptId();
+        } else {
+            AgentDB.AddAgent
+                    (
+                            txtAgentFirstName.getText(),
+                            txtAgentMiddleInitial.getText(),
+                            txtAgentLastName.getText(),
+                            txtAgentPhoneNumber.getText(),
+                            txtAgentEmail.getText(),
+                            txtAgentPosition.getText(),
+                            Integer.parseInt(txtAgentAgencyId.getText())
+                    );
+            saveMode = false;
+            cbAgents.setDisable(false);
+            btnNextAgent.setDisable(false);
+            btnPrevAgent.setDisable(false);
         }
+        cbAgents.setItems(AgentDB.FetchAgentList());
+
+        if (txtAgentId.getText().equals("")) cbAgents.getSelectionModel().selectLast();
+        else cbAgents.getSelectionModel().select(Integer.parseInt(txtAgentId.getText()) - 1);
+        buildAgentsTable();
     }
 
-    private void GetOptionsScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SystemDiagnostics.fxml"));
-
-            Stage stage = (Stage) btnOptions.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void changeAgentName()
-    {
-        if(Main.getLoggedIn())
-        {
-            try
-            {
-                Connection conn = DAO.getConnection();
-                Statement myStmt = conn.createStatement();
-                ResultSet rs = myStmt.executeQuery("Select AgtFirstName, AgtLastName from agents where AgentId = " + Main.getLoggedInAgentId());
-                rs.next();
-                System.out.println(rs.getString(1));
-                System.out.println(rs.getString(2));
-                lblAgentName.setText(rs.getString(1) + " " + rs.getString(2));
-            }
-            catch (SQLException throwables)
-            {
-                throwables.printStackTrace();
-            }
-        }
-    }
-
-    private void GetReportsScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-            Stage stage = (Stage) btnPrint.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetAgentsScene(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Agent.fxml"));
-
-            Stage stage = (Stage) btnPrint.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
+    private void getTextFieldValuesExceptId() {
+        AgentDB.UpdateAgent(
+                Integer.parseInt(txtAgentId.getText()),
+                txtAgentFirstName.getText(),
+                txtAgentMiddleInitial.getText(),
+                txtAgentLastName.getText(),
+                txtAgentPhoneNumber.getText(),
+                txtAgentEmail.getText(),
+                txtAgentPosition.getText(),
+                Integer.parseInt(txtAgentAgencyId.getText()));
     }
 
     private void setCBList() {
@@ -323,6 +217,23 @@ public class ControllerAgent {
                 txtAgentAgencyId.setText(t1.getAgencyId() + "");
             }
         });
+    }
+
+    private void ClearFieldsForAdd() {
+        cbAgents.getSelectionModel().clearSelection();
+        cbAgents.setDisable(true);
+        btnNextAgent.setDisable(true);
+        btnPrevAgent.setDisable(true);
+        txtAgentId.setText("");
+        txtAgentFirstName.setText("");
+        txtAgentMiddleInitial.setText("");
+        txtAgentLastName.setText("");
+        txtAgentPhoneNumber.setText("");
+        txtAgentEmail.setText("");
+        txtAgentPosition.setText("");
+        txtAgentAgencyId.setText("");
+        ToggleEditableAgentFields(true);
+        saveMode = true;
     }
 
     private static ObservableList<String> setAgenciesCB() {
@@ -355,26 +266,12 @@ public class ControllerAgent {
         data = FXCollections.observableArrayList();
         try{
             c = DAO.getConnection();
+            tvAllAgents.getItems().clear();
+            tvAllAgents.getColumns().clear();
             String SQL = "SELECT * FROM agents";
-            ResultSet rs = c.createStatement().executeQuery(SQL);
-            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-                final int j = i;
-                TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
-                tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                tvAllAgents.getColumns().add(tableColumn);
-            }
-            while(rs.next()){
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                    row.add(rs.getString(i));
-                }
-                data.add(row);
-            }
-            tvAllAgents.getItems().addAll(data);
-            c.close();
+            LoopTableData(c, SQL, tvAllAgents, data);
         }catch(Exception e){
             e.printStackTrace();
-            System.out.println("Error on Building Data");
         }
     }
 
@@ -387,27 +284,35 @@ public class ControllerAgent {
             try {
                 c = DAO.getConnection();
                 String SQL = "SELECT * FROM customers WHERE AgentId = " + txtAgentId.getText();
-                ResultSet rs = c.createStatement().executeQuery(SQL);
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    final int j = i;
-                    TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
-                    tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
-                    tvAssociatedCustomers.getColumns().add(tableColumn);
-                }
-                while (rs.next()) {
-                    ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-                        row.add(rs.getString(i));
-                    }
-                    data.add(row);
-                }
-                tvAssociatedCustomers.getItems().addAll(data);
-                c.close();
+                queryTableData(c, SQL, tvAssociatedCustomers, data);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error on Building Data");
             }
         }
+    }
+
+    static void queryTableData(Connection c, String SQL, TableView<ObservableList<String>> tvAssociatedCustomers, ObservableList<ObservableList<String>> data) throws SQLException {
+        LoopTableData(c, SQL, tvAssociatedCustomers, data);
+    }
+
+    private static void LoopTableData(Connection c, String SQL, TableView<ObservableList<String>> tvAssociatedCustomers, ObservableList<ObservableList<String>> data) throws SQLException {
+        ResultSet rs = c.createStatement().executeQuery(SQL);
+        for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+            final int j = i;
+            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(rs.getMetaData().getColumnName(i + 1));
+            tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
+            tvAssociatedCustomers.getColumns().add(tableColumn);
+        }
+        while (rs.next()) {
+            ObservableList<String> row = FXCollections.observableArrayList();
+            for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                row.add(rs.getString(i));
+            }
+            data.add(row);
+        }
+        tvAssociatedCustomers.getItems().addAll(data);
+        c.close();
     }
 
     private void ToggleEditableAgentFields(boolean b) {
@@ -418,17 +323,32 @@ public class ControllerAgent {
         txtAgentEmail.setEditable(b);
         txtAgentAgencyId.setEditable(b);
         txtAgentPosition.setEditable(b);
-
         if(!b) {
             btnSaveAgent.setVisible(false);
             btnEditAgent.setVisible(true);
             btnAddAgent.setVisible(true);
         }
-        else if(b) {
+        else {
             btnEditAgent.setVisible(false);
             btnSaveAgent.setVisible(true);
             btnAddAgent.setVisible(false);
         }
-
     }
+
+    private void DeleteSelectedAgent() {
+        if(!txtAgentId.getText().isEmpty()) {
+            try {
+                Connection conn = DAO.getConnection();
+                Statement myStmt = conn.createStatement();
+                myStmt.executeUpdate("DELETE FROM agents WHERE agentId = " + txtAgentId.getText());
+                conn.close();
+
+                cbAgents.getSelectionModel().selectPrevious();
+                setCBList();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

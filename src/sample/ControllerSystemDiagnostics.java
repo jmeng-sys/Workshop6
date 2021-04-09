@@ -5,12 +5,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import objects.GUIMethods;
 
 import java.io.File;
@@ -128,6 +125,12 @@ public class ControllerSystemDiagnostics {
     private FontAwesomeIcon iconBackupFailed;
 
     @FXML
+    private FontAwesomeIcon btnHome;
+
+    @FXML
+    private Label lblAgentName;
+
+    @FXML
     void initialize() {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
@@ -164,14 +167,20 @@ public class ControllerSystemDiagnostics {
         assert btnBackup != null : "fx:id=\"btnBackup\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert iconBackup != null : "fx:id=\"iconBackup\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
         assert iconBackupFailed != null : "fx:id=\"iconBackupFailed\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
+        assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'SystemDiagnostics.fxml'.";
 
-//MENU BUTTONS
+
+
+//DASHBOARD BUTTONS ====================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-// NAVIGATE TO REPORTS =================================================================================================
-        btnPrint.setOnMouseClicked(event -> GetReportsScene());
-// NAVIGATE TO LOGIN
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
+        btnOptions.setOnMouseClicked(event -> GetOptionsScene());
         btnLogin.setOnMouseClicked(event -> GetLoginsScene());
-// SET DATE AND TIME OBJECT ============================================================================================
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
+//        btnUser.setOnMouseClicked(event -> { GetUserScene(); });
+// DASHBOARD METHODS ===================================================================================================
+        DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(dateTime);
 // SET SYSTEM DIAGNOSTICS ELEMENTS =====================================================================================
         btnPrev.setOnMouseClicked(event -> cbTables.getSelectionModel().selectPrevious());
@@ -284,23 +293,7 @@ public class ControllerSystemDiagnostics {
             e.printStackTrace();
         }
 
-        try {
-            DatabaseMetaData databaseMetaData = DAO.getConnection().getMetaData();
-            ResultSet tables = databaseMetaData.getTables(
-                    "TRAVELEXPERTS",
-                    "1",
-                    null,
-                    new String[]{"TABLE"});
-
-            ObservableList<String> tableList = FXCollections.observableArrayList();
-
-            while (tables.next()) {
-                tableList.add(tables.getString("TABLE_NAME"));
-            }
-            cbTables.setItems(tableList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ControllerPrintTable.getAllTableNames(cbTables);
         cbTables.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             tfTableHealth.clear();
             data = FXCollections.observableArrayList();
@@ -383,34 +376,11 @@ public class ControllerSystemDiagnostics {
     }
 //    CLASS CONTROLLERSYSTEMDIAGNOSTICS ENDS HERE ======================================================================
 
-
-    //    METHODS DEFINED ==================================================================================================
-    private void GetReportsScene() {
-        System.out.println("on route to print Table");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-            Stage stage = (Stage) btnPrint.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    private void GetLoginsScene() {
-        System.out.println("Loading login scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
+// DASHBOARD METHODS ===================================================================================================
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
+//    private void GetUserScene() { DashboardMethods.IconGetScene("User.fxml", btnUser); }
 
 }

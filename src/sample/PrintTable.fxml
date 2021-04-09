@@ -39,7 +39,7 @@
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </VBox.margin>
                                 </FontAwesomeIcon>
-                                <FontAwesomeIcon glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
+                                <FontAwesomeIcon fx:id="btnOptions" glyphName="COG" size="4em" styleClass="fontAwesomeIcon">
                                     <VBox.margin>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </VBox.margin>
@@ -63,7 +63,7 @@
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </VBox.margin>
                                 </Separator>
-                                <FontAwesomeIcon glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
+                                <FontAwesomeIcon fx:id="btnLogin" glyphName="SIGN_OUT" size="4em" styleClass="fontAwesomeIcon">
                                     <VBox.margin>
                                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                     </VBox.margin>
@@ -106,7 +106,7 @@
                                                 <Insets bottom="15.0" top="15.0" />
                                             </HBox.margin>
                                         </Separator>
-                                        <Label prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
+                                        <Label fx:id="lblAgentName" prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="Calibri" size="22.0" />
                                             </font>

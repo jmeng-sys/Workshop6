@@ -1,12 +1,9 @@
 package sample;
 
-import database.AgentAccountsDB;
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,26 +11,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import objects.GUIMethods;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
-import objects.Agent;
-import objects.GUIMethods;
-import sample.Controller;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ControllerLogin {
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
     @FXML
     private FontAwesomeIcon btnPrint;
 
@@ -79,12 +68,11 @@ public class ControllerLogin {
     @FXML
     void initialize() {
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Login.fxml'.";
-//        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Login.fxml'.";
+        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Login.fxml'.";
         assert btnHome != null : "fx:id=\"btnTables\" was not injected: check your FXML file 'Login.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Login.fxml'.";
         assert btnPrint != null : "fx:id=\"btnOptions1\" was not injected: check your FXML file 'Login.fxml'.";
         assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'Login.fxml'.";
-
         assert lblForgotPassword != null : "fx:id=\"lblForgotPassword\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfUsername != null : "fx:id=\"tfUsername\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'Login.fxml'.";
@@ -195,7 +183,7 @@ public class ControllerLogin {
     {
         System.out.println("on route to sample");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) btnHome.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
