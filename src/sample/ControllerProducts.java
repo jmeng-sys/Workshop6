@@ -19,6 +19,7 @@ import objects.Supplier;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControllerProducts {
@@ -69,16 +70,18 @@ public class ControllerProducts {
     private TableView<ObservableList<String>> tblProducts;
 
     @FXML
-    private Button btnAdd;
+    private FontAwesomeIcon btnAdd;
 
     @FXML
-    private Button btnModify;
+    private FontAwesomeIcon btnModify;
 
     @FXML
-    private Button btnSave;
+    private FontAwesomeIcon btnSave;
 
     @FXML
-    private Button btnCancel;
+    private FontAwesomeIcon btnCancel;
+
+    @FXML FontAwesomeIcon btnDelete;
 
     @FXML
     private TableView<ObservableList<String>> tblProdSupp;
@@ -122,33 +125,22 @@ public class ControllerProducts {
         assert cbFilterBySupp != null : "fx:id=\"cbFilterBySupp\" was not injected: check your FXML file 'Products.fxml'.";
         assert lblError != null : "fx:id=\"lblError\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Products.fxml'.";
+        assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Products.fxml'.";
 
         btnSave.setDisable(true);
         //Handles button clicks
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-        btnHome.setOnMouseClicked(event -> {
-            redirectToHome();
-        });
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
+        btnOptions.setOnMouseClicked(event -> GetOptionsScene());
+        btnLogin.setOnMouseClicked(event -> GetLoginsScene());
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
 
-        btnClearFilter.setOnMouseClicked(event -> {
-            ClearFilters();
-        });
-
-        btnAdd.setOnMouseClicked(event -> {
-            AddProduct();
-        });
-
-        btnModify.setOnMouseClicked(event -> {
-            ModifyProduct();
-        });
-
-        btnSave.setOnMouseClicked(event -> {
-            SaveProduct();
-        });
-
-        btnCancel.setOnMouseClicked(event -> {
-            ResetProduct();
-        });
+        btnClearFilter.setOnMouseClicked(event -> { ClearFilters(); });
+        btnAdd.setOnMouseClicked(event -> { AddProduct(); });
+        btnModify.setOnMouseClicked(event -> { ModifyProduct(); });
+        btnSave.setOnMouseClicked(event -> { SaveProduct(); });
+        btnCancel.setOnMouseClicked(event -> { ResetProduct(); });
+        btnDelete.setOnMouseClicked(event -> { DeleteProduct(); });
         GUIMethods.GetDateTime(dateTime);
         //Populates tables and comboboxes
         PopProdCB();
@@ -198,6 +190,15 @@ public class ControllerProducts {
         });
     }
 
+
+
+    //Dashboard navigation method calls
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
+
+    //Prepares an entry to be added to the database
     private void AddProduct()
     {
         System.out.println("Add Button Clicked");
@@ -215,6 +216,8 @@ public class ControllerProducts {
         btnModify.setDisable(true);
         btnSave.setDisable(false);
     }
+
+    //Prepares an entry to be modified and updated to the database
     private void ModifyProduct()
     {
         System.out.println("Modify Button Clicked");
@@ -223,7 +226,7 @@ public class ControllerProducts {
         if(tfProductId.getText().equals("") || tfProductName.getText().equals(""))
         {
             System.out.println("Modify Error");
-            lblError.setText("Please make a selection before modifying");
+            lblError.setText("Please make a selection from the table before attempting modification");
         }
         else
         {
@@ -233,12 +236,70 @@ public class ControllerProducts {
             btnSave.setDisable(false);
         }
     }
+
+    //Deletes an entry in the database
+    private void DeleteProduct()
+    {
+        System.out.println("Delete button clicked");
+        lblError.setText("");
+        if(tfProductId.getText().equals("") || tfProductName.getText().equals(""))
+        {
+            System.out.println("Delete Error");
+            lblError.setText("Please make a selection from the table before attempting deletion");
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deletion Conformation");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete entry " + tfProductName.getText() + " from the database?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+            {
+                // ... user chose OK
+                try
+                {
+                    System.out.println("Deleting entry from database.");
+                    Connection conn = DAO.getConnection();
+                    String sql = "Delete From `products` Where ProductId = ?";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setInt(1, Integer.parseInt(tfProductId.getText()));
+                    int rowsInserted = stmt.executeUpdate();
+                    if(rowsInserted > 0)
+                    {
+                        System.out.println("Deletion Successful!");
+                        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Successful Deletion");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Deletion was successful for product: " + tfProductName.getText());
+                        alert.showAndWait();
+                    }
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                System.out.println("Deletion canceled");
+                ResetProduct();
+                tblProducts.getItems().clear();
+                tblProducts.getColumns().clear();
+            }
+            ResetProduct();
+            tblProducts.getItems().clear();
+            tblProducts.getColumns().clear();
+            PopulateProductTable();
+        }
+    }
+
+    //Saves the new or updated product to the database.
     private void SaveProduct()
     {
         System.out.println("Save Button Clicked");
-        //ResetProduct();
         System.out.println(tfProductId.getText() + "" + tfProductName.getText());
-        if(isAdd && tfProductId.getText() != null && tfProductName.getText() != null)
+        if(isAdd && !tfProductId.getText().equals("") && !tfProductName.getText().equals(""))
         {
             System.out.println("Adding entry to database");
             //Insert to database
@@ -255,6 +316,11 @@ public class ControllerProducts {
                 if(rowsInserted > 0)
                 {
                     System.out.println("Insert Successful!");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Update Confirmation");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Insert was successful for product: " + tfProductName.getText());
+                    alert.showAndWait();
                 }
             }
             catch (SQLException e)
@@ -279,6 +345,11 @@ public class ControllerProducts {
                 if(rowsInserted > 0)
                 {
                     System.out.println("Edit Successful!");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Update Confirmation");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Edit was successful for product: " + tfProductName.getText());
+                    alert.showAndWait();
                 }
             }
             catch(SQLException e)
@@ -288,7 +359,20 @@ public class ControllerProducts {
         }
         else
         {
-            lblError.setText("Invalid data. Update unsuccessful. Please try again.");
+            System.out.println("Invalid data. Update unsuccessful. ");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Update Error");
+            alert.setHeaderText(null);
+            if(isAdd)
+            {
+                alert.setContentText("Cannot add entry to database due to invalid data. Please try again.");
+            }
+            else
+            {
+                alert.setContentText("Cannot edit entry to database due to invalid data. Please try again.");
+            }
+
+            alert.showAndWait();
         }
         ResetProduct();
         tblProducts.getItems().clear();

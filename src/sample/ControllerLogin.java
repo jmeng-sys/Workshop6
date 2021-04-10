@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import objects.GUIMethods;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,27 +21,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ControllerLogin {
-
-    @FXML
-    private FontAwesomeIcon btnPrint;
-
-    @FXML
-    private FontAwesomeIcon btnOptions;
-
-    @FXML
-    private FontAwesomeIcon btnHome;
-
-    @FXML
-    private FontAwesomeIcon btnLogin;
-
-    @FXML
-    private FontAwesomeIcon btnUser;
-
-    @FXML
-    private Label dateTime;
-
-    @FXML
-    private FontAwesomeIcon btnExit;
 
     @FXML
     private Label lblForgotPassword;
@@ -67,12 +45,6 @@ public class ControllerLogin {
 
     @FXML
     void initialize() {
-        assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Login.fxml'.";
-        assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Login.fxml'.";
-        assert btnHome != null : "fx:id=\"btnTables\" was not injected: check your FXML file 'Login.fxml'.";
-        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Login.fxml'.";
-        assert btnPrint != null : "fx:id=\"btnOptions1\" was not injected: check your FXML file 'Login.fxml'.";
-        assert dateTime != null : "fx:id=\"dateTime\" was not injected: check your FXML file 'Login.fxml'.";
         assert lblForgotPassword != null : "fx:id=\"lblForgotPassword\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfUsername != null : "fx:id=\"tfUsername\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'Login.fxml'.";
@@ -83,8 +55,6 @@ public class ControllerLogin {
 
         final BooleanProperty firstFocus = new SimpleBooleanProperty(true);
 
-        btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
-
         //Removes default focus from username field
         tfUsername.focusedProperty().addListener((observable, oldvalue, newValue) -> {
             if(newValue && firstFocus.get()) {
@@ -93,13 +63,6 @@ public class ControllerLogin {
             }
         });
 
-        btnHome.setOnMouseClicked(event -> {
-            redirectToHome();
-        });
-
-        btnPrint.setOnMouseClicked(event -> {
-            GetReportsScene();
-        });
 
         btnAgentLogin.setOnMouseClicked(event -> {
             HandleLogin();
@@ -123,23 +86,8 @@ public class ControllerLogin {
             }
         });
 
-// SET DATE AND TIME OBJECT ============================================================================================
-        GUIMethods.GetDateTime(dateTime);
     }
 
-    private void GetReportsScene() {
-        System.out.println("Loading Print Scene");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PrintTable.fxml"));
-
-            Stage stage = (Stage) btnPrint.getScene().getWindow();
-            Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
 
     private void HandleLogin()
     {
@@ -181,17 +129,17 @@ public class ControllerLogin {
 
     private void redirectToHome()
     {
-        System.out.println("on route to sample");
-        try {
+        try
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-            Stage stage = (Stage) btnHome.getScene().getWindow();
+            Stage stage = (Stage) btnAgentLogin.getScene().getWindow();
             Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            scene.getStylesheets().add(("style.css")); //Throws error when called.
             stage.setScene(scene);
-        } catch (IOException io) {
+        }
+        catch (IOException io)
+        {
             io.printStackTrace();
         }
     }
-
-
 }
