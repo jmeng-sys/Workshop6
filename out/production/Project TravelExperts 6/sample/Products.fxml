@@ -156,7 +156,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tblProducts" prefHeight="305.0" prefWidth="422.0">
+                        <TableView fx:id="tblProducts" prefHeight="404.0" prefWidth="385.0">
                            <VBox.margin>
                               <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -194,30 +194,40 @@
                         </Label>
                         <HBox prefHeight="49.0" prefWidth="406.0">
                            <children>
-                              <Button fx:id="btnAdd" mnemonicParsing="false" text="Add">
+                              <FontAwesomeIcon fx:id="btnAdd" fill="#00ff1a" glyphName="PLUS" size="2.5em">
                                  <HBox.margin>
-                                    <Insets left="40.0" right="50.0" />
+                                    <Insets left="37.0" right="50.0" />
                                  </HBox.margin>
-                              </Button>
-                              <Button fx:id="btnModify" mnemonicParsing="false" text="Modify" />
-                              <Button fx:id="btnSave" mnemonicParsing="false" text="Save">
+                              </FontAwesomeIcon>
+                              <FontAwesomeIcon fx:id="btnModify" fill="#f89914" glyphName="EDIT" layoutX="10.0" layoutY="36.0" size="2.5em">
                                  <HBox.margin>
-                                    <Insets left="50.0" />
-                                 </HBox.margin></Button>
+                                    <Insets right="50.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
+                              <FontAwesomeIcon fx:id="btnSave" glyphName="SAVE" layoutX="389.0" layoutY="36.0" size="2.5em">
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
+                              <FontAwesomeIcon fx:id="btnDelete" fill="RED" glyphName="TRASH" size="2.5em">
+                                 <HBox.margin>
+                                    <Insets right="50.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
+                              <FontAwesomeIcon fx:id="btnCancel" glyphName="UNDO" size="2.5em">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel">
-                           <VBox.margin>
-                              <Insets left="155.0" />
-                           </VBox.margin>
-                        </Button>
                      </children>
                   </VBox>
                   <ComboBox fx:id="cbFilterByProd" layoutX="419.0" layoutY="47.0" prefHeight="26.0" prefWidth="166.0" />
-                  <TableView fx:id="tblProdSupp" layoutX="419.0" layoutY="119.0" prefHeight="498.0" prefWidth="579.0" />
+                  <TableView fx:id="tblProdSupp" layoutX="419.0" layoutY="119.0" prefHeight="565.0" prefWidth="579.0" />
                   <Label layoutX="419.0" layoutY="26.0" text="Filter by Product Type" />
                   <Button fx:id="btnClearFilter" layoutX="851.0" layoutY="39.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="146.0" text="Clear Filter" />
                   <Label layoutX="623.0" layoutY="26.0" text="Filter by Supplier Type" />
