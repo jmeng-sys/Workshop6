@@ -204,12 +204,12 @@
                                     <Insets right="50.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnSave" glyphName="SAVE" layoutX="389.0" layoutY="36.0" size="2.5em">
+                              <FontAwesomeIcon fx:id="btnDelete" fill="RED" glyphName="TRASH" size="2.5em">
                                  <HBox.margin>
                                     <Insets right="50.0" />
                                  </HBox.margin>
                               </FontAwesomeIcon>
-                              <FontAwesomeIcon fx:id="btnDelete" fill="RED" glyphName="TRASH" size="2.5em">
+                              <FontAwesomeIcon fx:id="btnSave" glyphName="SAVE" layoutX="389.0" layoutY="36.0" size="2.5em">
                                  <HBox.margin>
                                     <Insets right="50.0" />
                                  </HBox.margin>

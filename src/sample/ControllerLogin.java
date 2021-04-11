@@ -134,7 +134,7 @@ public class ControllerLogin {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) btnAgentLogin.getScene().getWindow();
             Scene scene = new Scene(loader.load());
-            scene.getStylesheets().add(("style.css")); //Throws error when called.
+            scene.getStylesheets().add(DashboardMethods.class.getResource("style.css").toExternalForm());
             stage.setScene(scene);
         }
         catch (IOException io)

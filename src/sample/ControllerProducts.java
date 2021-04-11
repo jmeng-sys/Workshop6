@@ -141,7 +141,9 @@ public class ControllerProducts {
         btnSave.setOnMouseClicked(event -> { SaveProduct(); });
         btnCancel.setOnMouseClicked(event -> { ResetProduct(); });
         btnDelete.setOnMouseClicked(event -> { DeleteProduct(); });
+
         GUIMethods.GetDateTime(dateTime);
+        DashboardMethods.changeAgentName(lblAgentName);
         //Populates tables and comboboxes
         PopProdCB();
         PopSupCB();

@@ -46,7 +46,7 @@
                               <Insets bottom="10.0" top="65.0" />
                            </VBox.margin>
                            <image>
-                              <Image url="@../Images/TravelExpertsLogo-removebg-.png" />
+                              <Image url="@Images/TravelExpertsLogo-removebg-.png" />
                            </image>
                         </ImageView>
                         <Label text="Welcome To" textFill="#091530">
