@@ -70,7 +70,7 @@
                         </Label>
                         <Label fx:id="lblCreateAccount" layoutX="172.0" layoutY="377.0" styleClass="loginCreateAccount" text="Create an account" textFill="#091530" underline="true">
                            <font>
-                              <Font name="Ebrima" size="14.0" />
+                              <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
