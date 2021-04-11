@@ -102,7 +102,7 @@ public class ControllerLogin {
         {
             Connection conn = DAO.getConnection();
             Statement myStmt = conn.createStatement();
-            ResultSet rs = myStmt.executeQuery("Select * from agentaccounts where Username = \"" + username + "\" and Password = \"" + password + "\"");
+            @SuppressWarnings("SqlResolve") ResultSet rs = myStmt.executeQuery("Select * from agentaccounts where Username = \"" + username + "\" and Password = \"" + password + "\"");
 
             if(rs.next() == false)
             {

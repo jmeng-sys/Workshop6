@@ -263,7 +263,7 @@ public class ControllerProducts {
                 {
                     System.out.println("Deleting entry from database.");
                     Connection conn = DAO.getConnection();
-                    String sql = "Delete From `products` Where ProductId = ?";
+                    @SuppressWarnings("SqlResolve") String sql = "Delete From `products` Where ProductId = ?";
                     PreparedStatement stmt = conn.prepareStatement(sql);
                         stmt.setInt(1, Integer.parseInt(tfProductId.getText()));
                     int rowsInserted = stmt.executeUpdate();
@@ -308,7 +308,7 @@ public class ControllerProducts {
             try
             {
                 Connection conn = DAO.getConnection();
-                String sql = "Insert Into `Products`(`ProductId`, `ProdName`) Values (?, ?)";
+                @SuppressWarnings("SqlResolve") String sql = "Insert Into `Products`(`ProductId`, `ProdName`) Values (?, ?)";
                 System.out.println(tfProductId.getText() + "" + tfProductName.getText());
                 PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setInt(1, Integer.parseInt(tfProductId.getText()));
@@ -338,7 +338,7 @@ public class ControllerProducts {
             try
             {
                 Connection conn = DAO.getConnection();
-                String sql = "Update `Products` Set `ProductId` = ?,`ProdName` = ? Where `ProductId` = ?";
+                @SuppressWarnings("SqlResolve") String sql = "Update `Products` Set `ProductId` = ?,`ProdName` = ? Where `ProductId` = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, Integer.parseInt(tfProductId.getText()));
                 stmt.setString(2, tfProductName.getText());
