@@ -2,23 +2,36 @@ package sample;
 
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import objects.GUIMethods;
 import objects.Packages;
 import objects.PackagesProductsSuppliers;
 import objects.ProductsSuppliers;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
 public class ControllerPackages {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+    private ObservableList<Packages> pkgs = FXCollections.observableArrayList();
 
     @FXML
-    private Label datetime;
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
 
     @FXML
     private FontAwesomeIcon btnPrint;
@@ -34,6 +47,12 @@ public class ControllerPackages {
 
     @FXML
     private FontAwesomeIcon btnUser;
+
+    @FXML
+    private Label lblAgentName;
+
+    @FXML
+    private Label datetime;
 
     @FXML
     private FontAwesomeIcon btnExit;
@@ -84,19 +103,16 @@ public class ControllerPackages {
     private TextField tfCommission;
 
     @FXML
-    private Button btnEdit;
+    private FontAwesomeIcon btnEdit;
 
     @FXML
-    private Button btnSave;
+    private FontAwesomeIcon btnPkgAdd;
 
     @FXML
-    private Button btnPkgDel;
+    private FontAwesomeIcon btnPkgUpdate;
 
     @FXML
-    private Button btnPPSDel;
-
-    @FXML
-    private ComboBox<PackagesProductsSuppliers> cbPackProdSup;
+    private FontAwesomeIcon btnPkgDel;
 
     @FXML
     private TableView<ObservableList<String>> tblProducts;
@@ -111,35 +127,35 @@ public class ControllerPackages {
     private TextField tfPackId;
 
     @FXML
-    private Button btnPPSUpdate;
-
-    @FXML
     private ChoiceBox<Packages> cbPPSPkgID;
 
     @FXML
     private ChoiceBox<ProductsSuppliers> cbPPSID;
 
     @FXML
-    private Button btnPPSAdd;
-
-    @FXML
-    private Button btnPkgAdd;
+    private ComboBox<PackagesProductsSuppliers> cbPackProdSup;
 
     @FXML
     private Button btnCancel;
 
     @FXML
-    private Label lblAgentName;
+    private FontAwesomeIcon btnPPSDel;
+
+    @FXML
+    private FontAwesomeIcon btnPPSUpdate;
+
+    @FXML
+    private FontAwesomeIcon btnPPSAdd;
 
     @FXML
     void initialize() {
-        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert datetime != null : "fx:id=\"datetime\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnLogin != null : "fx:id=\"btnAgentLogin\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnUser != null : "fx:id=\"btnUser\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert datetime != null : "fx:id=\"datetime\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Packages.fxml'.";
         assert vbLeft != null : "fx:id=\"vbLeft\" was not injected: check your FXML file 'Packages.fxml'.";
         assert lblPackages != null : "fx:id=\"lblPackages\" was not injected: check your FXML file 'Packages.fxml'.";
@@ -157,20 +173,21 @@ public class ControllerPackages {
         assert lblCommission != null : "fx:id=\"lblCommission\" was not injected: check your FXML file 'Packages.fxml'.";
         assert tfCommission != null : "fx:id=\"tfCommission\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert cbPackProdSup != null : "fx:id=\"cbPackProdSup\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPkgAdd != null : "fx:id=\"btnPkgAdd\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPkgUpdate != null : "fx:id=\"btnPkgUpdate\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPkgDel != null : "fx:id=\"btnPkgDel\" was not injected: check your FXML file 'Packages.fxml'.";
         assert tblProducts != null : "fx:id=\"tblProducts\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnEditPPS != null : "fx:id=\"btnEditPPS\" was not injected: check your FXML file 'Packages.fxml'.";
         assert tfPPSID != null : "fx:id=\"tfPPSID\" was not injected: check your FXML file 'Packages.fxml'.";
         assert tfPackId != null : "fx:id=\"tfPackId\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnPPSUpdate != null : "fx:id=\"btnPPSUpdate\" was not injected: check your FXML file 'Packages.fxml'.";
         assert cbPPSPkgID != null : "fx:id=\"cbPPSPkgID\" was not injected: check your FXML file 'Packages.fxml'.";
         assert cbPPSID != null : "fx:id=\"cbPPSID\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnPPSAdd != null : "fx:id=\"btnPPSAdd\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnPkgAdd != null : "fx:id=\"btnPPSAdd\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert cbPackProdSup != null : "fx:id=\"cbPackProdSup\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPPSDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert btnPkgDel != null : "fx:id=\"btnPPSDel\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPPSUpdate != null : "fx:id=\"btnPPSUpdate\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert btnPPSAdd != null : "fx:id=\"btnPPSAdd\" was not injected: check your FXML file 'Packages.fxml'.";
+
 // DASHBOARD BUTTONS ==================================================================================================
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
         btnPrint.setOnMouseClicked(event -> GetPrintScene());
@@ -181,13 +198,14 @@ public class ControllerPackages {
 // DASHBOARD METHODS ====== ============================================================================================
         DashboardMethods.changeAgentName(lblAgentName);
         GUIMethods.GetDateTime(datetime);
+
 //Connect to Database for ComboBox======================================================================================
         try {
             Connection db = DAO.getConnection();
             Statement stat = db.createStatement();
             ResultSet rs = stat.executeQuery("select * from packages p ");
 
-            ObservableList<Packages> pkgs = FXCollections.observableArrayList();
+
             while (rs.next()) {
                 pkgs.add(new Packages(
                         rs.getInt(1),
@@ -199,6 +217,7 @@ public class ControllerPackages {
                         rs.getDouble(7)));
             }
             cbPkg.setItems(pkgs);
+            cbPkg.getSelectionModel().selectFirst();
             cbPPSPkgID.setItems(pkgs);
             db.close();
         } catch (SQLException e) {
@@ -230,8 +249,10 @@ public class ControllerPackages {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//SAVE BUTTON TO HANDLE PACKAGES========================================================================================
-            btnSave.setOnMouseClicked(event -> {
+
+
+//UPDATE BUTTON TO HANDLE PACKAGES========================================================================================
+            btnPkgUpdate.setOnMouseClicked(event -> {
                 String sql = "UPDATE `packages` " +
                         "SET `PackageId`=?," +
                         "`PkgName`=?," +
@@ -263,7 +284,7 @@ public class ControllerPackages {
                     System.out.println(e);
                 }
 
-                btnSave.setDisable(true);
+                btnPkgUpdate.setDisable(true);
                 btnEdit.setDisable(false);
                 tfPkgName.setDisable(true);
                 taDescription.setDisable(true);
@@ -277,7 +298,7 @@ public class ControllerPackages {
             });
 //EDIT BUTTON TO HANDLE PACKAGES========================================================================================
             btnEdit.setOnMouseClicked(event -> {
-                btnSave.setDisable(false);
+                btnPkgUpdate.setDisable(false);
                 btnEdit.setDisable(true);
                 tfPkgName.setDisable(false);
                 taDescription.setDisable(false);
@@ -390,46 +411,48 @@ public class ControllerPackages {
             });
 //ADD TO PACKAGES DATABASE =============================================================================================
             btnPkgAdd.setOnMouseClicked(event -> {
-                String sql = "INSERT INTO packages (" +
-                        "PkgName, " +
-                        "PkgStartDate, " +
-                        "PkgEndDate, " +
-                        "PkgDesc, " +
-                        "PkgBasePrice, " +
-                        "PkgAgencyCommission) " +
-                        "VALUES (? , ?, ?, ?, ?, ?)";
-                Connection conn = DAO.getConnection();
-                try {
-                    PreparedStatement stmt = conn.prepareStatement(sql);
-                    stmt.setString(1, tfPkgName.getText());
-                    stmt.setString(2, String.valueOf(dpStartDate.getValue()));
-                    stmt.setString(3, String.valueOf(dpEndDate.getValue()));
-                    stmt.setString(4, taDescription.getText());
-                    stmt.setString(5, tfPrice.getText());
-                    stmt.setString(6, tfCommission.getText());
-                    int rowsAffected = stmt.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("update worked");
-                    } else {
-                        System.out.println("update failed");
-                    }
-                    conn.close();
+                    String sql = "INSERT INTO packages (" +
+                            "PkgName, " +
+                            "PkgStartDate, " +
+                            "PkgEndDate, " +
+                            "PkgDesc, " +
+                            "PkgBasePrice, " +
+                            "PkgAgencyCommission) " +
+                            "VALUES (? , ?, ?, ?, ?, ?)";
+                    Connection conn = DAO.getConnection();
+                    try {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, tfPkgName.getText());
+                        stmt.setString(2, String.valueOf(dpStartDate.getValue()));
+                        stmt.setString(3, String.valueOf(dpEndDate.getValue()));
+                        stmt.setString(4, taDescription.getText());
+                        stmt.setString(5, tfPrice.getText());
+                        stmt.setString(6, tfCommission.getText());
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("update worked");
+                        } else {
+                            System.out.println("update failed");
+                        }
+                        conn.close();
 
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                btnSave.setDisable(true);
-                btnEdit.setDisable(false);
-                tfPkgName.setDisable(true);
-                taDescription.setDisable(true);
-                tfPrice.setDisable(true);
-                tfCommission.setDisable(true);
-                dpStartDate.setDisable(true);
-                dpEndDate.setDisable(true);
-                btnPkgAdd.setDisable(true);
-                btnCancel.setDisable(true);
-                btnPkgDel.setDisable(true);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    btnPkgUpdate.setDisable(true);
+                    btnEdit.setDisable(false);
+                    tfPkgName.setDisable(true);
+                    taDescription.setDisable(true);
+                    tfPrice.setDisable(true);
+                    tfCommission.setDisable(true);
+                    dpStartDate.setDisable(true);
+                    dpEndDate.setDisable(true);
+                    btnPkgAdd.setDisable(true);
+                    btnCancel.setDisable(true);
+                    btnPkgDel.setDisable(true);
             });
+
+
 //DELETE FROM PACKAGES =================================================================================================
             btnPkgDel.setOnMouseClicked(event -> {
                 String sql = "DELETE FROM packages WHERE PkgName=?";
@@ -447,7 +470,7 @@ public class ControllerPackages {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-                btnSave.setDisable(true);
+                btnPkgUpdate.setDisable(true);
                 btnEdit.setDisable(false);
                 tfPkgName.setDisable(true);
                 taDescription.setDisable(true);
@@ -484,6 +507,7 @@ public class ControllerPackages {
                 btnPPSAdd.setDisable(true);
                 btnCancel.setDisable(true);
                 btnPPSDel.setDisable(true);
+
             });
         }
     }

@@ -2,8 +2,6 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/LibraryResources/javafx-sdk-16/lib" />
-      <root url="jar://$PROJECT_DIR$/LibraryResources/fontawesomefx-8.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/LibraryResources/mysql-connector-java-8.0.23.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
