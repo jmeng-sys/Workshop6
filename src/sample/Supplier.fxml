@@ -2,7 +2,6 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -341,11 +340,10 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="btnSave" layoutX="183.0" layoutY="608.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Save Edit" />
-                  <Button fx:id="btnEdit" layoutX="183.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Edit" />
-                  <Button fx:id="btnAdd" layoutX="529.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Add" />
-                  <Button fx:id="btnDelete" layoutX="360.0" layoutY="533.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Delete" />
-                  <Button fx:id="btnSaveAdd" layoutX="529.0" layoutY="608.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Save Add" />
+                  <FontAwesomeIcon fx:id="btnEditFA" glyphName="EDIT" layoutX="181.0" layoutY="531.0" size="2.5em" />
+                  <FontAwesomeIcon fx:id="btnSaveFA" glyphName="SAVE" layoutX="183.0" layoutY="593.0" size="2.5em" />
+                  <FontAwesomeIcon fx:id="btnAddFA" glyphName="PLUS" layoutX="133.0" layoutY="531.0" size="2.5em" />
+                  <FontAwesomeIcon fx:id="btnDeleteFA" glyphName="MINUS" layoutX="247.0" layoutY="531.0" size="2.5em" />
                </children></AnchorPane>
             </center>
         </BorderPane>

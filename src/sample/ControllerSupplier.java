@@ -94,22 +94,21 @@ public class ControllerSupplier {
     @FXML // fx:id="tfSupName"
     private TextField tfSupName; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btnSave"
-    private Button btnSave; // Value injected by FXMLLoader
+    @FXML // fx:id="btnEditFA"
+    private FontAwesomeIcon btnEditFA; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btnEdit"
-    private Button btnEdit; // Value injected by FXMLLoader
+    @FXML // fx:id="btnSaveFA"
+    private FontAwesomeIcon btnSaveFA; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btnAdd"
-    private Button btnAdd; // Value injected by FXMLLoader
+    @FXML // fx:id="btnAddFA"
+    private FontAwesomeIcon btnAddFA; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btnSaveAdd"
-    private Button btnSaveAdd; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btnDelete"
-    private Button btnDelete; // Value injected by FXMLLoader
+    @FXML // fx:id="btnDeleteFA"
+    private FontAwesomeIcon btnDeleteFA; // Value injected by FXMLLoader
 
     protected int classSupplierContactId;
+
+    private boolean addMode;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -134,12 +133,10 @@ public class ControllerSupplier {
         assert tfAffiliationId != null : "fx:id=\"tfAffiliationId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupId != null : "fx:id=\"tfSupId\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert tfSupName != null : "fx:id=\"tfSupName\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnAdd != null : "fx:id=\"btnAdd\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnSaveAdd != null : "fx:id=\"btnSaveAdd\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Supplier.fxml'.";
-
+        assert btnEditFA != null : "fx:id=\"btnEditFA\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnSaveFA != null : "fx:id=\"btnSaveFA\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnAddFA != null : "fx:id=\"btnAddFA\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnDeleteFA != null : "fx:id=\"btnDeleteFA\" was not injected: check your FXML file 'Supplier.fxml'.";
 
 
         btnExit.setOnMouseClicked(event -> System.exit(0));
@@ -219,9 +216,17 @@ public class ControllerSupplier {
             }
         });
 
-        btnEdit.setOnMouseClicked(event -> setTfEditable(true));
+        /*btnEdit.setOnMouseClicked(event -> {
+            setTfEditable(true);
+            saveMode = true;
+        });*/
 
-        btnSave.setOnMouseClicked(event -> {
+        btnEditFA.setOnMouseClicked(event -> {
+            setTfEditable(true);
+            addMode = false;
+        });
+
+        /*btnSave.setOnMouseClicked(event -> {
             @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
                     "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
                     "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
@@ -264,14 +269,20 @@ public class ControllerSupplier {
                 throwables.printStackTrace();
             }
             setTfEditable(false);
-        });
+        });*/
 
-        btnAdd.setOnMouseClicked(event -> {
+        /*btnAdd.setOnMouseClicked(event -> {
             setTfEditable(true);
             tfClear();
+        });*/
+
+        btnAddFA.setOnMouseClicked(event -> {
+            setTfEditable(true);
+            tfClear();
+            addMode = true;
         });
 
-        btnSaveAdd.setOnMouseClicked(event -> {
+        /*btnSaveAdd.setOnMouseClicked(event -> {
             @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
                     "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
                     "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
@@ -310,9 +321,122 @@ public class ControllerSupplier {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        });*/
+
+        btnSaveFA.setOnMouseClicked(event -> {
+            if (addMode)
+            {
+                @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
+                        "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
+                        "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
+                        "AffiliationId, SupplierId) VALUES (?,?,?,?,?,?,?," +
+                        "?,?,?,?,?,?,?)";
+
+                try {
+                    Connection conn = getConnetion();
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, tfSupConFirstName.getText());
+                    pstmt.setString(2, tfSupConLastName.getText());
+                    pstmt.setString(3, tfSupConCompany.getText());
+                    pstmt.setString(4, tfSupConAddress.getText());
+                    pstmt.setString(5, tfSupConCity.getText());
+                    pstmt.setString(6, tfSupConProv.getText());
+                    pstmt.setString(7, tfSupConPostal.getText());
+                    pstmt.setString(8, tfSupConCountry.getText());
+                    pstmt.setString(9, tfSupConBusPhone.getText());
+                    pstmt.setString(10, tfSupConFax.getText());
+                    pstmt.setString(11, tfSupConEmail.getText());
+                    pstmt.setString(12, tfSupConUrl.getText());
+                    pstmt.setString(13, tfAffiliationId.getText());
+                    pstmt.setInt(14, Integer.parseInt(tfSupId.getText()));
+
+                    int rowsAffected = pstmt.executeUpdate();
+                    if(rowsAffected > 0)
+                    {
+                        tfClear();
+                    }
+                    else {
+                        System.out.println("update failed");
+                    }
+
+                    conn.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else
+            {
+                @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
+                        "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
+                        "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
+                        "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
+                        "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
+                        "WHERE SupplierContactId=?";
+
+                try {
+                    Connection conn = getConnetion();
+                    PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+                    pstmt1.setString(1, tfSupConFirstName.getText());
+                    pstmt1.setString(2, tfSupConLastName.getText());
+                    pstmt1.setString(3, tfSupConCompany.getText());
+                    pstmt1.setString(4, tfSupConAddress.getText());
+                    pstmt1.setString(5, tfSupConCity.getText());
+                    pstmt1.setString(6, tfSupConProv.getText());
+                    pstmt1.setString(7, tfSupConPostal.getText());
+                    pstmt1.setString(8, tfSupConCountry.getText());
+                    pstmt1.setString(9, tfSupConBusPhone.getText());
+                    pstmt1.setString(10, tfSupConFax.getText());
+                    pstmt1.setString(11, tfSupConEmail.getText());
+                    pstmt1.setString(12, tfSupConUrl.getText());
+                    pstmt1.setString(13, tfAffiliationId.getText());
+                    pstmt1.setString(14, tfSupId.getText());
+                    pstmt1.setString(15, String.valueOf(classSupplierContactId));
+
+
+                    int rowsAffected = pstmt1.executeUpdate();
+                    if(rowsAffected > 0)
+                    {
+                        tfClear();
+                    }
+                    else {
+                        System.out.println("update failed");
+                    }
+
+                    conn.close();
+                }
+                catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                setTfEditable(false);
+            }
+
         });
 
-        btnDelete.setOnMouseClicked(event -> {
+/*        btnDelete.setOnMouseClicked(event -> {
+            @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
+
+            try {
+                Connection conn = getConnetion();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, String.valueOf(classSupplierContactId));
+
+                int rowsAffected = pstmt.executeUpdate();
+                if(rowsAffected > 0)
+                {
+                    tfClear();
+                }
+                else {
+                    System.out.println("update failed");
+                }
+                conn.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });*/
+
+        btnDeleteFA.setOnMouseClicked(event -> {
             @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
 
             try {
