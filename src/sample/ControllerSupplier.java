@@ -145,136 +145,16 @@ public class ControllerSupplier {
 
         setTfEditable(false);
 
-        try {
-            Connection conn = getConnetion();
-            Statement stmt = conn.createStatement();
-            @SuppressWarnings("SqlResolve") ResultSet rs = stmt.executeQuery("select SupplierContactId, SupConFirstName, SupConLastName, " +
-                    "SupConCompany, SupConAddress, " +
-                    "SupConCity, SupConProv, SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, " +
-                    "SupConURL, AffiliationId, SupplierContacts.SupplierId, SupName " +
-                    "from SupplierContacts join Suppliers " +
-                    "on SupplierContacts.SupplierId = Suppliers.SupplierId");
-
-            Comparator<SupplierContact> scComparator = Comparator.comparing(SupplierContact::getSupConCompany);
-            ObservableList<SupplierContact> list = FXCollections.observableArrayList();
-            while (rs.next())
-            {
-                list.add(new SupplierContact(rs.getInt("SupplierContactId"),
-                                            rs.getString("SupConFirstName"),
-                                            rs.getString("SupConLastName"),
-                                            rs.getString("SupConCompany"),
-                                            rs.getString("SupConAddress"),
-                                            rs.getString("SupConCity"),
-                                            rs.getString("SupConProv"),
-                                            rs.getString("SupConPostal"),
-                                            rs.getString("SupConCountry"),
-                                            rs.getString("SupConBusPhone"),
-                                            rs.getString("SupConFax"),
-                                            rs.getString("SupConEmail"),
-                                            rs.getString("SupConURL"),
-                                            rs.getString("AffiliationId"),
-                                            rs.getInt("SupplierId"),
-                                            rs.getString("SupName")
-                        ));
-
-            }
-            Collections.sort(list, scComparator);
-            cbSupCon.setItems(list);
-            conn.close();
+        loadCbSupCon();
 
 
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        cbSupCon.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SupplierContact>() {
-            @Override
-            public void changed(ObservableValue<? extends SupplierContact> observableValue, SupplierContact oldValue,
-                                SupplierContact newValue) {
-                tfSupConFirstName.setText(newValue.getSupConFirstName());
-                tfSupConLastName.setText(newValue.getSupConLastName());
-                tfSupConCompany.setText(newValue.getSupConCompany());
-                tfSupConAddress.setText(newValue.getSupConAddress());
-                tfSupConCity.setText(newValue.getSupConCity());
-                tfSupConProv.setText(newValue.getSupConProv());
-                tfSupConPostal.setText(newValue.getSupConPostal());
-                tfSupConCountry.setText(newValue.getSupConCountry());
-                tfSupConBusPhone.setText(newValue.getSupConBusPhone());
-                tfSupConFax.setText(newValue.getSupConFax());
-                tfSupConEmail.setText(newValue.getSupConEmail());
-                tfSupConUrl.setText(newValue.getSupConUrl());
-                tfAffiliationId.setText(newValue.getAffiliationId());
-                tfSupId.setText(String.valueOf(newValue.getSupplierId()));
-                tfSupName.setText(newValue.getSupName());
-
-
-                classSupplierContactId = newValue.getSupplierContactId();
-
-                System.out.println("SupplierContactId = " + classSupplierContactId);
-
-            }
-        });
-
-        /*btnEdit.setOnMouseClicked(event -> {
-            setTfEditable(true);
-            saveMode = true;
-        });*/
 
         btnEditFA.setOnMouseClicked(event -> {
             setTfEditable(true);
             addMode = false;
         });
 
-        /*btnSave.setOnMouseClicked(event -> {
-            @SuppressWarnings("SqlResolve") String sql1 = "UPDATE `SupplierContacts` SET " +
-                    "`SupConFirstName`=?,`SupConLastName`=?,`SupConCompany`=?," +
-                    "`SupConAddress`=?,`SupConCity`=?,`SupConProv`=?,`SupConPostal`=?," +
-                    "`SupConCountry`=?,`SupConBusPhone`=?,`SupConFax`=?," +
-                    "`SupConEmail`=?,`SupConURL`=?,`AffiliationId`=?,`SupplierId`=? " +
-                    "WHERE SupplierContactId=?";
 
-            try {
-                Connection conn = getConnetion();
-                PreparedStatement pstmt1 = conn.prepareStatement(sql1);
-                pstmt1.setString(1, tfSupConFirstName.getText());
-                pstmt1.setString(2, tfSupConLastName.getText());
-                pstmt1.setString(3, tfSupConCompany.getText());
-                pstmt1.setString(4, tfSupConAddress.getText());
-                pstmt1.setString(5, tfSupConCity.getText());
-                pstmt1.setString(6, tfSupConProv.getText());
-                pstmt1.setString(7, tfSupConPostal.getText());
-                pstmt1.setString(8, tfSupConCountry.getText());
-                pstmt1.setString(9, tfSupConBusPhone.getText());
-                pstmt1.setString(10, tfSupConFax.getText());
-                pstmt1.setString(11, tfSupConEmail.getText());
-                pstmt1.setString(12, tfSupConUrl.getText());
-                pstmt1.setString(13, tfAffiliationId.getText());
-                pstmt1.setString(14, tfSupId.getText());
-                pstmt1.setString(15, String.valueOf(classSupplierContactId));
-
-
-                int rowsAffected = pstmt1.executeUpdate();
-                if(rowsAffected > 0)
-                {
-                    tfClear();
-                }
-                else {
-                    System.out.println("update failed");
-                }
-
-                conn.close();
-            }
-            catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            setTfEditable(false);
-        });*/
-
-        /*btnAdd.setOnMouseClicked(event -> {
-            setTfEditable(true);
-            tfClear();
-        });*/
 
         btnAddFA.setOnMouseClicked(event -> {
             setTfEditable(true);
@@ -282,46 +162,7 @@ public class ControllerSupplier {
             addMode = true;
         });
 
-        /*btnSaveAdd.setOnMouseClicked(event -> {
-            @SuppressWarnings("SqlResolve") String sql = "INSERT INTO suppliercontacts (SupConFirstName, " +
-                    "SupConLastName, SupConCompany, SupConAddress, SupConCity, SupConProv, " +
-                    "SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, SupConURL, " +
-                    "AffiliationId, SupplierId) VALUES (?,?,?,?,?,?,?," +
-                    "?,?,?,?,?,?,?)";
 
-            try {
-                Connection conn = getConnetion();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, tfSupConFirstName.getText());
-                pstmt.setString(2, tfSupConLastName.getText());
-                pstmt.setString(3, tfSupConCompany.getText());
-                pstmt.setString(4, tfSupConAddress.getText());
-                pstmt.setString(5, tfSupConCity.getText());
-                pstmt.setString(6, tfSupConProv.getText());
-                pstmt.setString(7, tfSupConPostal.getText());
-                pstmt.setString(8, tfSupConCountry.getText());
-                pstmt.setString(9, tfSupConBusPhone.getText());
-                pstmt.setString(10, tfSupConFax.getText());
-                pstmt.setString(11, tfSupConEmail.getText());
-                pstmt.setString(12, tfSupConUrl.getText());
-                pstmt.setString(13, tfAffiliationId.getText());
-                pstmt.setInt(14, Integer.parseInt(tfSupId.getText()));
-
-                int rowsAffected = pstmt.executeUpdate();
-                if(rowsAffected > 0)
-                {
-                    tfClear();
-                }
-                else {
-                    System.out.println("update failed");
-                }
-
-                conn.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        });*/
 
         btnSaveFA.setOnMouseClicked(event -> {
             if (addMode)
@@ -364,6 +205,7 @@ public class ControllerSupplier {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                loadCbSupCon();
             }
             else
             {
@@ -408,33 +250,13 @@ public class ControllerSupplier {
                 catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                loadCbSupCon();
                 setTfEditable(false);
             }
 
         });
 
-/*        btnDelete.setOnMouseClicked(event -> {
-            @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
 
-            try {
-                Connection conn = getConnetion();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, String.valueOf(classSupplierContactId));
-
-                int rowsAffected = pstmt.executeUpdate();
-                if(rowsAffected > 0)
-                {
-                    tfClear();
-                }
-                else {
-                    System.out.println("update failed");
-                }
-                conn.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        });*/
 
         btnDeleteFA.setOnMouseClicked(event -> {
             @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
@@ -457,12 +279,81 @@ public class ControllerSupplier {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            loadCbSupCon();
         });
 
 
     }
 
+    protected void loadCbSupCon(){
+        try {
+            Connection conn = getConnetion();
+            Statement stmt = conn.createStatement();
+            @SuppressWarnings("SqlResolve") ResultSet rs = stmt.executeQuery("select SupplierContactId, SupConFirstName, SupConLastName, " +
+                    "SupConCompany, SupConAddress, " +
+                    "SupConCity, SupConProv, SupConPostal, SupConCountry, SupConBusPhone, SupConFax, SupConEmail, " +
+                    "SupConURL, AffiliationId, SupplierContacts.SupplierId, SupName " +
+                    "from SupplierContacts join Suppliers " +
+                    "on SupplierContacts.SupplierId = Suppliers.SupplierId");
 
+            Comparator<SupplierContact> scComparator = Comparator.comparing(SupplierContact::getSupConCompany);
+            ObservableList<SupplierContact> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(new SupplierContact(rs.getInt("SupplierContactId"),
+                        rs.getString("SupConFirstName"),
+                        rs.getString("SupConLastName"),
+                        rs.getString("SupConCompany"),
+                        rs.getString("SupConAddress"),
+                        rs.getString("SupConCity"),
+                        rs.getString("SupConProv"),
+                        rs.getString("SupConPostal"),
+                        rs.getString("SupConCountry"),
+                        rs.getString("SupConBusPhone"),
+                        rs.getString("SupConFax"),
+                        rs.getString("SupConEmail"),
+                        rs.getString("SupConURL"),
+                        rs.getString("AffiliationId"),
+                        rs.getInt("SupplierId"),
+                        rs.getString("SupName")
+                ));
+
+            }
+            Collections.sort(list, scComparator);
+            cbSupCon.setItems(list);
+            conn.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        cbSupCon.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SupplierContact>() {
+            @Override
+            public void changed(ObservableValue<? extends SupplierContact> observableValue, SupplierContact oldValue,
+                                SupplierContact newValue) {
+                tfSupConFirstName.setText(newValue.getSupConFirstName());
+                tfSupConLastName.setText(newValue.getSupConLastName());
+                tfSupConCompany.setText(newValue.getSupConCompany());
+                tfSupConAddress.setText(newValue.getSupConAddress());
+                tfSupConCity.setText(newValue.getSupConCity());
+                tfSupConProv.setText(newValue.getSupConProv());
+                tfSupConPostal.setText(newValue.getSupConPostal());
+                tfSupConCountry.setText(newValue.getSupConCountry());
+                tfSupConBusPhone.setText(newValue.getSupConBusPhone());
+                tfSupConFax.setText(newValue.getSupConFax());
+                tfSupConEmail.setText(newValue.getSupConEmail());
+                tfSupConUrl.setText(newValue.getSupConUrl());
+                tfAffiliationId.setText(newValue.getAffiliationId());
+                tfSupId.setText(String.valueOf(newValue.getSupplierId()));
+                tfSupName.setText(newValue.getSupName());
+
+
+                classSupplierContactId = newValue.getSupplierContactId();
+
+                System.out.println("SupplierContactId = " + classSupplierContactId);
+
+            }
+        });
+    }
 
     private Connection getConnetion() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
