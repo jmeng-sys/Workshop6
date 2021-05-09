@@ -13,7 +13,7 @@ public class Main extends Application {
     public static int loggedInAgentId = 0;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Travel Experts - Manager");
         primaryStage.setScene(new Scene(root));
