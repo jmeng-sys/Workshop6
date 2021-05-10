@@ -18,7 +18,7 @@ public class ControllerPackages {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
     @FXML
-    private Label datetime;
+    private Label dateTime;
 
     @FXML
     private FontAwesomeIcon btnPrint;
@@ -134,7 +134,7 @@ public class ControllerPackages {
     @FXML
     void initialize() {
         assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Packages.fxml'.";
-        assert datetime != null : "fx:id=\"datetime\" was not injected: check your FXML file 'Packages.fxml'.";
+        assert dateTime != null : "fx:id=\"datetime\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Packages.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Packages.fxml'.";
@@ -180,7 +180,7 @@ public class ControllerPackages {
         btnUser.setOnMouseClicked(event -> GetUserScene());
 // DASHBOARD METHODS ====== ============================================================================================
         DashboardMethods.changeAgentName(lblAgentName);
-        GUIMethods.GetDateTime(datetime);
+        GUIMethods.GetDateTime(dateTime);
 //Connect to Database for ComboBox======================================================================================
         try {
             Connection db = DAO.getConnection();

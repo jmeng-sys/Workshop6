@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import objects.GUIMethods;
 
 import java.sql.*;
 
@@ -84,6 +85,18 @@ public class ControllerSupplier {
     @FXML // fx:id="btnEdit"
     private Button btnEdit; // Value injected by FXMLLoader
 
+    @FXML
+    private FontAwesomeIcon btnLogin;
+
+    @FXML
+    private FontAwesomeIcon btnExit;
+
+    @FXML
+    private FontAwesomeIcon btnHome;
+
+    @FXML
+    private Label lblAgentName;
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Supplier.fxml'.";
@@ -107,6 +120,19 @@ public class ControllerSupplier {
         assert tfSupName != null : "fx:id=\"tfSupName\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Supplier.fxml'.";
+        assert lblAgentName != null : "fx:id=\"lblAgentName\" was not injected: check your FXML file 'Supplier.fxml'.";
+
+        btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
+        btnPrint.setOnMouseClicked(event -> GetPrintScene());
+        btnOptions.setOnMouseClicked(event -> GetOptionsScene());
+        btnLogin.setOnMouseClicked(event -> GetLoginsScene());
+        btnHome.setOnMouseClicked(event -> GetHomeScene());
+
+        DashboardMethods.changeAgentName(lblAgentName);
+        GUIMethods.GetDateTime(dateTime);
 
         try {
             Connection conn = getConnection();
@@ -217,5 +243,10 @@ public class ControllerSupplier {
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
     }
+
+    private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
+    private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
+    private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
+    private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
 }
 
