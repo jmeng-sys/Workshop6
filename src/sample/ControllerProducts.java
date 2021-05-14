@@ -1,10 +1,14 @@
 package sample;
 
+/*
+    Products Controller Class
+    Handles all of the data handling and displaying for Products
+    Code by Tristen Stockley (T)
+ */
+
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,96 +19,50 @@ import javafx.stage.Stage;
 import objects.GUIMethods;
 import objects.Product;
 import objects.Supplier;
-
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class ControllerProducts {
+public class ControllerProducts
+{
+    //Declares scene builder fields (T)
+    @FXML private FontAwesomeIcon btnPrint;
+    @FXML private FontAwesomeIcon btnOptions;
+    @FXML private FontAwesomeIcon btnHome;
+    @FXML private FontAwesomeIcon btnLogin;
+    @FXML private FontAwesomeIcon btnUser;
+    @FXML private Label lblAgentName;
+    @FXML private Label dateTime;
+    @FXML private Label lblError;
+    @FXML private FontAwesomeIcon btnExit;
+    @FXML private TextField tfProductId;
+    @FXML private TextField tfProductName;
+    @FXML private TableView<ObservableList<String>> tblProducts;
+    @FXML private FontAwesomeIcon btnAdd;
+    @FXML private FontAwesomeIcon btnModify;
+    @FXML private FontAwesomeIcon btnSave;
+    @FXML private FontAwesomeIcon btnCancel;
+    @FXML private FontAwesomeIcon btnDelete;
+    @FXML private TableView<ObservableList<String>> tblProdSupp;
+    @FXML private ComboBox<Product> cbFilterByProd;
+    @FXML private ComboBox<Supplier> cbFilterBySupp;
+    @FXML private Button btnClearFilter;
 
+    //List for populating tables (T)
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private FontAwesomeIcon btnPrint;
-
-    @FXML
-    private FontAwesomeIcon btnOptions;
-
-    @FXML
-    private FontAwesomeIcon btnHome;
-
-    @FXML
-    private FontAwesomeIcon btnLogin;
-
-    @FXML
-    private FontAwesomeIcon btnUser;
-
-    @FXML
-    private Label lblAgentName;
-
-    @FXML
-    private Label dateTime;
-
-    @FXML
-    private Label lblError;
-
-    @FXML
-    private FontAwesomeIcon btnExit;
-
-
-    @FXML
-    private TextField tfProductId;
-
-    @FXML
-    private TextField tfProductName;
-
-    @FXML
-    private TableView<ObservableList<String>> tblProducts;
-
-    @FXML
-    private FontAwesomeIcon btnAdd;
-
-    @FXML
-    private FontAwesomeIcon btnModify;
-
-    @FXML
-    private FontAwesomeIcon btnSave;
-
-    @FXML
-    private FontAwesomeIcon btnCancel;
-
-    @FXML FontAwesomeIcon btnDelete;
-
-    @FXML
-    private TableView<ObservableList<String>> tblProdSupp;
-
-    @FXML
-    private ComboBox<Product> cbFilterByProd;
-
-    @FXML
-    private ComboBox<Supplier> cbFilterBySupp;
-
-    @FXML
-    private Button btnClearFilter;
-
-    //SQL strings for filters
+    //SQL strings for filters (T)
     private String prodNameFilter = "";
     private String suppNameFilter = "";
 
-    //Boolean for add/modify
+    //Boolean for add/modify (T)
     private boolean isAdd = true;
     int currentProdId = 0;
 
     @FXML
-    void initialize() {
+    void initialize()
+    {
+        //Initializes all scene builder fields (T)
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Products.fxml'.";
@@ -127,60 +85,61 @@ public class ControllerProducts {
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Products.fxml'.";
 
+        //Disables the save button by default (T)
         btnSave.setDisable(true);
-        //Handles button clicks
+
+        //Handles dashboard navigation clicks (T)
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
         btnPrint.setOnMouseClicked(event -> GetPrintScene());
         btnOptions.setOnMouseClicked(event -> GetOptionsScene());
         btnLogin.setOnMouseClicked(event -> GetLoginsScene());
         btnHome.setOnMouseClicked(event -> GetHomeScene());
 
-        btnClearFilter.setOnMouseClicked(event -> { ClearFilters(); });
-        btnAdd.setOnMouseClicked(event -> { AddProduct(); });
-        btnModify.setOnMouseClicked(event -> { ModifyProduct(); });
-        btnSave.setOnMouseClicked(event -> { SaveProduct(); });
-        btnCancel.setOnMouseClicked(event -> { ResetProduct(); });
-        btnDelete.setOnMouseClicked(event -> { DeleteProduct(); });
+        //Handles button clicks for data manipulation (T)
+        btnClearFilter.setOnMouseClicked(event -> ClearFilters());
+        btnAdd.setOnMouseClicked(event -> AddProduct());
+        btnModify.setOnMouseClicked(event -> ModifyProduct());
+        btnSave.setOnMouseClicked(event -> SaveProduct());
+        btnCancel.setOnMouseClicked(event -> ResetProduct());
+        btnDelete.setOnMouseClicked(event -> DeleteProduct());
 
+        //Sets the time and agent name (T)
         GUIMethods.GetDateTime(dateTime);
         DashboardMethods.changeAgentName(lblAgentName);
-        //Populates tables and comboboxes
+
+        //Populates tables and comboboxes (T)
         PopProdCB();
         PopSupCB();
         PopulateProdSuppTable();
         PopulateProductTable();
 
-        //On selection change of Product combobox filters results
-        cbFilterByProd.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Product>() {
-            @Override
-            public void changed(ObservableValue<? extends Product> observableValue, Product product, Product t1) {
-                if(t1 != null)
-                {
-                    tblProdSupp.getItems().clear();
-                    tblProdSupp.getColumns().clear();
-                    prodNameFilter = " AND p.ProdName = '" + t1.getProdName() + "' ";
-                    PopulateProdSuppTable();
-                }
+        //On selection change of Product combobox filters results (T)
+        cbFilterByProd.getSelectionModel().selectedItemProperty().addListener((observableValue, product, t1) ->
+        {
+            if(t1 != null)
+            {
+                tblProdSupp.getItems().clear();
+                tblProdSupp.getColumns().clear();
+                prodNameFilter = " AND p.ProdName = '" + t1.getProdName() + "' ";
+                PopulateProdSuppTable();
             }
         });
 
-        //On selection change of supplier combobox filters results
-        cbFilterBySupp.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Supplier>() {
-            @Override
-            public void changed(ObservableValue<? extends Supplier> observableValue, Supplier supplier, Supplier t1) {
-                if(t1 != null)
-                {
-                    tblProdSupp.getItems().clear();
-                    tblProdSupp.getColumns().clear();
-                    suppNameFilter = " AND s.SupName = '" + t1.getSupName() + "' ";
-                    PopulateProdSuppTable();
-                }
+        //On selection change of supplier combobox filters results (T)
+        cbFilterBySupp.getSelectionModel().selectedItemProperty().addListener((observableValue, supplier, t1) ->
+        {
+            if(t1 != null)
+            {
+                tblProdSupp.getItems().clear();
+                tblProdSupp.getColumns().clear();
+                suppNameFilter = " AND s.SupName = '" + t1.getSupName() + "' ";
+                PopulateProdSuppTable();
             }
         });
 
-        //On selection of tableview item
-        tblProducts.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelction) -> {
-            if (newSelction != null)
+        //On selection of tableview item (T)
+        tblProducts.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null)
             {
                 TablePosition pos = tblProducts.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
@@ -190,17 +149,15 @@ public class ControllerProducts {
                 tfProductName.setText(cellValue.get(1));
             }
         });
-    }
+    } //End of initialize (T)
 
-
-
-    //Dashboard navigation method calls
+    //Dashboard navigation method calls (T)
     private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
     private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
     private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
     private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
 
-    //Prepares an entry to be added to the database
+    //Prepares an entry to be added to the database (T)
     private void AddProduct()
     {
         System.out.println("Add Button Clicked");
@@ -219,7 +176,7 @@ public class ControllerProducts {
         btnSave.setDisable(false);
     }
 
-    //Prepares an entry to be modified and updated to the database
+    //Prepares an entry to be modified and updated to the database (T)
     private void ModifyProduct()
     {
         System.out.println("Modify Button Clicked");
@@ -239,7 +196,7 @@ public class ControllerProducts {
         }
     }
 
-    //Deletes an entry in the database
+    //Deletes an entry in the database (T)
     private void DeleteProduct()
     {
         System.out.println("Delete button clicked");
@@ -258,7 +215,6 @@ public class ControllerProducts {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK)
             {
-                // ... user chose OK
                 try
                 {
                     System.out.println("Deleting entry from database.");
@@ -271,10 +227,10 @@ public class ControllerProducts {
                     {
                         System.out.println("Deletion Successful!");
                         Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Successful Deletion");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Deletion was successful for product: " + tfProductName.getText());
-                        alert.showAndWait();
+                        alertSuccess.setTitle("Successful Deletion");
+                        alertSuccess.setHeaderText(null);
+                        alertSuccess.setContentText("Deletion was successful for product: " + tfProductName.getText());
+                        alertSuccess.showAndWait();
                     }
                 }
                 catch (SQLException e)
@@ -296,7 +252,7 @@ public class ControllerProducts {
         }
     }
 
-    //Saves the new or updated product to the database.
+    //Saves the new or updated product to the database. (T)
     private void SaveProduct()
     {
         System.out.println("Save Button Clicked");
@@ -334,7 +290,7 @@ public class ControllerProducts {
         else if(!isAdd && tfProductId.getText() != null && tfProductName.getText() != null)
         {
             System.out.println("Editing entry in database");
-            //Update to database
+            //Update to database (T)
             try
             {
                 Connection conn = DAO.getConnection();
@@ -382,6 +338,7 @@ public class ControllerProducts {
         PopulateProductTable();
     }
 
+    //Restores all product fields to default (T)
     private void ResetProduct()
     {
         lblError.setText("");
@@ -393,60 +350,73 @@ public class ControllerProducts {
         btnAdd.setDisable(false);
         btnModify.setDisable(false);
     }
-    //Populates Product Table
+
+    //Populates Product Table (T)
     private void PopulateProductTable()
     {
-        if (tblProducts.getItems().isEmpty()) {
+        if (tblProducts.getItems().isEmpty())
+        {
             data = FXCollections.observableArrayList();
-            try {
+            try
+            {
                 Connection conn = DAO.getConnection();
-                String dataQuery = "select * from Products";
+                @SuppressWarnings("SqlResolve")String dataQuery = "select * from Products";
                 ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
 
-                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
+                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++)
+                {
                     final int j = i;
                     TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
                     tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
                     tblProducts.getColumns().add(tableColumn);
                 }
-                while (tableValues.next()) {
+                while (tableValues.next())
+                {
                     ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
+                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++)
+                    {
                         row.add(tableValues.getString(i));
                     }
                     data.add(row);
                 }
                 tblProducts.getItems().addAll(data);
                 conn.close();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e)
+            {
                 e.printStackTrace();
             }
         }
     }
 
-    //Populates Product_Supplier table
+    //Populates Product_Supplier table (T)
     private void PopulateProdSuppTable()
     {
-        if (tblProdSupp.getItems().isEmpty()) {
+        if (tblProdSupp.getItems().isEmpty())
+        {
             data = FXCollections.observableArrayList();
-            try {
+            try
+            {
                 Connection conn = DAO.getConnection();
-                String dataQuery = "SELECT p.ProdName, s.SupName, ProductSupplierId, p.ProductId, s.SupplierId FROM Products_Suppliers\n" +
+                @SuppressWarnings("SqlResolve") String dataQuery = "SELECT p.ProdName, s.SupName, ProductSupplierId, p.ProductId, s.SupplierId FROM Products_Suppliers\n" +
                         "\tINNER JOIN Products p ON products_suppliers.ProductId = p.ProductId \n" +
                         "\tINNER JOIN Suppliers s ON products_suppliers.SupplierId = s.SupplierId \n" +
                         "    WHERE p.ProductId > 0" + prodNameFilter + suppNameFilter + "\n" +
                         "    ORDER BY p.ProdName, s.SupName;";
                 ResultSet tableValues = conn.createStatement().executeQuery(dataQuery);
 
-                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++) {
+                for (int i = 0; i < tableValues.getMetaData().getColumnCount(); i++)
+                {
                     final int j = i;
                     TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(tableValues.getMetaData().getColumnName(i + 1));
                     tableColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(j)));
                     tblProdSupp.getColumns().add(tableColumn);
                 }
-                while (tableValues.next()) {
+                while (tableValues.next())
+                {
                     ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++) {
+                    for (int i = 1; i <= tableValues.getMetaData().getColumnCount(); i++)
+                    {
                         row.add(tableValues.getString(i));
                     }
                     data.add(row);
@@ -461,29 +431,32 @@ public class ControllerProducts {
         }
     }
 
-    //Redirects user to home
+    //Redirects user to home (T)
     private void redirectToHome()
     {
-        System.out.println("on route to sample");
-        try {
+        System.out.println("Changing scene to home");
+        try
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
             Stage stage = (Stage) btnHome.getScene().getWindow();
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
-        } catch (IOException io) {
+        }
+        catch (IOException io)
+        {
             io.printStackTrace();
         }
     }
 
-    //Populates Product Combobox
+    //Populates Product Combobox (T)
     private void PopProdCB()
     {
         try
         {
             Connection conn = DAO.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet rs = stat.executeQuery("select * from Products");
+            @SuppressWarnings("SqlResolve") ResultSet rs = stat.executeQuery("select * from Products");
             ObservableList<Product> list = FXCollections.observableArrayList();
 
             while(rs.next())
@@ -502,14 +475,14 @@ public class ControllerProducts {
         }
     }
 
-    //Populates Supplier Combobox
+    //Populates Supplier Combobox (T)
     private void PopSupCB()
     {
         try
         {
             Connection conn = DAO.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet rs = stat.executeQuery("select * from Suppliers");
+            @SuppressWarnings("SqlResolve") ResultSet rs = stat.executeQuery("select * from Suppliers");
             ObservableList<Supplier> list = FXCollections.observableArrayList();
             while(rs.next())
             {
@@ -527,7 +500,7 @@ public class ControllerProducts {
         }
     }
 
-    //Clears combobox filters
+    //Clears combobox filters (T)
     private void ClearFilters()
     {
         suppNameFilter = "";

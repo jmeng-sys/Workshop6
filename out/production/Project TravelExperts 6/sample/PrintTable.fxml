@@ -106,13 +106,20 @@
                                                 <Insets bottom="15.0" top="15.0" />
                                             </HBox.margin>
                                         </Separator>
-                                        <Label fx:id="lblAgentName" prefHeight="48.0" prefWidth="485.0" text="Welcome Agent Awesome" textAlignment="CENTER" textFill="WHITE">
+                                        <Label fx:id="lblAgentName" prefHeight="48.0" prefWidth="485.0" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="Calibri" size="22.0" />
                                             </font>
                                             <HBox.margin>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                             </HBox.margin>
+                                            <graphic>
+                                                <Label text="Welcome Agent:" textFill="WHITE">
+                                                    <font>
+                                                        <Font name="Calibri" size="22.0" />
+                                                    </font>
+                                                </Label>
+                                            </graphic>
                                         </Label>
                                         <Label fx:id="dateTime" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="212.0" text="2:28 April 1, 2021" textAlignment="CENTER" textFill="WHITE">
                                             <font>

@@ -9,11 +9,13 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
+    // Global variables to set when logged in (T)
     public static boolean loggedIn = false;
     public static int loggedInAgentId = 0;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Travel Experts - Manager");
         primaryStage.setScene(new Scene(root));
@@ -22,6 +24,7 @@ public class Main extends Application {
 
     }
 
+    //Getter and setters for login (T)
     public static void setLoggedIn(boolean isLoggedIn)
     {
         loggedIn = isLoggedIn;

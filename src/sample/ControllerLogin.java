@@ -1,7 +1,12 @@
 package sample;
 
+/*
+    Login Controller Class
+    Handles all of the login functions
+    Code by Tristen Stockley (T)
+ */
+
 import database.DAO;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -13,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,29 +26,19 @@ import java.sql.Statement;
 
 public class ControllerLogin {
 
-    @FXML
-    private Label lblForgotPassword;
+    //Declares scene builder fields (T)
+    @FXML private Label lblForgotPassword;
+    @FXML private TextField tfUsername;
+    @FXML private TextField tfPassword;
+    @FXML private Label lblCreateAccount;
+    @FXML private Button btnAgentLogin;
+    @FXML private Label lblBadLogin;
+    @FXML private VBox vbLogin;
 
     @FXML
-    private TextField tfUsername;
-
-    @FXML
-    private TextField tfPassword;
-
-    @FXML
-    private Label lblCreateAccount;
-
-    @FXML
-    private Button btnAgentLogin;
-
-    @FXML
-    private Label lblBadLogin;
-
-    @FXML
-    private VBox vbLogin;
-
-    @FXML
-    void initialize() {
+    void initialize()
+    {
+        //Initializes all scene builder fields (T)
         assert lblForgotPassword != null : "fx:id=\"lblForgotPassword\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfUsername != null : "fx:id=\"tfUsername\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'Login.fxml'.";
@@ -53,9 +47,8 @@ public class ControllerLogin {
         assert lblBadLogin != null : "fx:id=\"lblBadLogin\" was not injected: check your FXML file 'Login.fxml'.";
         assert vbLogin != null : "fx:id=\"vbLogin\" was not injected: check your FXML file 'Login.fxml'.";
 
+        //Removes default focus from username field (T)
         final BooleanProperty firstFocus = new SimpleBooleanProperty(true);
-
-        //Removes default focus from username field
         tfUsername.focusedProperty().addListener((observable, oldvalue, newValue) -> {
             if(newValue && firstFocus.get()) {
                 vbLogin.requestFocus();
@@ -63,12 +56,10 @@ public class ControllerLogin {
             }
         });
 
+        //Submits data on click of login button (T)
+        btnAgentLogin.setOnMouseClicked(event -> { HandleLogin(); });
 
-        btnAgentLogin.setOnMouseClicked(event -> {
-            HandleLogin();
-        });
-
-        //Allows enter to be pressed when on the fields to submit login data
+        //Allows enter to be pressed when on the fields to submit login data (T)
         tfUsername.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
             if(keyCode.equals(KeyCode.ENTER))
@@ -85,19 +76,15 @@ public class ControllerLogin {
                 HandleLogin();
             }
         });
-
     }
 
-
+    //Handles the login for the user (T)
     private void HandleLogin()
     {
         System.out.println("Login button clicked");
-        //Take in values of textbox
         String username = tfUsername.getText();
         String password = tfPassword.getText();
         System.out.println("Username: " + username + " , Password: " + password);
-        //Take in values of database?
-        //Check to see if they match any entries in database
         try
         {
             Connection conn = DAO.getConnection();
@@ -127,6 +114,7 @@ public class ControllerLogin {
         }
     }
 
+    //Redirects to the home dashboard (T)
     private void redirectToHome()
     {
         try
