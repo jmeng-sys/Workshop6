@@ -5,25 +5,20 @@
 package sample;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import java.net.URL;
-import java.sql.*;
-import java.util.*;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import objects.GUIMethods;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.*;
 
 public class ControllerSupplier {
 
@@ -112,7 +107,11 @@ public class ControllerSupplier {
     @FXML
     private Label lblAgentName;
 
+    @FXML
+    private TextField tfSupId;
+
     private boolean addMode;
+    protected int classSupplierContactId;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -140,8 +139,6 @@ public class ControllerSupplier {
         assert btnSaveFA != null : "fx:id=\"btnSaveFA\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnAddFA != null : "fx:id=\"btnAddFA\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnDeleteFA != null : "fx:id=\"btnDeleteFA\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnSave != null : "fx:id=\"btnSave\" was not injected: check your FXML file 'Supplier.fxml'.";
-        assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnExit != null : "fx:id=\"btnExit\" was not injected: check your FXML file 'Supplier.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Supplier.fxml'.";
