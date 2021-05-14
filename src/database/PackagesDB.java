@@ -6,6 +6,10 @@ import objects.Packages;
 
 import java.sql.*;
 
+/*Database calls for Packages.
+Code done by Holly.
+ */
+
 public class PackagesDB {
     public static ObservableList<Packages> FetchPackages() {
         ObservableList<Packages> pkgs = FXCollections.observableArrayList();

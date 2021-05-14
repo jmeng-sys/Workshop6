@@ -1,5 +1,9 @@
 package sample;
 
+/*Packages Controller.
+Code and Packages.fxml done by Holly.
+ */
+
 import database.AgentDB;
 import database.DAO;
 import database.PackagesDB;
