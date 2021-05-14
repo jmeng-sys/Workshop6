@@ -1,5 +1,11 @@
 package sample;
 
+/*
+    Login Controller Class
+    Handles all of the login functions
+    Code by Tristen Stockley (T)
+ */
+
 import database.DAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -20,6 +26,7 @@ import java.sql.Statement;
 
 public class ControllerLogin {
 
+    //Declares scene builder fields (T)
     @FXML private Label lblForgotPassword;
     @FXML private TextField tfUsername;
     @FXML private TextField tfPassword;
@@ -31,6 +38,7 @@ public class ControllerLogin {
     @FXML
     void initialize()
     {
+        //Initializes all scene builder fields (T)
         assert lblForgotPassword != null : "fx:id=\"lblForgotPassword\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfUsername != null : "fx:id=\"tfUsername\" was not injected: check your FXML file 'Login.fxml'.";
         assert tfPassword != null : "fx:id=\"tfPassword\" was not injected: check your FXML file 'Login.fxml'.";
@@ -39,7 +47,7 @@ public class ControllerLogin {
         assert lblBadLogin != null : "fx:id=\"lblBadLogin\" was not injected: check your FXML file 'Login.fxml'.";
         assert vbLogin != null : "fx:id=\"vbLogin\" was not injected: check your FXML file 'Login.fxml'.";
 
-        //Removes default focus from username field
+        //Removes default focus from username field (T)
         final BooleanProperty firstFocus = new SimpleBooleanProperty(true);
         tfUsername.focusedProperty().addListener((observable, oldvalue, newValue) -> {
             if(newValue && firstFocus.get()) {
@@ -48,10 +56,10 @@ public class ControllerLogin {
             }
         });
 
-        //Submits data on click of login button
+        //Submits data on click of login button (T)
         btnAgentLogin.setOnMouseClicked(event -> { HandleLogin(); });
 
-        //Allows enter to be pressed when on the fields to submit login data
+        //Allows enter to be pressed when on the fields to submit login data (T)
         tfUsername.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
             if(keyCode.equals(KeyCode.ENTER))
@@ -70,7 +78,7 @@ public class ControllerLogin {
         });
     }
 
-    //Handles the login for the user
+    //Handles the login for the user (T)
     private void HandleLogin()
     {
         System.out.println("Login button clicked");
@@ -106,7 +114,7 @@ public class ControllerLogin {
         }
     }
 
-    //Redirects to the home dashboard
+    //Redirects to the home dashboard (T)
     private void redirectToHome()
     {
         try

@@ -1,5 +1,11 @@
 package sample;
 
+/*
+    Products Controller Class
+    Handles all of the data handling and displaying for Products
+    Code by Tristen Stockley (T)
+ */
+
 import database.DAO;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -19,6 +25,7 @@ import java.util.Optional;
 
 public class ControllerProducts
 {
+    //Declares scene builder fields (T)
     @FXML private FontAwesomeIcon btnPrint;
     @FXML private FontAwesomeIcon btnOptions;
     @FXML private FontAwesomeIcon btnHome;
@@ -41,20 +48,21 @@ public class ControllerProducts
     @FXML private ComboBox<Supplier> cbFilterBySupp;
     @FXML private Button btnClearFilter;
 
-    //List for populating tables
+    //List for populating tables (T)
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
-    //SQL strings for filters
+    //SQL strings for filters (T)
     private String prodNameFilter = "";
     private String suppNameFilter = "";
 
-    //Boolean for add/modify
+    //Boolean for add/modify (T)
     private boolean isAdd = true;
     int currentProdId = 0;
 
     @FXML
     void initialize()
     {
+        //Initializes all scene builder fields (T)
         assert btnPrint != null : "fx:id=\"btnPrint\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnOptions != null : "fx:id=\"btnOptions\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnHome != null : "fx:id=\"btnHome\" was not injected: check your FXML file 'Products.fxml'.";
@@ -77,17 +85,17 @@ public class ControllerProducts
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'Products.fxml'.";
         assert btnDelete != null : "fx:id=\"btnDelete\" was not injected: check your FXML file 'Products.fxml'.";
 
-        //Disables the save button by default
+        //Disables the save button by default (T)
         btnSave.setDisable(true);
 
-        //Handles dashboard navigation clicks
+        //Handles dashboard navigation clicks (T)
         btnExit.setOnMouseClicked(mouseEvent -> System.exit(0));
         btnPrint.setOnMouseClicked(event -> GetPrintScene());
         btnOptions.setOnMouseClicked(event -> GetOptionsScene());
         btnLogin.setOnMouseClicked(event -> GetLoginsScene());
         btnHome.setOnMouseClicked(event -> GetHomeScene());
 
-        //Handles button clicks for data manipulation
+        //Handles button clicks for data manipulation (T)
         btnClearFilter.setOnMouseClicked(event -> ClearFilters());
         btnAdd.setOnMouseClicked(event -> AddProduct());
         btnModify.setOnMouseClicked(event -> ModifyProduct());
@@ -95,17 +103,17 @@ public class ControllerProducts
         btnCancel.setOnMouseClicked(event -> ResetProduct());
         btnDelete.setOnMouseClicked(event -> DeleteProduct());
 
-        //Sets the time and agent name
+        //Sets the time and agent name (T)
         GUIMethods.GetDateTime(dateTime);
         DashboardMethods.changeAgentName(lblAgentName);
 
-        //Populates tables and comboboxes
+        //Populates tables and comboboxes (T)
         PopProdCB();
         PopSupCB();
         PopulateProdSuppTable();
         PopulateProductTable();
 
-        //On selection change of Product combobox filters results
+        //On selection change of Product combobox filters results (T)
         cbFilterByProd.getSelectionModel().selectedItemProperty().addListener((observableValue, product, t1) ->
         {
             if(t1 != null)
@@ -117,7 +125,7 @@ public class ControllerProducts
             }
         });
 
-        //On selection change of supplier combobox filters results
+        //On selection change of supplier combobox filters results (T)
         cbFilterBySupp.getSelectionModel().selectedItemProperty().addListener((observableValue, supplier, t1) ->
         {
             if(t1 != null)
@@ -129,7 +137,7 @@ public class ControllerProducts
             }
         });
 
-        //On selection of tableview item
+        //On selection of tableview item (T)
         tblProducts.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null)
             {
@@ -141,15 +149,15 @@ public class ControllerProducts
                 tfProductName.setText(cellValue.get(1));
             }
         });
-    } //End of initialize
+    } //End of initialize (T)
 
-    //Dashboard navigation method calls
+    //Dashboard navigation method calls (T)
     private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
     private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
     private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }
     private void GetPrintScene() { DashboardMethods.IconGetScene("PrintTable.fxml", btnPrint); }
 
-    //Prepares an entry to be added to the database
+    //Prepares an entry to be added to the database (T)
     private void AddProduct()
     {
         System.out.println("Add Button Clicked");
@@ -168,7 +176,7 @@ public class ControllerProducts
         btnSave.setDisable(false);
     }
 
-    //Prepares an entry to be modified and updated to the database
+    //Prepares an entry to be modified and updated to the database (T)
     private void ModifyProduct()
     {
         System.out.println("Modify Button Clicked");
@@ -188,7 +196,7 @@ public class ControllerProducts
         }
     }
 
-    //Deletes an entry in the database
+    //Deletes an entry in the database (T)
     private void DeleteProduct()
     {
         System.out.println("Delete button clicked");
@@ -244,7 +252,7 @@ public class ControllerProducts
         }
     }
 
-    //Saves the new or updated product to the database.
+    //Saves the new or updated product to the database. (T)
     private void SaveProduct()
     {
         System.out.println("Save Button Clicked");
@@ -282,7 +290,7 @@ public class ControllerProducts
         else if(!isAdd && tfProductId.getText() != null && tfProductName.getText() != null)
         {
             System.out.println("Editing entry in database");
-            //Update to database
+            //Update to database (T)
             try
             {
                 Connection conn = DAO.getConnection();
@@ -330,6 +338,7 @@ public class ControllerProducts
         PopulateProductTable();
     }
 
+    //Restores all product fields to default (T)
     private void ResetProduct()
     {
         lblError.setText("");
@@ -342,7 +351,7 @@ public class ControllerProducts
         btnModify.setDisable(false);
     }
 
-    //Populates Product Table
+    //Populates Product Table (T)
     private void PopulateProductTable()
     {
         if (tblProducts.getItems().isEmpty())
@@ -380,7 +389,7 @@ public class ControllerProducts
         }
     }
 
-    //Populates Product_Supplier table
+    //Populates Product_Supplier table (T)
     private void PopulateProdSuppTable()
     {
         if (tblProdSupp.getItems().isEmpty())
@@ -422,7 +431,7 @@ public class ControllerProducts
         }
     }
 
-    //Redirects user to home
+    //Redirects user to home (T)
     private void redirectToHome()
     {
         System.out.println("Changing scene to home");
@@ -440,7 +449,7 @@ public class ControllerProducts
         }
     }
 
-    //Populates Product Combobox
+    //Populates Product Combobox (T)
     private void PopProdCB()
     {
         try
@@ -466,7 +475,7 @@ public class ControllerProducts
         }
     }
 
-    //Populates Supplier Combobox
+    //Populates Supplier Combobox (T)
     private void PopSupCB()
     {
         try
@@ -491,7 +500,7 @@ public class ControllerProducts
         }
     }
 
-    //Clears combobox filters
+    //Clears combobox filters (T)
     private void ClearFilters()
     {
         suppNameFilter = "";
