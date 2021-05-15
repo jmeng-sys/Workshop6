@@ -4,6 +4,11 @@
 
 package sample;
 
+/*
+    Supplier Controller Class
+    Handles all of the data from SupplierContacts table
+    Code by Jin Meng
+ */
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -159,7 +164,7 @@ public class ControllerSupplier {
         loadCbSupCon();
 
 
-
+// set up four buttons, make buttons editable only when they are needed
         btnEditFA.setOnMouseClicked(event -> {
             setTfEditable(true);
             addMode = false;
@@ -174,7 +179,9 @@ public class ControllerSupplier {
         });
 
 
-
+/* By switching a boolean varible addMode between true or false, the user have control of creating a new supplier
+ contact, or update an existing one
+ */
         btnSaveFA.setOnMouseClicked(event -> {
             if (fieldValidator() && affiliIdValidator() && supIdValidator())
             {
@@ -262,7 +269,7 @@ public class ControllerSupplier {
         });
 
 
-
+        // the Delete button can delete a record in the database
         btnDeleteFA.setOnMouseClicked(event -> {
             @SuppressWarnings("SqlResolve") String sql = "DELETE FROM `suppliercontacts` WHERE SupplierContactId=?";
         DashboardMethods.changeAgentName(lblAgentName);
@@ -292,6 +299,7 @@ public class ControllerSupplier {
 
     }
 
+    // load all existing supplier contacts from the database when the scene is loaded
     protected void loadCbSupCon(){
         try {
             Connection conn = getConnetion();
@@ -333,6 +341,7 @@ public class ControllerSupplier {
             throwables.printStackTrace();
         }
 
+        // get selection mode uses a listener to listen to the selection of the ComboBox
         cbSupCon.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SupplierContact>() {
             @Override
             public void changed(ObservableValue<? extends SupplierContact> observableValue, SupplierContact oldValue,
@@ -401,6 +410,7 @@ public class ControllerSupplier {
         tfSupName.clear();
     }
 
+    // validate that all required fields are filled
     private boolean fieldValidator(){
         boolean isValid = false;
         if (tfSupConCompany.getText().isEmpty() || tfSupId.getText().isEmpty() )
@@ -416,6 +426,7 @@ public class ControllerSupplier {
         return isValid;
     }
 
+    // validate that affiliation id entered matches records in affiliations table
     private boolean affiliIdValidator() {
         boolean isValid = false;
         ArrayList<String> affiliIDs = new ArrayList<>();
@@ -445,6 +456,7 @@ public class ControllerSupplier {
         return isValid;
     }
 
+    // validate that supplier id entered matches records in suppliers table
     private boolean supIdValidator(){
         boolean isValid = false;
         List<Integer> supIDs = Arrays.asList(69, 80, 100, 317, 323, 796, 828, 845, 908, 1005, 1028, 1040, 1205, 1406,
@@ -471,7 +483,7 @@ public class ControllerSupplier {
         return isValid;
     }
 
-
+    //enable buttons to build links to other scenes
     private void GetOptionsScene() { DashboardMethods.IconGetScene("SystemDiagnostics.fxml", btnOptions); }
     private void GetLoginsScene() { DashboardMethods.IconGetScene("Login.fxml", btnLogin); }
     private void GetHomeScene() { DashboardMethods.IconGetScene("Home.fxml", btnHome); }

@@ -1,5 +1,8 @@
 package sample;
-
+/*
+Define all the text fields in supplier.fxml
+code by Jin Meng
+ */
 public class SupplierContact {
     private int supplierContactId;
     private String supConFirstName;
