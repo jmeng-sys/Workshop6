@@ -14,6 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/* =====================================================================================================================
+EXTERNAL DASHBOARD METHODS CODED BY ENTIRE TEAM
+===================================================================================================================== */
 public class DashboardMethods {
 
 //METHOD FOR CARDS ON MAIN PAGE TO LOAD SCENES ========================================================================

@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/* =====================================================================================================================
+DAO ORIGINALLY CODED BY ENTIRE TEAM
+===================================================================================================================== */
 public class DAO {
     public static String db_url = "jdbc:mysql://localhost:3306/travelexperts";
     public static String db_username = "root";

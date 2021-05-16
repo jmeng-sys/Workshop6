@@ -6,6 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import objects.GUIMethods;
 
+/* =====================================================================================================================
+ORIGINAL / GENERAL DASHBOARD CONTROLLER AND METHODS CODED PRIMARILY BY CORY
+===================================================================================================================== */
+
 
 public class Controller {
 

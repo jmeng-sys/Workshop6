@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* =====================================================================================================================
+DATE TIME CLASS CODED PRIMARILY BY TRISTEN
+===================================================================================================================== */
 public class GUIMethods {
     public static void GetDateTime(Label dateTime) {
         Thread timerThread = new Thread(() -> {

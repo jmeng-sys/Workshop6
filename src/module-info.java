@@ -1,3 +1,7 @@
+/* =====================================================================================================================
+IMPLEMENTED SO THAT MANUAL EDITING CONFIG MODIFY OPTIONS IS NOT NECESSARY, CODED BY ENTIRE TEAM
+===================================================================================================================== */
+
 module Project.TravelExperts{
     requires javafx.controls;
     requires javafx.fxml;

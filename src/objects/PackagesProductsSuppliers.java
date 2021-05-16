@@ -1,6 +1,8 @@
 package objects;
 
-
+/* =====================================================================================================================
+PACKAGESPRODUCTSSUPPLIERS CODED PRIMARILY BY HOLLY
+===================================================================================================================== */
 public class PackagesProductsSuppliers {
 
   private int packageId;

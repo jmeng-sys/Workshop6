@@ -1,10 +1,11 @@
 package objects;
 
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
+/* =====================================================================================================================
+PACKAGES CODED PRIMARILY BY HOLLY
+===================================================================================================================== */
 public class Packages {
 
   private int packageId;

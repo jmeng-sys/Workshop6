@@ -1,3 +1,6 @@
+/* =====================================================================================================================
+CSS IS GLOBAL AND CODED BY ENTIRE TEAM
+===================================================================================================================== */
 .button {
     -fx-text-fill: navy;
     -fx-font-size: 18px;
@@ -122,6 +125,11 @@
     -fx-background-color: #93f9b911;
     -fx-text-background-color: #53CF48;
 }
+
+.table-row-cell:selected {
+    -fx-text-background-color: #53CF48;
+}
+
 .table-row-cell:odd{
     -fx-background-color: #93f9b911;
     -fx-background-insets: 0, 0 0 1 0;

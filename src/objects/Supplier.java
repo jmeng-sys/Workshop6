@@ -3,7 +3,7 @@ package objects;
 /*
     Supplier Class
     Object handler for Supplier
-    Code by Tristen Stockley (T)
+    Code by Tristen Stockley (T) AND JIN
  */
 
 public class Supplier

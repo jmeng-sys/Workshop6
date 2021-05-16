@@ -20,6 +20,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/* =====================================================================================================================
+PRINT TABLE CONTROLLER AND METHODS CODED PRIMARILY BY CORY
+===================================================================================================================== */
+
 public class ControllerPrintTable {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 

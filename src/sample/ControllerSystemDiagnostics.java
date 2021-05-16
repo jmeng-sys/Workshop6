@@ -16,6 +16,9 @@ import java.sql.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/* =====================================================================================================================
+SYSTEM DIAGNOSTICS CONTROLLER AND METHODS CODED PRIMARILY BY CORY
+===================================================================================================================== */
 public class ControllerSystemDiagnostics {
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 

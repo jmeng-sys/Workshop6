@@ -16,6 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/* =====================================================================================================================
+AGENT CONTROLLER AND METHODS CODED PRIMARILY BY CORY
+===================================================================================================================== */
+
 public class ControllerAgent {
 
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();

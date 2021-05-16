@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/* =====================================================================================================================
+MAIN CLASS CODED PRIMARILY BY TRISTEN
+===================================================================================================================== */
 public class Main extends Application {
 
     // Global variables to set when logged in (T)
